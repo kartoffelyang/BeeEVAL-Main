@@ -1,0 +1,166 @@
+[
+  {
+    "primaryNeed": "ease",
+    "secondaryNeed": "security",
+    "autonomyMode": "约定范围内持续执行（需有效授权与回执）",
+    "id": "TOP-001",
+    "rank": 1,
+    "name": "自主补能管家",
+    "ai": [
+      "planning",
+      "execution",
+      "embodiment"
+    ],
+    "vehicle": [
+      "motion",
+      "integration",
+      "ecosystem"
+    ],
+    "summary": "车辆在约定的电量与出行准备目标内发现补能需要，组织找站、泊入和补能，向车主交代完成状态。例如夜间电量不足时，调用移动与自动补能设施，完成后返回待命。",
+    "outcome": "减少无人用车时的补能安排和等待负担。",
+    "baseline": "车主查站、开车补能并人工确认。",
+    "question": "是否真的减少照料时间，物理充电连接能否闭环？",
+    "horizon": "前瞻探索",
+    "evidence": "价值待验证",
+    "sourceType": "original",
+    "sceneDomain": "cabinDriving",
+    "domainReason": "补能任务包括车辆泊入、补能后返回与专用移动系统交接。",
+    "domainReasonEn": "Replenishment includes parking entry, return and handoff to a dedicated motion system."
+  },
+  {
+    "primaryNeed": "ease",
+    "secondaryNeed": "comfort",
+    "autonomyMode": "用户发起或确认后推进；主动建议需另行定义",
+    "id": "TOP-002",
+    "rank": 2,
+    "name": "接送与晚餐一并安排",
+    "ai": [
+      "intent",
+      "planning",
+      "execution"
+    ],
+    "vehicle": [
+      "movement",
+      "ecosystem"
+    ],
+    "summary": "用户交代接人、吃饭再回家，AI统筹到达变化、人数、餐厅约束与路线，并提交关键选择。例如航班延误时，询问是否保留晚餐，再调整餐位与接人时间。",
+    "outcome": "减少跨应用协调和临时重做计划。",
+    "baseline": "航班、导航与餐饮应用分别操作。",
+    "question": "总协调时间是否下降，确认负担是否抵消收益？",
+    "horizon": "近期试验",
+    "evidence": "价值待验证",
+    "sourceType": "original",
+    "sceneDomain": "cabin",
+    "domainReason": "当前定义以舱内交互、体验或服务协作为主，未要求驾驶域、底盘或自主移动执行；分类随场景定义评审。",
+    "domainReasonEn": "The current definition focuses on cabin interaction, experiences or services, without requiring driving, chassis or autonomous-motion execution. Classification follows the scenario definition."
+  },
+  {
+    "primaryNeed": "delight",
+    "secondaryNeed": null,
+    "autonomyMode": "用户发起或确认后推进；主动建议需另行定义",
+    "id": "TOP-003",
+    "rank": 3,
+    "name": "可追问的车窗世界",
+    "ai": [
+      "perception",
+      "intent"
+    ],
+    "vehicle": [
+      "movement",
+      "perception"
+    ],
+    "summary": "乘客可围绕刚才路过的建筑、标识或景物连续追问，车辆利用短时现场线索定位对象并解释。例如问“刚才那座塔”，找到画面并支持追问历史。",
+    "outcome": "把难描述、稍纵即逝的对象变成可探索的知识。",
+    "baseline": "拍照识别或事后地图搜索。",
+    "question": "对象定位是否准确，用户是否主动继续探索？",
+    "horizon": "近期试验",
+    "evidence": "价值待验证",
+    "sourceType": "original",
+    "sceneDomain": "cabin",
+    "domainReason": "当前定义以舱内交互、体验或服务协作为主，未要求驾驶域、底盘或自主移动执行；分类随场景定义评审。",
+    "domainReasonEn": "The current definition focuses on cabin interaction, experiences or services, without requiring driving, chassis or autonomous-motion execution. Classification follows the scenario definition."
+  },
+  {
+    "primaryNeed": "delight",
+    "secondaryNeed": "expression",
+    "autonomyMode": "用户发起或确认后推进；主动建议需另行定义",
+    "id": "TOP-004",
+    "rank": 4,
+    "name": "内容扩散的沉浸座舱",
+    "ai": [
+      "perception",
+      "planning",
+      "execution"
+    ],
+    "vehicle": [
+      "space",
+      "integration"
+    ],
+    "summary": "理解电影或游戏的场景与节奏，将内容映射为协调的灯光、声音、触觉和气流体验。例如雨林画面出现时，联动声光与气流，可调低强度。",
+    "outcome": "让座舱提供屏幕以外的沉浸感。",
+    "baseline": "固定灯光效果和独立音响。",
+    "question": "是否比简单颜色同步更沉浸，是否出现不适？",
+    "horizon": "条件预研",
+    "evidence": "价值待验证",
+    "sourceType": "original",
+    "sceneDomain": "cabin",
+    "domainReason": "当前定义以舱内交互、体验或服务协作为主，未要求驾驶域、底盘或自主移动执行；分类随场景定义评审。",
+    "domainReasonEn": "The current definition focuses on cabin interaction, experiences or services, without requiring driving, chassis or autonomous-motion execution. Classification follows the scenario definition."
+  },
+  {
+    "primaryNeed": "security",
+    "secondaryNeed": "ease",
+    "autonomyMode": "约定范围内持续执行（需有效授权与回执）",
+    "id": "TOP-005",
+    "rank": 5,
+    "name": "会解释的车辆守护",
+    "ai": [
+      "perception",
+      "planning",
+      "creation"
+    ],
+    "vehicle": [
+      "perception",
+      "external",
+      "continuity"
+    ],
+    "summary": "车辆持续观察约定的车外事件，把发生过程整理成有证据的摘要，并区分值得通知与可忽略事件。例如有人多次靠近车门，推送关键片段供车主判断是否处理。",
+    "outcome": "少翻看长录像，减少无用警报。",
+    "baseline": "传统哨兵录像与事件通知。",
+    "question": "漏报、误报和查阅时间能否同时改善？",
+    "horizon": "近期试验",
+    "evidence": "价值待验证",
+    "sourceType": "original",
+    "sceneDomain": "cabin",
+    "domainReason": "当前定义以舱内交互、体验或服务协作为主，未要求驾驶域、底盘或自主移动执行；分类随场景定义评审。",
+    "domainReasonEn": "The current definition focuses on cabin interaction, experiences or services, without requiring driving, chassis or autonomous-motion execution. Classification follows the scenario definition."
+  },
+  {
+    "primaryNeed": "comfort",
+    "secondaryNeed": "ease",
+    "autonomyMode": "用户发起或确认后推进；主动建议需另行定义",
+    "id": "TOP-006",
+    "rank": 6,
+    "name": "多乘员舒适协商",
+    "ai": [
+      "intent",
+      "planning",
+      "execution"
+    ],
+    "vehicle": [
+      "presence",
+      "perception",
+      "space"
+    ],
+    "summary": "不同席位表达冷热、日晒和声音诉求，AI整理分歧并提出可确认的共同舒适方案。例如前排冷、后排热，询问可接受范围后分区调节。",
+    "outcome": "减少反复调节和乘员之间的争执。",
+    "baseline": "逐项操作与口头协调。",
+    "question": "满意配置是否更快达成，少数乘员是否被忽略？",
+    "horizon": "近期试验",
+    "evidence": "价值待验证",
+    "sourceType": "original",
+    "sceneDomain": "cabin",
+    "domainReason": "当前定义以舱内交互、体验或服务协作为主，未要求驾驶域、底盘或自主移动执行；分类随场景定义评审。",
+    "domainReasonEn": "The current definition focuses on cabin interaction, experiences or services, without requiring driving, chassis or autonomous-motion execution. Classification follows the scenario definition."
+  }
+]

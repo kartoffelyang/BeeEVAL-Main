@@ -1,0 +1,16 @@
+[Unit]
+Description=BeeEVAL Main membership access checks
+After=network.target beescene.service
+[Service]
+User=beescene
+Group=beescene
+Environment=PORT=5190
+Environment=DATABASE_PATH=/var/lib/beescene/beescene.sqlite
+ExecStart=/opt/beescene/runtime/bin/node /opt/beeeval-main/current/server/auth.mjs
+Restart=on-failure
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+[Install]
+WantedBy=multi-user.target
