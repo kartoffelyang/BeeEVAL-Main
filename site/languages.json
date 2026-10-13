@@ -391,5 +391,8 @@
   "比较 i8 与 L9 Livis 的跨车型、跨期测试表现，区分任务能力增强、功能取消与小样本波动，分析产品取舍和持续短板。": "Compare i8 and L9 Livis across vehicles and collection periods. Distinguish capability gains, feature removal and small-sample variation to assess product trade-offs and persistent gaps.",
   "总体变化与同类任务比较": "Overall changes and comparable tasks",
   "能力增强、功能取舍与测试波动": "Capability gains, feature trade-offs and test variation",
-  "技术链路、用户体验与验证建议": "Technical task chains, user experience and validation priorities"
+  "技术链路、用户体验与验证建议": "Technical task chains, user experience and validation priorities",
+  "探索全部场景": "Explore all scenarios",
+  "进入 BeeEVAL": "Open BeeEVAL",
+  "会员注册采用邀请开通，请联系 BeeEVAL 团队。": "Membership is available by invitation. Please contact the BeeEVAL team."
 }
