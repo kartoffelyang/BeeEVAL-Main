@@ -27,3 +27,11 @@ Install `deploy/main.conf` inside the existing HTTPS vhost and run the service d
 ## Languages
 
 Corporate pages support Chinese/English with a persisted preference. Full reports use `index.html` for Chinese and `en.html` for English; report links follow the selected language. Scenario product language preferences are synchronized with the corporate site.
+
+## Unified BeeEVAL membership
+
+The company site is the single sign-in entry at `/main/login.html`. Production credentials are verified by the existing BeeEVAL account API. A Secure, HttpOnly cookie shared across BeeEVAL domains lets the evaluation platform and scenario library recognize the same identity. The existing `admin` account retains full access; capability checks are centralized for future membership tiers. No production password is stored in this repository. Local preview alone supports the `admin / admin` fixture.
+
+`integrations/beescene/identity.mjs` and `patch.py` integrate the existing scene API without changing ownership of the original administrator's private scenes. Platform integration changes belong to the BeeEVAL evaluation repository (`api/auth/deps.py`, `api/routers/auth.py`, `src/api.ts`, `src/contexts/AuthContext.tsx`, `src/pages/Login.tsx`). Existing bearer-token sessions migrate to the shared browser cookie after validation. Registration is invitation-based while membership tiers are pending.
+
+Run `node tests/unified-auth.mjs` to verify the login broker, cookie attributes, role policy, invalid sessions, origin checking and sign-out.
