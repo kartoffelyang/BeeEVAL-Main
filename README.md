@@ -11,14 +11,19 @@ Use Node.js 24 and Python 3. Install the library dependencies with `npm --prefix
 ## Routes and membership
 
 - `/main/`: corporate homepage.
-- `/main/reports.html`: report catalog and public abstracts.
-- `/main/scenes/`: six free scenarios and public directory.
+- `/main/reports.html`: seven actual HTML reports and public abstracts, with Chinese and English full-text versions.
+- `/main/scenes/`: redirects to the independent scenario product login.
+- `/main/scenes/login.html`: scenario product sign-in.
 - `/main/scenes/library/`: complete scene research, protected by server membership checks.
 - `/main/login.html`: existing BeeScene account login and registration.
 - Full HTML reports are protected by administrator authorization. Paid report orders are not enabled yet; ordinary members retain preview access.
 
-The published site does not contain the local admin/admin demo login. Authentication uses the existing `/scene/api/` service and HttpOnly session cookie. The independent read-only authorization service validates current database sessions; no account database or credentials are included in this repository.
+The admin/admin test account is restricted to localhost previews. Published hosts always use server authentication through the existing `/scene/api/` service and HttpOnly session cookie. The independent read-only authorization service validates current database sessions; no account database or credentials are included in this repository.
 
 ## Deployment
 
 Install `deploy/main.conf` inside the existing HTTPS vhost and run the service defined by `deploy/beeeval-main-auth.service`. Publish versioned releases under `/opt/beeeval-main/releases/`, with `/var/www/beeeval-main` pointing to the current release artifact. Validate nginx before reloading; preserve existing root and scene routes. SSH keys, host credentials, account databases and local settings must remain outside Git.
+
+## Languages
+
+Corporate pages support Chinese/English with a persisted preference. Full reports use `index.html` for Chinese and `en.html` for English; report links follow the selected language. Scenario product language preferences are synchronized with the corporate site.
