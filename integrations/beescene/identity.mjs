@@ -1,5 +1,6 @@
 // Resolve the shared BeeEVAL identity while preserving existing scene ownership.
 export async function sharedIdentity(req,db){
+ if((req.headers.cookie||'').split(';').some(s=>s.trim()==='beeeval_signed_out=1'))return null;
  const token=(req.headers.cookie||'').split(';').map(s=>s.trim()).find(s=>s.startsWith('beeeval_session='))?.slice(16);
  if(!token)return undefined;
  const r=await fetch('https://open.beeeval.com/api/auth/me',{headers:{Authorization:'Bearer '+token},signal:AbortSignal.timeout(10000)});
