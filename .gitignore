@@ -6,3 +6,5 @@ dist/
 *.key
 *.sqlite*
 .DS_Store
+
+.npm-cache/
