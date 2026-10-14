@@ -35,3 +35,9 @@ The company site is the single sign-in entry at `/main/login.html`. Production c
 `integrations/beescene/identity.mjs` and `patch.py` integrate the existing scene API without changing ownership of the original administrator's private scenes. Platform integration changes belong to the BeeEVAL evaluation repository (`api/auth/deps.py`, `api/routers/auth.py`, `src/api.ts`, `src/contexts/AuthContext.tsx`, `src/pages/Login.tsx`). Existing bearer-token sessions migrate to the shared browser cookie after validation. Registration is invitation-based while membership tiers are pending.
 
 Run `node tests/unified-auth.mjs` to verify the login broker, cookie attributes, role policy, invalid sessions, origin checking and sign-out.
+
+## Visitor summaries and product previews
+
+`preview.html?report=<id>` publishes a short summary, key findings and content outline for each report. `preview.html?product=platform` shows the platform overview and four anonymous metric examples; `preview.html?product=scenes` shows the library overview and three concept examples. Full content uses the existing shared login and server authorization. Sign-in retains the report language or product destination. No purchase flow is shown during this test phase. Old public scenario detail assets are retired.
+
+Local acceptance preview: run `python3 scripts/preview.py` on port 8771. Its fixture account is `admin / admin`; it is a local-only account, separate from production BeeEVAL credentials. Visitor HTTP requests cannot fetch full report or scenario-library resources; the fixture uses an HttpOnly session cookie. Run `python3 tests/visitor-preview.py` against the running preview for visitor, member, language destinations and logout acceptance checks.
