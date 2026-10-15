@@ -164,7 +164,7 @@ export function createCaseSearch(
     params: URLSearchParams,
   ) {
     try {
-      const scope = new URLSearchParams({ limit: "1" });
+      const scope = new URLSearchParams({ limit: "1", created_before: new Date().toISOString() });
       for (const key of ["exclude_review", "include_failed", "status"])
         if (params.has(key)) scope.set(key, params.get(key)!);
       const first = await fetchJson(
@@ -287,6 +287,7 @@ export function createCaseSearch(
     } catch (e) {
       index.rows = [];
       index.state = "error";
+      index.expires = Date.now() + 5_000;
       index.error = e instanceof Error ? e.message : "case_search_failed";
       observe({
         status: 503,

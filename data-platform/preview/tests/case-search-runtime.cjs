@@ -107,6 +107,7 @@ const esbuild = require(require.resolve("esbuild", { paths: [root] }));
     if (!valid) return { ok: false, status: 401 };
     if (u.pathname === "/api/auth/me")
       return { ok: true, json: async () => ({ id: 1, role, data_visible_until: visibleUntil }) };
+    assert.ok(u.searchParams.get("created_before"), "all index pages must freeze the insertion cutoff");
     calls++;
     const visible = visibleUntil ? full.slice(0,100) : full;
     const offset = Number(u.searchParams.get("offset")),

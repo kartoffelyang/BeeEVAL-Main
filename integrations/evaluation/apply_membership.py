@@ -24,3 +24,8 @@ addition='''        # Self-registered free members may only use identity endpoin
 if addition not in s:s=s.replace(needle,addition+needle,1)
 p.write_text(s)
 print('Local API source patched. Apply membership.sql before deployment; no accounts changed.')
+
+# Stable pagination: identical video filenames must not move between offset pages.
+p=root/'api/routers/video.py'
+if p.exists():
+ s=p.read_text();s=s.replace('ORDER BY {review_order}{trial_order}vr.{sort_by} {direction}\n','ORDER BY {review_order}{trial_order}vr.{sort_by} {direction}, vr.id {direction}\n');p.write_text(s)
