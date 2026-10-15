@@ -2,7 +2,7 @@ import {sharedIdentity} from './identity.mjs';
 import http from 'node:http';
 import {DatabaseSync} from 'node:sqlite';
 import {scryptSync,randomBytes,timingSafeEqual,createHash,randomUUID} from 'node:crypto';
-import {mkdirSync,readFileSync} from 'node:fs';
+import {mkdirSync,readFileSync,realpathSync} from 'node:fs';
 import {dirname,resolve} from 'node:path';
 import {fileURLToPath} from 'node:url';
 import {validateScene} from './schema.mjs';
@@ -69,4 +69,4 @@ export function start({path=process.env.DATABASE_PATH||'.local/beescene.sqlite',
  }catch(e){send(e.status||400,{error:e.status?e.message:e.message?.includes('场景')||e.message?.includes('请')||e.message?.includes('无效')||e.message?.includes('格式')?e.message:'请求处理失败'});}
  });server.listen(port,host);return {server,db,close:()=>new Promise(resolve=>server.close(()=>{db.close();resolve();}))};
 }
-if(process.argv[1]&&resolve(process.argv[1])===fileURLToPath(import.meta.url)){start();console.log('BeeScene API listening on loopback');}
+if(process.argv[1]&&realpathSync(process.argv[1])===fileURLToPath(import.meta.url)){start();console.log('BeeScene API listening on loopback');}
