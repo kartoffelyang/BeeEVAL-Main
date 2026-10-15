@@ -29,3 +29,11 @@ print('Local API source patched. Apply membership.sql before deployment; no acco
 from stable_pagination import patch_video_source
 p=root/'api/routers/video.py'
 if p.exists():p.write_text(patch_video_source(p.read_text()))
+
+# Paid data members keep full data even when the underlying business role is viewer.
+p=root/'api/services/trial_policy.py'
+if p.exists():
+ s=p.read_text();needle='    return str(user.get("role") or "").lower() == TRIAL_ROLE'
+ if 'user.get("membership_tier") in ("plus", "pro")' not in s:
+  assert needle in s
+  s=s.replace(needle,'    if user.get("membership_tier") in ("plus", "pro"):\n        return False\n'+needle,1);p.write_text(s)

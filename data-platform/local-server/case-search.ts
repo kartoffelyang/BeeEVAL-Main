@@ -322,6 +322,7 @@ export function createCaseSearch(
         return reply(403, { detail: "must_reset_password" });
       key = createHash("sha256").update(JSON.stringify({
         user: String(user.id || authorization), scope: scope.toString(), role: user.role,
+        membership_tier: user.membership_tier ?? null,
         data_visible_until: user.data_visible_until ?? null,
         expires_at: user.expires_at ?? null,
         is_active: user.is_active ?? true,
