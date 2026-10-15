@@ -112,7 +112,7 @@ const esbuild = require(require.resolve("esbuild", { paths: [root] }));
     const visible = visibleUntil ? full.slice(0,100) : full;
     const offset = Number(u.searchParams.get("offset")),
       limit = Number(u.searchParams.get("limit"));
-    assert.ok(limit <= 200, "full-content reads must stay bounded");
+    assert.ok(limit <= 500, "lightweight index reads must stay bounded");
     return {
       ok: true,
       json: async () => ({
@@ -158,9 +158,9 @@ const esbuild = require(require.resolve("esbuild", { paths: [root] }));
   assert.equal(r.status, 200);
   assert.equal(r.body.total, 1);
   assert.equal(r.body.data[0].id, "310");
-  assert.equal(calls, 3);
+  assert.equal(calls, 2);
   await request();
-  assert.equal(calls, 3); // complete index reused, not a first-page scan
+  assert.equal(calls, 2); // complete index reused, not a first-page scan
   role = "viewer";
   r = await request();
   for (let i = 0; i < 20 && r.status === 202; i++) {

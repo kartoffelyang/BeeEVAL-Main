@@ -153,6 +153,7 @@ export const getTasks = async (params?: {
 };
 
 export const getAllResults = async (params?: {
+    result_id?: string;
     offset?: number;
     limit?: number;
     sort_by?: string;

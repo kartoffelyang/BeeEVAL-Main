@@ -12,6 +12,7 @@ import { useSearchParams } from "react-router-dom";
 import { Search, ArrowRight, RotateCcw } from "lucide-react";
 import {
   getCaseContentSearch,
+  getAllResults,
   getFilterOptions,
   listVehiclesForAggregation,
 } from "../api";
@@ -72,6 +73,18 @@ export default function CaseSearch() {
   }, []);
   const [recent, setRecent] = useState<string[]>(() => stored(RECENTS, []));
   const [detail, setDetail] = useState<any>(null);
+  const [pendingEvidence, setPendingEvidence] = useState<string | null>(null);
+  async function openEvidence(row: any) {
+    if (pendingEvidence) return;
+    setPendingEvidence(String(row.id));setInputError("");
+    try {
+      const response = await getAllResults({ result_id: String(row.id), limit: 1, exclude_review: true });
+      const full = response.data.find((item: any) => String(item.id) === String(row.id));
+      if (!full) throw new Error('missing_evidence');
+      setDetail(full);
+    } catch { setInputError(c("证据加载失败，请重试。", "Unable to load evidence. Please retry.")); }
+    finally { setPendingEvidence(null); }
+  }
   const [video, setVideo] = useState<{ path: string; title: string } | null>(
     null,
   );
@@ -536,7 +549,8 @@ export default function CaseSearch() {
                   <button
                     key={r.id}
                     className="case-record"
-                    onClick={() => setDetail(r)}
+                    disabled={!!pendingEvidence}
+                    onClick={() => void openEvidence(r)}
                   >
                     <div>
                       <strong>
@@ -564,7 +578,7 @@ export default function CaseSearch() {
                         <small>/ 5</small>
                       </b>
                       <span className="case-evidence-cta">
-                        {c("查看证据", "Evidence")}
+                        {pendingEvidence === String(r.id) ? c("正在打开…", "Opening…") : c("查看证据", "Evidence")}
                         <ArrowRight size={14} />
                       </span>
                     </div>

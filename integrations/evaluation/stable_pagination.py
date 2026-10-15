@@ -21,4 +21,13 @@ def patch_video_source(text):
    '            ORDER BY {review_order}{trial_order}vr.{sort_by} {direction}, vr.id {direction}',1)
   section=section.replace('        data_params = params + order_params + [limit, offset]',
    '        data_params = params + order_params + [limit, offset] + order_params',1)
+ if 'index_only: bool'not in section:
+  section=section.replace('    freeze_snapshot: bool = False,','    freeze_snapshot: bool = False,\n    index_only: bool = False,\n    result_id: Optional[str] = None,',1)
+  section=section.replace('        params: list = []','        params: list = []\n        if result_id:\n            where_parts.append("vr.id::text = %s")\n            params.append(result_id)',1)
+  needle='        res = supabase.raw_sql(data_sql, data_params)'
+  assert needle in section
+  keys=['user_question','system_response','dialogue','summary','content','task_detail','task_family','intent_label','labels','case_tags','scenario_tags','task_success','response_quality_score']
+  pairs=', '.join("'"+k+"', vr.metadata->'"+k+"'"for k in keys)
+  compact='        if index_only:\n            data_sql = f"""SELECT vr.id, vr.case_id, vr.video_name, vr.brand_model, vr.system_version,\n                vr.function_domain, vr.created_at, vr.transcript,\n                jsonb_strip_nulls(jsonb_build_object({pairs})) AS metadata, TRUE AS _index_only\n                FROM video_results vr {{where_clause}}\n                ORDER BY {{review_order}}{{trial_order}}vr.{{sort_by}} {{direction}}, vr.id {{direction}}\n                LIMIT %s OFFSET %s"""\n            data_params = params + order_params + [limit, offset]\n'.replace('{pairs}',pairs).replace('{{','{').replace('}}','}')
+  section=section.replace(needle,compact+needle,1)
  return text[:start]+section+text[end:]

@@ -164,7 +164,7 @@ export function createCaseSearch(
     params: URLSearchParams,
   ) {
     try {
-      const scope = new URLSearchParams({ limit: "1", freeze_snapshot: "true" });
+      const scope = new URLSearchParams({ limit: "1", freeze_snapshot: "true", index_only: "true" });
       for (const key of ["exclude_review", "include_failed", "status"])
         if (params.has(key)) scope.set(key, params.get(key)!);
       const first = await fetchJson(
@@ -178,12 +178,12 @@ export function createCaseSearch(
         throw new Error("invalid_case_response");
       // Large full-content responses can exceed the upstream timeout. Fetch bounded
       // pages with modest concurrency, retaining progress without publishing a partial index.
-      const pageSize = 200;
+      const pageSize = 500;
       scope.set("limit", String(pageSize));
       scope.set("sort_by", "video_name");
       scope.set("sort_order", "asc");
-      for (let offset = 0; offset < index.total; offset += pageSize * 3) {
-        const offsets = [offset, offset + pageSize, offset + pageSize * 2]
+      for (let offset = 0; offset < index.total; offset += pageSize * 2) {
+        const offsets = [offset, offset + pageSize]
           .filter((value) => value < index.total);
         const pages = await Promise.all(offsets.map(async (value) => {
           const query = new URLSearchParams(scope);
