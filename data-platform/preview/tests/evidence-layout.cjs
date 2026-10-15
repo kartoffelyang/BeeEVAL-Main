@@ -1,0 +1,32 @@
+const assert=require('node:assert/strict'), fs=require('node:fs');
+const {JSDOM}=require('jsdom'); const dom=new JSDOM('<div id="root"></div>');
+Object.assign(global,{window:dom.window,document:dom.window.document,IS_REACT_ACT_ENVIRONMENT:true});
+dom.window.HTMLDialogElement.prototype.showModal=function(){this.setAttribute('open','')};
+dom.window.HTMLDialogElement.prototype.close=function(){this.removeAttribute('open')};
+const React=require('react'),{act}=React,{createRoot}=require('react-dom/client');
+(async()=>{
+ await require('esbuild').build({entryPoints:['src/components/ResultDetailModal.tsx'],outfile:'node_modules/.tmp/evidence-layout.cjs',bundle:true,format:'cjs',platform:'node',external:['react','react-dom','react-dom/client'],plugins:[{name:'fixture',setup(b){
+ b.onLoad({filter:/\.css$/},()=>({contents:'',loader:'text'}));
+ b.onLoad({filter:/LanguageContext\.tsx$/},()=>({contents:'export const useLanguage=()=>({language:"en"});',loader:'tsx'}));
+ b.onLoad({filter:/AuthContext\.tsx$/},()=>({contents:'export const useAuth=()=>({user:{role:"admin"}});',loader:'tsx'}));
+ b.onLoad({filter:/useMetricsTranslation\.ts$/},()=>({contents:'export const useMetricsTranslation=()=>({tv:x=>x,tm:x=>x,td:x=>x});',loader:'ts'}));
+ b.onLoad({filter:/TranslatedText\.tsx$/},()=>({contents:'export default ({text})=><>{text}</>;',loader:'tsx'}));
+ b.onLoad({filter:/config\.ts$/},()=>({contents:'export const getScreenshotUrl=()=>"";export const getVideoPosterUrl=()=>"";',loader:'ts'}));
+ b.onResolve({filter:/^react-i18next$/},()=>({path:'i18n-fixture',namespace:'fixture'}));
+ b.onLoad({filter:/.*/,namespace:'fixture'},()=>({contents:'export const useTranslation=()=>({t:x=>x.replaceAll("_"," "),i18n:{language:"en"}});',loader:'js'}));
+ }}]});
+ const Component=require('../../node_modules/.tmp/evidence-layout.cjs').default;
+ const root=createRoot(document.getElementById('root')); let closed=0,played=[];
+ const result={case_id:'1001',brand_model:'LI AUTO L9',system_version:'9.0.2',function_domain:'Vehicle Control',video_name:'1001-L9-9.0.2.mp4',created_at:'2026-10-14',metadata:{path:'/fixture.mp4',task_success:true,response_quality_score:4.6,latency_ms:980,user_question:'Open all windows halfway',system_response:'Opening all windows halfway.',summary:'The system understood the command and completed the requested action.'},evaluation_scores:Array.from({length:6},(_,i)=>({id:i,criteria:['Command understanding','Execution accuracy','Response clarity','Context handling','Natural expression','Task completion'][i],score:4,feedback:'The recorded response follows the requested instruction.'}))};
+ await act(async()=>root.render(React.createElement(Component,{result,onClose:()=>closed++,onPlayVideo:(...args)=>played.push(args)})));
+ assert.ok(document.querySelector('dialog.pf-evidence-modal[open]'));
+ assert.equal(document.querySelectorAll('.evidence-dimension').length,6);
+ assert.equal(document.querySelectorAll('details.evidence-dimension').length,0);
+ assert.equal(document.querySelectorAll('.evidence-dimension p').length,6);
+ assert.equal(document.querySelectorAll('.evidence-facts > div').length,4);
+ await act(async()=>document.querySelector('.evidence-preview').dispatchEvent(new dom.window.KeyboardEvent('keydown',{key:'Enter',bubbles:true})));
+ assert.equal(played[0][0],'/fixture.mp4');assert.equal(closed,1);
+ const content=document.querySelector('dialog').outerHTML.replace(' open=""','');
+ fs.writeFileSync('/tmp/beeeval-evidence-layout.html',`<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="file://${process.cwd()}/dist/assets/${fs.readdirSync('dist/assets').find(x=>x.endsWith('.css'))}"></head><body style="background:#eeefe8"><div style="padding:48px;font-size:28px;color:#697a61">BeeEVAL · Find case evidence</div>${content}<script>document.querySelector('dialog').showModal()</script></body></html>`);
+ await act(async()=>root.unmount()); console.log('PASS: shared centered dialog, compact facts, fully visible evaluation, keyboard video playback and close callback.');
+})();

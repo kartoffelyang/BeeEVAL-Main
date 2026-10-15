@@ -1,0 +1,19 @@
+[Unit]
+Description=BeeEVAL unified scenario service
+After=network.target
+[Service]
+User=beescene
+Group=beescene
+EnvironmentFile=/etc/beescene.env
+Environment=DATABASE_PATH=/var/lib/beescene/beescene.sqlite
+Environment=COOKIE_SECURE=true
+Environment=API_PORT=5180
+ExecStart=/opt/beescene/runtime/bin/node /opt/beeeval-main/current/scenario-library/server/index.mjs
+Restart=on-failure
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/var/lib/beescene
+[Install]
+WantedBy=multi-user.target

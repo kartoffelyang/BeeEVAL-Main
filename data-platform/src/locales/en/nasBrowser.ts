@@ -1,0 +1,30 @@
+const nasBrowser = {
+  'nas_browser': 'NAS Browser',
+  'nas_browser_desc': 'Browse and analyze videos from NAS storage.',
+  'nas_unavailable': 'NAS Unavailable',
+  'nas_unavailable_desc': 'NAS service is not configured or unreachable. Check NAS_URL and NAS_TOKEN in .env.',
+  'nas_connected': 'Connected',
+  'nas_search_placeholder': 'Search files by name...',
+  'all_files': 'All Files',
+  'videos_only': 'Videos Only',
+  'folders_only': 'Folders Only',
+  'videos_in_dir': 'videos in directory',
+  'search_results': 'Search Results',
+  'generating_link': 'Generating playback link...',
+  'link_failed': 'Failed to generate playback link: {{error}}',
+
+  // Multimodal video analysis
+  'mimo_analyze': 'Analyze',
+  'mimo_filter_large': '≥300MB',
+  'mimo_oversized_title': 'Multimodal Video Analysis',
+  'mimo_oversized_desc': 'Selected {{total}} videos, {{count}} exceed 300MB:',
+  'mimo_oversized_hint': 'Oversized videos must be compressed before analysis. Compression may reduce quality slightly but won\'t affect basic analysis accuracy.',
+  'mimo_skip_oversized': 'Skip oversized (analyze {{count}} only)',
+  'mimo_compress_all': 'Compress & analyze all',
+  'mimo_cancel': 'Cancel',
+  'mimo_submitted': 'Analysis task submitted',
+  'mimo_submitted_detail': 'Task ID: {{taskId}}, {{total}} videos{{compress}}',
+  'mimo_compress_note': ' ({{count}} need compression)',
+  'mimo_no_videos': 'Please select videos first',
+};
+export default nasBrowser;

@@ -1,0 +1,36 @@
+const path = require('node:path'), assert = require('node:assert/strict');
+const root = process.cwd(), resolve = (m) => require.resolve(m, {paths:[root]});
+const {JSDOM} = require(resolve('jsdom'));
+const dom = new JSDOM('<div id="root"></div>');
+Object.assign(global, {window:dom.window,document:dom.window.document,IS_REACT_ACT_ENVIRONMENT:true});
+const React = require(resolve('react')), {act} = React;
+const {createRoot} = require(resolve('react-dom/client'));
+const requests=[];
+global.__taskAPI=(...args)=>new Promise((resolve,reject)=>requests.push({args,resolve,reject}));
+(async()=>{
+ const outfile=path.join(root,'node_modules/.tmp/task-video-menu.cjs');
+ await require(resolve('esbuild')).build({entryPoints:['src/pages/vehicle-scores/TaskDetailCasesModal.tsx'],outfile,bundle:true,platform:'node',format:'cjs',jsx:'automatic',external:['react','react-dom'],plugins:[{name:'isolate',setup(b){
+ b.onLoad({filter:/\/api\.ts$/},()=>({loader:'ts',contents:'export const getTaskDetailCases=(...a)=>globalThis.__taskAPI(...a)'}));
+ b.onLoad({filter:/LanguageContext\.tsx$/},()=>({loader:'ts',contents:'export const useLanguage=()=>({language:"en"})'}));
+ b.onLoad({filter:/PlatformUI\.tsx$/},()=>({loader:'tsx',contents:'export const PlatformDrawer=({children})=><div>{children}</div>;export const PlatformSkeleton=()=> <div>loading</div>;export const PlatformEmpty=({title,action})=><div>{title}{action}</div>;export const PlatformAction=({children,onClick})=><button onClick={onClick}>{children}</button>'}));
+ b.onLoad({filter:/ResultDetailModal\.tsx$/},()=>({loader:'tsx',contents:'export const ResultDetailContent=({result})=><div data-result={result.id}>{result.id}</div>'}));
+ b.onLoad({filter:/VideoPlayerModal\.tsx$/},()=>({loader:'tsx',contents:'export default ()=>null'}));
+ }}]});
+ const Component=require(outfile).default, ui=createRoot(document.getElementById('root'));
+ await act(async()=>ui.render(React.createElement(Component,{brandModel:'A',systemVersion:'1',functionDomain:'domain',taskDetail:'task',acceptanceTag:'grade',vehicleLabel:'A',vehicleOptions:[{brandModel:'A',systemVersion:'1',label:'A'},{brandModel:'B',systemVersion:'2',label:'B'}],onClose:()=>{}})));
+ assert.deepEqual(requests[0].args,['A','domain','task','1','grade']);
+ await act(async()=>requests[0].resolve({data:[{id:'one',case_id:'1'},{id:'two',case_id:'2'}]}));
+ assert.equal(document.querySelectorAll('select').length,0);
+ assert.equal(document.querySelectorAll('.task-video-menu button').length,2);
+ await act(async()=>document.querySelectorAll('.task-video-menu button')[1].click());
+ assert.equal(document.querySelector('[data-result]').getAttribute('data-result'),'two');
+ await act(async()=>document.querySelectorAll('.task-video-vehicles button')[1].click());
+ assert.deepEqual(requests[1].args,['B','domain','task','2','grade']);
+ assert.equal(document.querySelector('[data-result]'),null);
+ await act(async()=>document.querySelectorAll('.task-video-vehicles button')[0].click());
+ await act(async()=>requests[2].resolve({data:[{id:'current',case_id:'3'}]}));
+ await act(async()=>requests[1].resolve({data:[{id:'stale',case_id:'4'}]}));
+ assert.equal(document.querySelector('[data-result]').getAttribute('data-result'),'current');
+ await act(async()=>ui.unmount());
+ console.log('PASS: fixed record menu, direct card selection, model/version/task/grade scoping, loading isolation and stale response protection.');
+})().catch(e=>{console.error(e);process.exit(1)});

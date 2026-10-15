@@ -25,7 +25,8 @@
         "Language and knowledge provide a foundation, while task continuity, feedback and multimodal delivery still have gaps.",
         "Organize development and evaluation around real vehicle tasks, considering effectiveness, efficiency, performance and cost."
       ]
-    }
+    },
+    "access": "paid"
   },
   "fallback": {
     "title": "当座舱 AI 帮不上忙：从失败话术到任务恢复",
@@ -53,7 +54,8 @@
         "The report distinguishes capability explanations, manual guidance, interface handoff and recovery paths.",
         "Existing records support behavioral analysis; verified recovery and eventual completion require further testing."
       ]
-    }
+    },
+    "access": "paid"
   },
   "zeekr9x": {
     "title": "极氪 9X 座舱 AI 专题报告",
@@ -81,7 +83,8 @@
         "Route planning and vehicle knowledge are stronger; correcting control targets and filtering charging conditions show gaps.",
         "Domain profiles, industry samples and real cases identify product strengths and improvement priorities."
       ]
-    }
+    },
+    "access": "paid"
   },
   "l9livis": {
     "title": "理想 L9 Livis 座舱 AI 单车专题报告",
@@ -109,7 +112,8 @@
         "Vehicle knowledge, combined operations and usage guidance are strengths; corrections and dynamic services need further work.",
         "Beyond the overall score, domain and scenario analysis separates everyday strengths from the full capability scope."
       ]
-    }
+    },
+    "access": "free"
   },
   "travel": {
     "title": "蔚来出行 AI 专项对标与改进建议",
@@ -137,7 +141,8 @@
         "ET5 gaps concentrate in multiple destinations, condition changes, conversational requests and destination sequences.",
         "Task-specific benchmarks turn understanding, task state and service integration into concrete improvement directions."
       ]
-    }
+    },
+    "access": "paid"
   },
   "multi-stop": {
     "title": "多点行程规划：品牌对标与产品启示",
@@ -165,7 +170,8 @@
         "Planning difficulty comes from order, constraints and task continuity, not simply the number of stops.",
         "Representative cases reveal reusable planning and execution mechanisms beyond brand rankings."
       ]
-    }
+    },
+    "access": "paid"
   },
   "i8-livis": {
     "title": "理想 i8 → L9 Livis 座舱 AI 能力变化报告",
@@ -193,6 +199,7 @@
         "Multi-destination and combined task organization improve; image generation removal is a product-scope choice.",
         "Small-sample fluctuations do not establish regression; persistent gaps and explicit removals require separate validation."
       ]
-    }
+    },
+    "access": "paid"
   }
 }

@@ -1,0 +1,19 @@
+[Unit]
+Description=BeeEVAL unified data gateway
+After=network-online.target
+Wants=network-online.target
+[Service]
+Type=simple
+User=beeeval-light
+Group=beeeval-light
+ExecStart=/opt/beescene/runtime/bin/node /opt/beeeval-main/current/data-platform/server/dist/index.mjs
+Environment=PORT=5188
+Environment=BEEEVAL_UPSTREAM=https://open.beeeval.com
+Restart=on-failure
+RestartSec=3
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+[Install]
+WantedBy=multi-user.target

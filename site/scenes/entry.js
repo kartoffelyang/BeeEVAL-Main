@@ -1,1 +1,0 @@
-let user=null;try{user=(await(await fetch('/main/api/session',{credentials:'same-origin'})).json()).user}catch{}const scene=new URLSearchParams(location.search).get('scene');location.replace(user?'/main/scenes/library/'+(scene?'?scene='+encodeURIComponent(scene):''):'/main/preview.html?product=scenes'+(scene?'&scene='+encodeURIComponent(scene):''));

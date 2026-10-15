@@ -1,0 +1,37 @@
+const home = {
+  'analysis_console': '分析控制台',
+  'select_folder_desc': '选择包含智能座舱 AI 视频的文件夹开始分析。',
+  'select_folder': '选择文件夹',
+  'scan_folder': '扫描文件夹',
+  'scanning': '扫描中...',
+  'click_to_select': '点击选择文件夹...',
+  'detected_videos': '检测到的视频',
+  'start_analysis': '开始分析',
+  'analyzing': '分析中...',
+  'video_name': '视频名称',
+  'size': '大小',
+  'path': '路径',
+  'progress': '进度',
+  'data_source_label': '数据源（本地文件夹）',
+  'browse': '浏览',
+  'select_drive': '选择盘符',
+  'loading_dirs': '加载目录中...',
+  'select_asr_title': '选择语音识别模型',
+  'analysis_failed': '分析启动失败',
+
+  // Progress Phases
+  'phase_queued': '等待中',
+  'phase_initializing': '初始化分析',
+  'phase_extracting_audio': '从视频提取音频',
+  'phase_audio_extracted': '音频提取完成',
+  'phase_transcribing': '音频转录中 ({{model}} ASR)',
+  'phase_transcription_complete': '转录完成',
+  'phase_capturing_screenshot': '捕获系统截图',
+  'phase_screenshot_captured': '截图已捕获',
+  'phase_llm_analysis': 'LLM AI 分析中',
+  'phase_llm_complete': 'LLM 分析完成',
+  'phase_saving_results': '保存结果到数据库',
+  'phase_completed': '已完成',
+};
+
+export default home;

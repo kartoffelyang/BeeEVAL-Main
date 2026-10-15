@@ -1,0 +1,4 @@
+# Apply to the original company member.js destination() allowlist.
+# Extend only same-origin paths; preserve original / and open.beeeval.com rules.
+-old: u.origin===location.origin&&u.pathname.startsWith('/')
++new: u.origin===location.origin&&(u.pathname.startsWith('/')||u.pathname.startsWith('/data/'))

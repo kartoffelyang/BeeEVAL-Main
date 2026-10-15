@@ -4,5 +4,8 @@
   "version": "1.0.0",
   "scripts": {
     "build": "python3 scripts/build.py"
+  },
+  "dependencies": {
+    "nodemailer": "^10.1.1"
   }
 }

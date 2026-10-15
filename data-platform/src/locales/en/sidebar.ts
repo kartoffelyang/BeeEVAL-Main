@@ -1,0 +1,21 @@
+const sidebar = {
+  'home': 'Home',
+  'admin_group': 'Admin',
+  'console': 'Analysis Console',
+  'history': 'History',
+  'database': 'Database',
+  'test_cases': 'Test Videos & Scores',
+  'settings': 'Settings',
+  'admin_users': 'Account Management',
+  'askai_logs': 'Q&A Data',
+  'vector_manager': 'Vector Manager',
+  'reports': 'Reports Platform',
+  'vehicle_scores': 'Evaluation Analysis',
+  'vehicle_pk': 'Vehicle PK',
+  'drbee_lab': 'Dr.bee Lab',
+  'drbee_history': 'Saved Sessions',
+  'nas_browser': 'NAS Browser',
+  'switch_lang_title': 'Switch to Chinese',
+  'switch_lang_label': 'ZH',
+};
+export default sidebar;

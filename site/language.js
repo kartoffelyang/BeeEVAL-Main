@@ -1,4 +1,4 @@
-const dictionary=await fetch('/main/languages.json',{cache:'no-store'}).then(r=>r.json());
+const dictionary=await fetch('/languages.json',{cache:'no-store'}).then(r=>r.json());
 let language=localStorage.getItem('beeeval-site-language')==='en'?'en':'zh';
 const originals=new WeakMap(),rendered=new WeakMap(),attributes=new WeakMap();
 function translate(text){const key=text.trim();let result=dictionary[key];if(result===undefined&&/[↗→←↓↑]$/.test(key)){const label=key.replace(/\s*[↗→←↓↑]$/,'');if(dictionary[label])result=dictionary[label]+' '+key.slice(-1)}if(result===undefined){if(/^全部报告\s*\d+$/.test(key))result='All reports '+key.match(/\d+$/)[0];else if(/ · 会员中心$/.test(key))result=key.replace(' · 会员中心',' · Account');else if(/ · 示例$/.test(key))result=(dictionary[key.replace(' · 示例','')]||key.replace(' · 示例',''))+' · Example';else if(/^0[123]　/.test(key))result=key.slice(0,3)+(dictionary[key.slice(3)]||key.slice(3));}return result===undefined?text:text.replace(key,result)}
