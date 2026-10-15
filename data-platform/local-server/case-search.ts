@@ -164,13 +164,15 @@ export function createCaseSearch(
     params: URLSearchParams,
   ) {
     try {
-      const scope = new URLSearchParams({ limit: "1", created_before: new Date().toISOString() });
+      const scope = new URLSearchParams({ limit: "1", freeze_snapshot: "true" });
       for (const key of ["exclude_review", "include_failed", "status"])
         if (params.has(key)) scope.set(key, params.get(key)!);
       const first = await fetchJson(
         "/api/video/all-results?" + scope,
         authorization,
       );
+      scope.delete("freeze_snapshot");
+      if (first.snapshot_before) scope.set("created_before", first.snapshot_before);
       index.total = first.total;
       if (!Number.isInteger(index.total) || index.total < 0)
         throw new Error("invalid_case_response");

@@ -107,7 +107,7 @@ const esbuild = require(require.resolve("esbuild", { paths: [root] }));
     if (!valid) return { ok: false, status: 401 };
     if (u.pathname === "/api/auth/me")
       return { ok: true, json: async () => ({ id: 1, role, data_visible_until: visibleUntil }) };
-    assert.ok(u.searchParams.get("created_before"), "all index pages must freeze the insertion cutoff");
+    assert.ok(u.searchParams.get("freeze_snapshot") || u.searchParams.get("created_before"), "index pages must share the database snapshot cutoff");
     calls++;
     const visible = visibleUntil ? full.slice(0,100) : full;
     const offset = Number(u.searchParams.get("offset")),
@@ -122,6 +122,7 @@ const esbuild = require(require.resolve("esbuild", { paths: [root] }));
             role === "viewer" ? { ...r, _locked: true, metadata: {} } : r,
           ),
         total: visible.length,
+        snapshot_before: "2026-10-16T10:00:00+00:00",
       }),
     };
   };
