@@ -1,6 +1,6 @@
 """Self-service membership on the existing BeeEVAL identity store. No parallel users DB."""
 from __future__ import annotations
-import hashlib,hmac,secrets,os,re,asyncio
+import hashlib,hmac,secrets,os,re,asyncio,inspect
 from datetime import datetime,timezone
 from fastapi import APIRouter,Depends,HTTPException,Request
 from pydantic import BaseModel,Field
@@ -46,7 +46,10 @@ async def code(req:CodeRequest,request:Request):
  rows=supabase.raw_sql('''INSERT INTO member_verifications(recipient,channel,challenge,code_hash,expires_at) VALUES(%s,%s,%s,%s,NOW()+INTERVAL '5 minutes') ON CONFLICT(recipient,channel) DO UPDATE SET challenge=EXCLUDED.challenge,code_hash=EXCLUDED.code_hash,expires_at=EXCLUDED.expires_at,sent_at=NOW(),attempts=0,consumed=FALSE WHERE member_verifications.sent_at<NOW()-INTERVAL '60 seconds' RETURNING challenge''',[target,req.channel,challenge,digest(challenge,otp)]).data
  if not rows:raise HTTPException(429,detail='请等待60秒后重新获取验证码')
  try:
-  if req.channel=='email':await asyncio.to_thread(send_email,target,'BeeEVAL 注册验证码',f'您的注册验证码为 {otp}，5分钟内有效。请勿向他人泄露。若非您本人操作，请忽略此邮件。')
+  if req.channel=='email':
+   args=(target,'BeeEVAL 注册验证码',f'您的注册验证码为 {otp}，5分钟内有效。请勿向他人泄露。若非您本人操作，请忽略此邮件。')
+   if inspect.iscoroutinefunction(send_email):await send_email(*args)
+   else:await asyncio.to_thread(send_email,*args)
   else:
    import httpx
    url=os.environ['SMS_VERIFICATION_URL']

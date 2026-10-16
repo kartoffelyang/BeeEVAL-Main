@@ -31,4 +31,8 @@ def version_tag(match,html):
 for html in dist.rglob('*.html'):
  text=html.read_text();updated=re.sub(r'<(?:script|link)\b[^>]*>',lambda m:version_tag(m,html),text)
  if updated!=text:html.write_text(updated)
+# Public build assets must be readable by the web server after archive extraction.
+for asset in dist.rglob('*'):
+ if asset.is_file():asset.chmod(0o644)
+ elif asset.is_dir():asset.chmod(0o755)
 print('Built unified root site, /scenes/ and /data/: public report and product summaries, protected full reports and scenario library')

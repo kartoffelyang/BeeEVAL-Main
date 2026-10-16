@@ -26,7 +26,8 @@
         "Organize development and evaluation around real vehicle tasks, considering effectiveness, efficiency, performance and cost."
       ]
     },
-    "access": "paid"
+    "access": "paid",
+    "badge": "待上线"
   },
   "fallback": {
     "title": "当座舱 AI 帮不上忙：从失败话术到任务恢复",
@@ -84,7 +85,8 @@
         "Domain profiles, industry samples and real cases identify product strengths and improvement priorities."
       ]
     },
-    "access": "paid"
+    "access": "free",
+    "badge": "限时免费"
   },
   "l9livis": {
     "title": "理想 L9 Livis 座舱 AI 单车专题报告",
@@ -113,7 +115,8 @@
         "Beyond the overall score, domain and scenario analysis separates everyday strengths from the full capability scope."
       ]
     },
-    "access": "free"
+    "access": "free",
+    "badge": "限时免费"
   },
   "travel": {
     "title": "蔚来出行 AI 专项对标与改进建议",
@@ -200,6 +203,7 @@
         "Small-sample fluctuations do not establish regression; persistent gaps and explicit removals require separate validation."
       ]
     },
-    "access": "paid"
+    "access": "free",
+    "badge": "限时免费"
   }
 }

@@ -49,3 +49,6 @@
 
 /* Consistent contact identity and a high-contrast Free label. */
 .contact-wechat{margin:20px 0 0;width:148px}.contact-wechat img{display:block;width:148px;height:auto;background:#fff;border:1px solid #e9e5dc}.report-free-badge{background:#ffc400;color:#211b00;border-color:#d79d00;font-weight:700;box-shadow:0 2px 5px #81590016}.small-cover>span:has(.report-free-badge){display:flex;align-items:center;justify-content:space-between;gap:8px;white-space:normal}.small-cover .report-free-badge{margin-left:0;min-height:32px;padding:6px 12px;font-size:15px}@media(max-width:760px){.contact-wechat,.contact-wechat img{width:136px}.contact-wechat{margin-top:18px}}
+
+/* Prominent product entrances */
+.entry-primary{min-height:58px;padding:18px 28px;font-size:18px;font-weight:600;gap:28px;white-space:normal}.section-head .entry-primary{margin-top:20px}.account-tier{font-weight:700}
