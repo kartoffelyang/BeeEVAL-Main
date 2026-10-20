@@ -1,0 +1,4452 @@
+{
+  "1001": {
+    "function_domain": "车控域",
+    "task_detail": "车窗开合控制",
+    "acceptance_tag": "基础验收"
+  },
+  "1002": {
+    "function_domain": "车控域",
+    "task_detail": "车窗开合控制",
+    "acceptance_tag": "基础验收"
+  },
+  "1003": {
+    "function_domain": "车控域",
+    "task_detail": "车窗开合控制",
+    "acceptance_tag": "基础验收"
+  },
+  "1004": {
+    "function_domain": "车控域",
+    "task_detail": "车窗开合控制",
+    "acceptance_tag": "基础验收"
+  },
+  "1005": {
+    "function_domain": "车控域",
+    "task_detail": "车窗开合控制",
+    "acceptance_tag": "基础验收"
+  },
+  "1006": {
+    "function_domain": "车控域",
+    "task_detail": "车窗开合控制",
+    "acceptance_tag": "基础验收"
+  },
+  "1007": {
+    "function_domain": "车控域",
+    "task_detail": "天窗天幕控制",
+    "acceptance_tag": "基础验收"
+  },
+  "1008": {
+    "function_domain": "车控域",
+    "task_detail": "天窗天幕控制",
+    "acceptance_tag": "基础验收"
+  },
+  "1009": {
+    "function_domain": "车控域",
+    "task_detail": "天窗天幕控制",
+    "acceptance_tag": "基础验收"
+  },
+  "1010": {
+    "function_domain": "车控域",
+    "task_detail": "座椅位置调节",
+    "acceptance_tag": "基础验收"
+  },
+  "1011": {
+    "function_domain": "车控域",
+    "task_detail": "座椅位置调节",
+    "acceptance_tag": "基础验收"
+  },
+  "1012": {
+    "function_domain": "车控域",
+    "task_detail": "座椅位置调节",
+    "acceptance_tag": "基础验收"
+  },
+  "1013": {
+    "function_domain": "车控域",
+    "task_detail": "座椅位置调节",
+    "acceptance_tag": "基础验收"
+  },
+  "1014": {
+    "function_domain": "车控域",
+    "task_detail": "座椅位置调节",
+    "acceptance_tag": "基础验收"
+  },
+  "1015": {
+    "function_domain": "车控域",
+    "task_detail": "座椅舒适功能控制",
+    "acceptance_tag": "基础验收"
+  },
+  "1016": {
+    "function_domain": "车控域",
+    "task_detail": "座椅舒适功能控制",
+    "acceptance_tag": "基础验收"
+  },
+  "1017": {
+    "function_domain": "车控域",
+    "task_detail": "座椅舒适功能控制",
+    "acceptance_tag": "基础验收"
+  },
+  "1018": {
+    "function_domain": "车控域",
+    "task_detail": "座椅舒适功能控制",
+    "acceptance_tag": "基础验收"
+  },
+  "1019": {
+    "function_domain": "车控域",
+    "task_detail": "座椅舒适功能控制",
+    "acceptance_tag": "基础验收"
+  },
+  "1020": {
+    "function_domain": "车控域",
+    "task_detail": "座椅舒适功能控制",
+    "acceptance_tag": "基础验收"
+  },
+  "1021": {
+    "function_domain": "车控域",
+    "task_detail": "座椅舒适功能控制",
+    "acceptance_tag": "基础验收"
+  },
+  "1022": {
+    "function_domain": "车控域",
+    "task_detail": "座椅舒适功能控制",
+    "acceptance_tag": "基础验收"
+  },
+  "1023": {
+    "function_domain": "车控域",
+    "task_detail": "空调温度控制",
+    "acceptance_tag": "基础验收"
+  },
+  "1024": {
+    "function_domain": "车控域",
+    "task_detail": "空调温度控制",
+    "acceptance_tag": "基础验收"
+  },
+  "1025": {
+    "function_domain": "车控域",
+    "task_detail": "空调温度控制",
+    "acceptance_tag": "基础验收"
+  },
+  "1026": {
+    "function_domain": "车控域",
+    "task_detail": "空调温度控制",
+    "acceptance_tag": "基础验收"
+  },
+  "1027": {
+    "function_domain": "车控域",
+    "task_detail": "空调风向风量控制",
+    "acceptance_tag": "基础验收"
+  },
+  "1028": {
+    "function_domain": "车控域",
+    "task_detail": "空调风向风量控制",
+    "acceptance_tag": "基础验收"
+  },
+  "1029": {
+    "function_domain": "车控域",
+    "task_detail": "空调风向风量控制",
+    "acceptance_tag": "基础验收"
+  },
+  "1030": {
+    "function_domain": "车控域",
+    "task_detail": "空气净化与除雾控制",
+    "acceptance_tag": "基础验收"
+  },
+  "1031": {
+    "function_domain": "车控域",
+    "task_detail": "空气净化与除雾控制",
+    "acceptance_tag": "基础验收"
+  },
+  "1032": {
+    "function_domain": "车控域",
+    "task_detail": "空气净化与除雾控制",
+    "acceptance_tag": "基础验收"
+  },
+  "1033": {
+    "function_domain": "车控域",
+    "task_detail": "空气净化与除雾控制",
+    "acceptance_tag": "基础验收"
+  },
+  "1034": {
+    "function_domain": "车控域",
+    "task_detail": "空气净化与除雾控制",
+    "acceptance_tag": "基础验收"
+  },
+  "1035": {
+    "function_domain": "车控域",
+    "task_detail": "氛围灯控制",
+    "acceptance_tag": "基础验收"
+  },
+  "1036": {
+    "function_domain": "车控域",
+    "task_detail": "氛围灯控制",
+    "acceptance_tag": "基础验收"
+  },
+  "1037": {
+    "function_domain": "车控域",
+    "task_detail": "车内照明控制",
+    "acceptance_tag": "基础验收"
+  },
+  "1038": {
+    "function_domain": "车控域",
+    "task_detail": "车内照明控制",
+    "acceptance_tag": "基础验收"
+  },
+  "1039": {
+    "function_domain": "车控域",
+    "task_detail": "车内照明控制",
+    "acceptance_tag": "基础验收"
+  },
+  "1040": {
+    "function_domain": "车控域",
+    "task_detail": "外部灯光控制",
+    "acceptance_tag": "基础验收"
+  },
+  "1041": {
+    "function_domain": "车控域",
+    "task_detail": "外部灯光控制",
+    "acceptance_tag": "基础验收"
+  },
+  "1042": {
+    "function_domain": "车控域",
+    "task_detail": "外部灯光控制",
+    "acceptance_tag": "基础验收"
+  },
+  "1043": {
+    "function_domain": "车控域",
+    "task_detail": "后视镜调节",
+    "acceptance_tag": "基础验收"
+  },
+  "1044": {
+    "function_domain": "车控域",
+    "task_detail": "后视镜调节",
+    "acceptance_tag": "基础验收"
+  },
+  "1045": {
+    "function_domain": "车控域",
+    "task_detail": "后视镜调节",
+    "acceptance_tag": "基础验收"
+  },
+  "1046": {
+    "function_domain": "车控域",
+    "task_detail": "雨刮清洁控制",
+    "acceptance_tag": "基础验收"
+  },
+  "1047": {
+    "function_domain": "车控域",
+    "task_detail": "雨刮清洁控制",
+    "acceptance_tag": "基础验收"
+  },
+  "1048": {
+    "function_domain": "车控域",
+    "task_detail": "雨刮清洁控制",
+    "acceptance_tag": "基础验收"
+  },
+  "1049": {
+    "function_domain": "车控域",
+    "task_detail": "方向盘位置调节",
+    "acceptance_tag": "基础验收"
+  },
+  "1050": {
+    "function_domain": "车控域",
+    "task_detail": "方向盘位置调节",
+    "acceptance_tag": "基础验收"
+  },
+  "1051": {
+    "function_domain": "车控域",
+    "task_detail": "方向盘位置调节",
+    "acceptance_tag": "基础验收"
+  },
+  "1052": {
+    "function_domain": "车控域",
+    "task_detail": "驾驶模式切换",
+    "acceptance_tag": "基础验收"
+  },
+  "1053": {
+    "function_domain": "车控域",
+    "task_detail": "驾驶模式切换",
+    "acceptance_tag": "基础验收"
+  },
+  "1054": {
+    "function_domain": "车控域",
+    "task_detail": "驾驶模式切换",
+    "acceptance_tag": "基础验收"
+  },
+  "1055": {
+    "function_domain": "车控域",
+    "task_detail": "HUD显示控制",
+    "acceptance_tag": "基础验收"
+  },
+  "1056": {
+    "function_domain": "车控域",
+    "task_detail": "HUD显示控制",
+    "acceptance_tag": "基础验收"
+  },
+  "1057": {
+    "function_domain": "车控域",
+    "task_detail": "HUD显示控制",
+    "acceptance_tag": "基础验收"
+  },
+  "1058": {
+    "function_domain": "车控域",
+    "task_detail": "屏幕亮度控制",
+    "acceptance_tag": "基础验收"
+  },
+  "1059": {
+    "function_domain": "车控域",
+    "task_detail": "屏幕亮度控制",
+    "acceptance_tag": "基础验收"
+  },
+  "1060": {
+    "function_domain": "车控域",
+    "task_detail": "屏幕亮度控制",
+    "acceptance_tag": "基础验收"
+  },
+  "1061": {
+    "function_domain": "车控域",
+    "task_detail": "音量控制",
+    "acceptance_tag": "基础验收"
+  },
+  "1062": {
+    "function_domain": "车控域",
+    "task_detail": "音量控制",
+    "acceptance_tag": "基础验收"
+  },
+  "1063": {
+    "function_domain": "车控域",
+    "task_detail": "音量控制",
+    "acceptance_tag": "基础验收"
+  },
+  "1064": {
+    "function_domain": "车控域",
+    "task_detail": "双任务车机执行",
+    "acceptance_tag": "中等验收"
+  },
+  "1065": {
+    "function_domain": "车控域",
+    "task_detail": "双任务车机执行",
+    "acceptance_tag": "中等验收"
+  },
+  "1066": {
+    "function_domain": "车控域",
+    "task_detail": "双任务车机执行",
+    "acceptance_tag": "中等验收"
+  },
+  "1067": {
+    "function_domain": "车控域",
+    "task_detail": "双任务车机执行",
+    "acceptance_tag": "中等验收"
+  },
+  "1068": {
+    "function_domain": "车控域",
+    "task_detail": "双任务车机执行",
+    "acceptance_tag": "中等验收"
+  },
+  "1069": {
+    "function_domain": "车控域",
+    "task_detail": "双任务车机执行",
+    "acceptance_tag": "中等验收"
+  },
+  "1070": {
+    "function_domain": "车控域",
+    "task_detail": "双任务车机执行",
+    "acceptance_tag": "中等验收"
+  },
+  "1071": {
+    "function_domain": "车控域",
+    "task_detail": "双任务车机执行",
+    "acceptance_tag": "中等验收"
+  },
+  "1072": {
+    "function_domain": "车控域",
+    "task_detail": "多任务车机执行",
+    "acceptance_tag": "进阶验收"
+  },
+  "1073": {
+    "function_domain": "车控域",
+    "task_detail": "多任务车机执行",
+    "acceptance_tag": "进阶验收"
+  },
+  "1074": {
+    "function_domain": "车控域",
+    "task_detail": "多任务车机执行",
+    "acceptance_tag": "进阶验收"
+  },
+  "1075": {
+    "function_domain": "车控域",
+    "task_detail": "多任务车机执行",
+    "acceptance_tag": "进阶验收"
+  },
+  "1076": {
+    "function_domain": "车控域",
+    "task_detail": "多任务车机执行",
+    "acceptance_tag": "进阶验收"
+  },
+  "1077": {
+    "function_domain": "车控域",
+    "task_detail": "多任务车机执行",
+    "acceptance_tag": "进阶验收"
+  },
+  "1078": {
+    "function_domain": "车控域",
+    "task_detail": "多任务车机执行",
+    "acceptance_tag": "进阶验收"
+  },
+  "1079": {
+    "function_domain": "车控域",
+    "task_detail": "多任务车机执行",
+    "acceptance_tag": "进阶验收"
+  },
+  "1080": {
+    "function_domain": "车控域",
+    "task_detail": "多任务车机执行",
+    "acceptance_tag": "进阶验收"
+  },
+  "1081": {
+    "function_domain": "车控域",
+    "task_detail": "多任务车机执行",
+    "acceptance_tag": "进阶验收"
+  },
+  "1082": {
+    "function_domain": "车控域",
+    "task_detail": "复杂指令车控",
+    "acceptance_tag": "中等验收"
+  },
+  "1083": {
+    "function_domain": "车控域",
+    "task_detail": "复杂指令车控",
+    "acceptance_tag": "中等验收"
+  },
+  "1084": {
+    "function_domain": "车控域",
+    "task_detail": "复杂指令车控",
+    "acceptance_tag": "中等验收"
+  },
+  "1085": {
+    "function_domain": "车控域",
+    "task_detail": "复杂指令车控",
+    "acceptance_tag": "中等验收"
+  },
+  "1086": {
+    "function_domain": "车控域",
+    "task_detail": "复杂指令车控",
+    "acceptance_tag": "中等验收"
+  },
+  "1087": {
+    "function_domain": "车控域",
+    "task_detail": "复杂指令车控",
+    "acceptance_tag": "中等验收"
+  },
+  "1088": {
+    "function_domain": "车控域",
+    "task_detail": "复杂指令车控",
+    "acceptance_tag": "中等验收"
+  },
+  "1089": {
+    "function_domain": "车控域",
+    "task_detail": "复杂指令车控",
+    "acceptance_tag": "中等验收"
+  },
+  "1090": {
+    "function_domain": "车控域",
+    "task_detail": "复杂指令车控",
+    "acceptance_tag": "中等验收"
+  },
+  "1091": {
+    "function_domain": "车控域",
+    "task_detail": "复杂指令车控",
+    "acceptance_tag": "中等验收"
+  },
+  "1092": {
+    "function_domain": "车控域",
+    "task_detail": "复杂指令车控",
+    "acceptance_tag": "中等验收"
+  },
+  "1093": {
+    "function_domain": "车控域",
+    "task_detail": "复杂指令车控",
+    "acceptance_tag": "中等验收"
+  },
+  "1094": {
+    "function_domain": "车控域",
+    "task_detail": "复杂指令车控",
+    "acceptance_tag": "中等验收"
+  },
+  "1095": {
+    "function_domain": "车控域",
+    "task_detail": "复杂指令车控",
+    "acceptance_tag": "中等验收"
+  },
+  "1096": {
+    "function_domain": "车控域",
+    "task_detail": "车控对象修正",
+    "acceptance_tag": "中等验收"
+  },
+  "1097": {
+    "function_domain": "车控域",
+    "task_detail": "车控对象修正",
+    "acceptance_tag": "中等验收"
+  },
+  "1098": {
+    "function_domain": "车控域",
+    "task_detail": "车控对象修正",
+    "acceptance_tag": "中等验收"
+  },
+  "1099": {
+    "function_domain": "车控域",
+    "task_detail": "车控对象修正",
+    "acceptance_tag": "中等验收"
+  },
+  "1100": {
+    "function_domain": "车控域",
+    "task_detail": "车控对象修正",
+    "acceptance_tag": "中等验收"
+  },
+  "1101": {
+    "function_domain": "车控域",
+    "task_detail": "车控对象修正",
+    "acceptance_tag": "中等验收"
+  },
+  "1102": {
+    "function_domain": "车控域",
+    "task_detail": "车控对象修正",
+    "acceptance_tag": "中等验收"
+  },
+  "1103": {
+    "function_domain": "车控域",
+    "task_detail": "车控对象修正",
+    "acceptance_tag": "中等验收"
+  },
+  "1104": {
+    "function_domain": "车控域",
+    "task_detail": "座舱体感问题调节",
+    "acceptance_tag": "进阶验收"
+  },
+  "1105": {
+    "function_domain": "车控域",
+    "task_detail": "座舱体感问题调节",
+    "acceptance_tag": "进阶验收"
+  },
+  "1106": {
+    "function_domain": "车控域",
+    "task_detail": "座舱体感问题调节",
+    "acceptance_tag": "进阶验收"
+  },
+  "1107": {
+    "function_domain": "车控域",
+    "task_detail": "座舱体感问题调节",
+    "acceptance_tag": "进阶验收"
+  },
+  "1108": {
+    "function_domain": "车控域",
+    "task_detail": "座舱体感问题调节",
+    "acceptance_tag": "进阶验收"
+  },
+  "1109": {
+    "function_domain": "车控域",
+    "task_detail": "座舱体感问题调节",
+    "acceptance_tag": "进阶验收"
+  },
+  "1110": {
+    "function_domain": "车控域",
+    "task_detail": "座舱体感问题调节",
+    "acceptance_tag": "进阶验收"
+  },
+  "1111": {
+    "function_domain": "车控域",
+    "task_detail": "座舱体感问题调节",
+    "acceptance_tag": "进阶验收"
+  },
+  "1112": {
+    "function_domain": "车控域",
+    "task_detail": "座舱体感问题调节",
+    "acceptance_tag": "进阶验收"
+  },
+  "1113": {
+    "function_domain": "车控域",
+    "task_detail": "座舱体感问题调节",
+    "acceptance_tag": "进阶验收"
+  },
+  "1114": {
+    "function_domain": "车控域",
+    "task_detail": "座舱体感问题调节",
+    "acceptance_tag": "进阶验收"
+  },
+  "1115": {
+    "function_domain": "车控域",
+    "task_detail": "座舱体感问题调节",
+    "acceptance_tag": "进阶验收"
+  },
+  "1116": {
+    "function_domain": "车控域",
+    "task_detail": "环境问题座舱调节",
+    "acceptance_tag": "进阶验收"
+  },
+  "1117": {
+    "function_domain": "车控域",
+    "task_detail": "环境问题座舱调节",
+    "acceptance_tag": "进阶验收"
+  },
+  "1118": {
+    "function_domain": "车控域",
+    "task_detail": "环境问题座舱调节",
+    "acceptance_tag": "进阶验收"
+  },
+  "1119": {
+    "function_domain": "车控域",
+    "task_detail": "环境问题座舱调节",
+    "acceptance_tag": "进阶验收"
+  },
+  "1120": {
+    "function_domain": "车控域",
+    "task_detail": "环境问题座舱调节",
+    "acceptance_tag": "进阶验收"
+  },
+  "1121": {
+    "function_domain": "车控域",
+    "task_detail": "环境问题座舱调节",
+    "acceptance_tag": "进阶验收"
+  },
+  "1122": {
+    "function_domain": "车控域",
+    "task_detail": "环境问题座舱调节",
+    "acceptance_tag": "进阶验收"
+  },
+  "1123": {
+    "function_domain": "车控域",
+    "task_detail": "环境问题座舱调节",
+    "acceptance_tag": "进阶验收"
+  },
+  "1124": {
+    "function_domain": "车控域",
+    "task_detail": "环境问题座舱调节",
+    "acceptance_tag": "进阶验收"
+  },
+  "1125": {
+    "function_domain": "车控域",
+    "task_detail": "模糊车控理解",
+    "acceptance_tag": "进阶验收"
+  },
+  "1126": {
+    "function_domain": "车控域",
+    "task_detail": "模糊车控理解",
+    "acceptance_tag": "进阶验收"
+  },
+  "1127": {
+    "function_domain": "车控域",
+    "task_detail": "模糊车控理解",
+    "acceptance_tag": "进阶验收"
+  },
+  "1128": {
+    "function_domain": "车控域",
+    "task_detail": "模糊车控理解",
+    "acceptance_tag": "进阶验收"
+  },
+  "1129": {
+    "function_domain": "车控域",
+    "task_detail": "模糊车控理解",
+    "acceptance_tag": "进阶验收"
+  },
+  "1130": {
+    "function_domain": "车控域",
+    "task_detail": "模糊车控理解",
+    "acceptance_tag": "进阶验收"
+  },
+  "1131": {
+    "function_domain": "车控域",
+    "task_detail": "模糊车控理解",
+    "acceptance_tag": "进阶验收"
+  },
+  "1132": {
+    "function_domain": "车控域",
+    "task_detail": "模糊车控理解",
+    "acceptance_tag": "进阶验收"
+  },
+  "1133": {
+    "function_domain": "车控域",
+    "task_detail": "模糊车控理解",
+    "acceptance_tag": "进阶验收"
+  },
+  "1134": {
+    "function_domain": "车控域",
+    "task_detail": "模糊车控理解",
+    "acceptance_tag": "进阶验收"
+  },
+  "1135": {
+    "function_domain": "车控域",
+    "task_detail": "模糊车控理解",
+    "acceptance_tag": "进阶验收"
+  },
+  "1136": {
+    "function_domain": "车控域",
+    "task_detail": "模糊车控理解",
+    "acceptance_tag": "进阶验收"
+  },
+  "1137": {
+    "function_domain": "车控域",
+    "task_detail": "座舱场景匹配",
+    "acceptance_tag": "进阶验收"
+  },
+  "1138": {
+    "function_domain": "车控域",
+    "task_detail": "座舱场景匹配",
+    "acceptance_tag": "进阶验收"
+  },
+  "1139": {
+    "function_domain": "车控域",
+    "task_detail": "座舱场景匹配",
+    "acceptance_tag": "进阶验收"
+  },
+  "1140": {
+    "function_domain": "车控域",
+    "task_detail": "座舱场景匹配",
+    "acceptance_tag": "进阶验收"
+  },
+  "1141": {
+    "function_domain": "车控域",
+    "task_detail": "座舱场景匹配",
+    "acceptance_tag": "进阶验收"
+  },
+  "1142": {
+    "function_domain": "车控域",
+    "task_detail": "座舱场景匹配",
+    "acceptance_tag": "进阶验收"
+  },
+  "1143": {
+    "function_domain": "车控域",
+    "task_detail": "座舱场景匹配",
+    "acceptance_tag": "进阶验收"
+  },
+  "1144": {
+    "function_domain": "车控域",
+    "task_detail": "座舱场景匹配",
+    "acceptance_tag": "进阶验收"
+  },
+  "1145": {
+    "function_domain": "车控域",
+    "task_detail": "座舱场景匹配",
+    "acceptance_tag": "进阶验收"
+  },
+  "1146": {
+    "function_domain": "车控域",
+    "task_detail": "座舱场景匹配",
+    "acceptance_tag": "进阶验收"
+  },
+  "1147": {
+    "function_domain": "车控域",
+    "task_detail": "座舱氛围生成",
+    "acceptance_tag": "进阶验收"
+  },
+  "1148": {
+    "function_domain": "车控域",
+    "task_detail": "座舱氛围生成",
+    "acceptance_tag": "进阶验收"
+  },
+  "1149": {
+    "function_domain": "车控域",
+    "task_detail": "连续对话车控",
+    "acceptance_tag": "中等验收"
+  },
+  "1152": {
+    "function_domain": "车控域",
+    "task_detail": "连续对话车控",
+    "acceptance_tag": "中等验收"
+  },
+  "1158": {
+    "function_domain": "车控域",
+    "task_detail": "连续对话车控",
+    "acceptance_tag": "中等验收"
+  },
+  "1162": {
+    "function_domain": "车控域",
+    "task_detail": "连续对话车控",
+    "acceptance_tag": "中等验收"
+  },
+  "1165": {
+    "function_domain": "车控域",
+    "task_detail": "连续对话车控",
+    "acceptance_tag": "中等验收"
+  },
+  "1170": {
+    "function_domain": "车控域",
+    "task_detail": "连续对话车控",
+    "acceptance_tag": "中等验收"
+  },
+  "1173": {
+    "function_domain": "车控域",
+    "task_detail": "连续对话车控",
+    "acceptance_tag": "中等验收"
+  },
+  "2001": {
+    "function_domain": "出行域",
+    "task_detail": "补能站点搜索",
+    "acceptance_tag": "基础验收"
+  },
+  "2002": {
+    "function_domain": "出行域",
+    "task_detail": "补能站点搜索",
+    "acceptance_tag": "基础验收"
+  },
+  "2003": {
+    "function_domain": "出行域",
+    "task_detail": "补能站点搜索",
+    "acceptance_tag": "基础验收"
+  },
+  "2004": {
+    "function_domain": "出行域",
+    "task_detail": "补能站点搜索",
+    "acceptance_tag": "基础验收"
+  },
+  "2005": {
+    "function_domain": "出行域",
+    "task_detail": "补能站点搜索",
+    "acceptance_tag": "基础验收"
+  },
+  "2006": {
+    "function_domain": "出行域",
+    "task_detail": "补能站点搜索",
+    "acceptance_tag": "基础验收"
+  },
+  "2008": {
+    "function_domain": "出行域",
+    "task_detail": "停车场查询",
+    "acceptance_tag": "基础验收"
+  },
+  "2009": {
+    "function_domain": "出行域",
+    "task_detail": "停车场查询",
+    "acceptance_tag": "基础验收"
+  },
+  "2010": {
+    "function_domain": "出行域",
+    "task_detail": "停车场查询",
+    "acceptance_tag": "基础验收"
+  },
+  "2011": {
+    "function_domain": "出行域",
+    "task_detail": "停车场查询",
+    "acceptance_tag": "基础验收"
+  },
+  "2012": {
+    "function_domain": "出行域",
+    "task_detail": "停车场查询",
+    "acceptance_tag": "基础验收"
+  },
+  "2013": {
+    "function_domain": "出行域",
+    "task_detail": "停车场查询",
+    "acceptance_tag": "基础验收"
+  },
+  "2014": {
+    "function_domain": "出行域",
+    "task_detail": "停车场查询",
+    "acceptance_tag": "基础验收"
+  },
+  "2015": {
+    "function_domain": "出行域",
+    "task_detail": "停车场查询",
+    "acceptance_tag": "基础验收"
+  },
+  "2016": {
+    "function_domain": "出行域",
+    "task_detail": "实时路况查询",
+    "acceptance_tag": "中等验收"
+  },
+  "2017": {
+    "function_domain": "出行域",
+    "task_detail": "实时路况查询",
+    "acceptance_tag": "中等验收"
+  },
+  "2018": {
+    "function_domain": "出行域",
+    "task_detail": "实时路况查询",
+    "acceptance_tag": "中等验收"
+  },
+  "2019": {
+    "function_domain": "出行域",
+    "task_detail": "实时路况查询",
+    "acceptance_tag": "中等验收"
+  },
+  "2020": {
+    "function_domain": "出行域",
+    "task_detail": "实时路况查询",
+    "acceptance_tag": "中等验收"
+  },
+  "2021": {
+    "function_domain": "出行域",
+    "task_detail": "实时路况查询",
+    "acceptance_tag": "中等验收"
+  },
+  "2022": {
+    "function_domain": "出行域",
+    "task_detail": "实时路况查询",
+    "acceptance_tag": "中等验收"
+  },
+  "2023": {
+    "function_domain": "出行域",
+    "task_detail": "实时路况查询",
+    "acceptance_tag": "中等验收"
+  },
+  "2024": {
+    "function_domain": "出行域",
+    "task_detail": "实时路况查询",
+    "acceptance_tag": "中等验收"
+  },
+  "2025": {
+    "function_domain": "出行域",
+    "task_detail": "实时路况查询",
+    "acceptance_tag": "中等验收"
+  },
+  "2026": {
+    "function_domain": "出行域",
+    "task_detail": "交通票务查询",
+    "acceptance_tag": "中等验收"
+  },
+  "2027": {
+    "function_domain": "出行域",
+    "task_detail": "交通票务查询",
+    "acceptance_tag": "中等验收"
+  },
+  "2028": {
+    "function_domain": "出行域",
+    "task_detail": "交通票务查询",
+    "acceptance_tag": "中等验收"
+  },
+  "2029": {
+    "function_domain": "出行域",
+    "task_detail": "交通票务查询",
+    "acceptance_tag": "中等验收"
+  },
+  "2030": {
+    "function_domain": "出行域",
+    "task_detail": "交通票务查询",
+    "acceptance_tag": "中等验收"
+  },
+  "2031": {
+    "function_domain": "出行域",
+    "task_detail": "交通票务查询",
+    "acceptance_tag": "中等验收"
+  },
+  "2032": {
+    "function_domain": "出行域",
+    "task_detail": "车辆养护与紧急服务",
+    "acceptance_tag": "中等验收"
+  },
+  "2033": {
+    "function_domain": "出行域",
+    "task_detail": "车辆养护与紧急服务",
+    "acceptance_tag": "中等验收"
+  },
+  "2034": {
+    "function_domain": "出行域",
+    "task_detail": "车辆养护与紧急服务",
+    "acceptance_tag": "中等验收"
+  },
+  "2035": {
+    "function_domain": "出行域",
+    "task_detail": "车辆养护与紧急服务",
+    "acceptance_tag": "中等验收"
+  },
+  "2036": {
+    "function_domain": "出行域",
+    "task_detail": "车辆养护与紧急服务",
+    "acceptance_tag": "中等验收"
+  },
+  "2037": {
+    "function_domain": "出行域",
+    "task_detail": "车辆养护与紧急服务",
+    "acceptance_tag": "中等验收"
+  },
+  "2038": {
+    "function_domain": "出行域",
+    "task_detail": "生活服务搜索",
+    "acceptance_tag": "基础验收"
+  },
+  "2039": {
+    "function_domain": "出行域",
+    "task_detail": "生活服务搜索",
+    "acceptance_tag": "基础验收"
+  },
+  "2040": {
+    "function_domain": "出行域",
+    "task_detail": "生活服务搜索",
+    "acceptance_tag": "基础验收"
+  },
+  "2041": {
+    "function_domain": "出行域",
+    "task_detail": "生活服务搜索",
+    "acceptance_tag": "基础验收"
+  },
+  "2042": {
+    "function_domain": "出行域",
+    "task_detail": "生活服务搜索",
+    "acceptance_tag": "基础验收"
+  },
+  "2043": {
+    "function_domain": "出行域",
+    "task_detail": "生活服务搜索",
+    "acceptance_tag": "基础验收"
+  },
+  "2044": {
+    "function_domain": "出行域",
+    "task_detail": "生活服务搜索",
+    "acceptance_tag": "基础验收"
+  },
+  "2045": {
+    "function_domain": "出行域",
+    "task_detail": "生活服务搜索",
+    "acceptance_tag": "基础验收"
+  },
+  "2046": {
+    "function_domain": "出行域",
+    "task_detail": "生活服务搜索",
+    "acceptance_tag": "基础验收"
+  },
+  "2047": {
+    "function_domain": "出行域",
+    "task_detail": "生活服务搜索",
+    "acceptance_tag": "基础验收"
+  },
+  "2048": {
+    "function_domain": "出行域",
+    "task_detail": "生活服务搜索",
+    "acceptance_tag": "基础验收"
+  },
+  "2049": {
+    "function_domain": "出行域",
+    "task_detail": "生活服务搜索",
+    "acceptance_tag": "基础验收"
+  },
+  "2050": {
+    "function_domain": "出行域",
+    "task_detail": "生活服务搜索",
+    "acceptance_tag": "基础验收"
+  },
+  "2051": {
+    "function_domain": "出行域",
+    "task_detail": "生活服务搜索",
+    "acceptance_tag": "基础验收"
+  },
+  "2052": {
+    "function_domain": "出行域",
+    "task_detail": "生活服务搜索",
+    "acceptance_tag": "基础验收"
+  },
+  "2053": {
+    "function_domain": "出行域",
+    "task_detail": "生活服务搜索",
+    "acceptance_tag": "基础验收"
+  },
+  "2054": {
+    "function_domain": "出行域",
+    "task_detail": "生活服务搜索",
+    "acceptance_tag": "基础验收"
+  },
+  "2055": {
+    "function_domain": "出行域",
+    "task_detail": "生活服务搜索",
+    "acceptance_tag": "基础验收"
+  },
+  "2056": {
+    "function_domain": "出行域",
+    "task_detail": "生活服务搜索",
+    "acceptance_tag": "基础验收"
+  },
+  "2057": {
+    "function_domain": "出行域",
+    "task_detail": "生活服务搜索",
+    "acceptance_tag": "基础验收"
+  },
+  "2058": {
+    "function_domain": "出行域",
+    "task_detail": "生活服务搜索",
+    "acceptance_tag": "基础验收"
+  },
+  "2059": {
+    "function_domain": "出行域",
+    "task_detail": "生活服务搜索",
+    "acceptance_tag": "基础验收"
+  },
+  "2060": {
+    "function_domain": "出行域",
+    "task_detail": "直接指令导航",
+    "acceptance_tag": "基础验收"
+  },
+  "2061": {
+    "function_domain": "出行域",
+    "task_detail": "直接指令导航",
+    "acceptance_tag": "基础验收"
+  },
+  "2062": {
+    "function_domain": "出行域",
+    "task_detail": "直接指令导航",
+    "acceptance_tag": "基础验收"
+  },
+  "2063": {
+    "function_domain": "出行域",
+    "task_detail": "直接指令导航",
+    "acceptance_tag": "基础验收"
+  },
+  "2064": {
+    "function_domain": "出行域",
+    "task_detail": "直接指令导航",
+    "acceptance_tag": "基础验收"
+  },
+  "2065": {
+    "function_domain": "出行域",
+    "task_detail": "直接指令导航",
+    "acceptance_tag": "基础验收"
+  },
+  "2066": {
+    "function_domain": "出行域",
+    "task_detail": "直接指令导航",
+    "acceptance_tag": "基础验收"
+  },
+  "2067": {
+    "function_domain": "出行域",
+    "task_detail": "直接指令导航",
+    "acceptance_tag": "基础验收"
+  },
+  "2068": {
+    "function_domain": "出行域",
+    "task_detail": "直接指令导航",
+    "acceptance_tag": "基础验收"
+  },
+  "2069": {
+    "function_domain": "出行域",
+    "task_detail": "直接指令导航",
+    "acceptance_tag": "基础验收"
+  },
+  "2070": {
+    "function_domain": "出行域",
+    "task_detail": "直接指令导航",
+    "acceptance_tag": "基础验收"
+  },
+  "2071": {
+    "function_domain": "出行域",
+    "task_detail": "直接指令导航",
+    "acceptance_tag": "基础验收"
+  },
+  "2072": {
+    "function_domain": "出行域",
+    "task_detail": "直接指令导航",
+    "acceptance_tag": "基础验收"
+  },
+  "2073": {
+    "function_domain": "出行域",
+    "task_detail": "直接指令导航",
+    "acceptance_tag": "基础验收"
+  },
+  "2074": {
+    "function_domain": "出行域",
+    "task_detail": "多目的地路径规划",
+    "acceptance_tag": "进阶验收"
+  },
+  "2075": {
+    "function_domain": "出行域",
+    "task_detail": "多目的地路径规划",
+    "acceptance_tag": "进阶验收"
+  },
+  "2076": {
+    "function_domain": "出行域",
+    "task_detail": "多目的地路径规划",
+    "acceptance_tag": "进阶验收"
+  },
+  "2077": {
+    "function_domain": "出行域",
+    "task_detail": "多目的地路径规划",
+    "acceptance_tag": "进阶验收"
+  },
+  "2078": {
+    "function_domain": "出行域",
+    "task_detail": "多目的地路径规划",
+    "acceptance_tag": "进阶验收"
+  },
+  "2079": {
+    "function_domain": "出行域",
+    "task_detail": "多目的地路径规划",
+    "acceptance_tag": "进阶验收"
+  },
+  "2080": {
+    "function_domain": "出行域",
+    "task_detail": "多目的地路径规划",
+    "acceptance_tag": "进阶验收"
+  },
+  "2081": {
+    "function_domain": "出行域",
+    "task_detail": "多目的地路径规划",
+    "acceptance_tag": "进阶验收"
+  },
+  "2082": {
+    "function_domain": "出行域",
+    "task_detail": "多目的地路径规划",
+    "acceptance_tag": "进阶验收"
+  },
+  "2083": {
+    "function_domain": "出行域",
+    "task_detail": "多目的地路径规划",
+    "acceptance_tag": "进阶验收"
+  },
+  "2084": {
+    "function_domain": "出行域",
+    "task_detail": "多目的地路径规划",
+    "acceptance_tag": "进阶验收"
+  },
+  "2085": {
+    "function_domain": "出行域",
+    "task_detail": "多目的地路径规划",
+    "acceptance_tag": "进阶验收"
+  },
+  "2086": {
+    "function_domain": "出行域",
+    "task_detail": "目的地修正",
+    "acceptance_tag": "进阶验收"
+  },
+  "2087": {
+    "function_domain": "出行域",
+    "task_detail": "目的地修正",
+    "acceptance_tag": "进阶验收"
+  },
+  "2088": {
+    "function_domain": "出行域",
+    "task_detail": "目的地修正",
+    "acceptance_tag": "进阶验收"
+  },
+  "2089": {
+    "function_domain": "出行域",
+    "task_detail": "目的地修正",
+    "acceptance_tag": "进阶验收"
+  },
+  "2090": {
+    "function_domain": "出行域",
+    "task_detail": "目的地修正",
+    "acceptance_tag": "进阶验收"
+  },
+  "2091": {
+    "function_domain": "出行域",
+    "task_detail": "目的地修正",
+    "acceptance_tag": "进阶验收"
+  },
+  "2092": {
+    "function_domain": "出行域",
+    "task_detail": "目的地修正",
+    "acceptance_tag": "进阶验收"
+  },
+  "2093": {
+    "function_domain": "出行域",
+    "task_detail": "模糊时间理解",
+    "acceptance_tag": "进阶验收"
+  },
+  "2094": {
+    "function_domain": "出行域",
+    "task_detail": "模糊时间理解",
+    "acceptance_tag": "进阶验收"
+  },
+  "2095": {
+    "function_domain": "出行域",
+    "task_detail": "模糊时间理解",
+    "acceptance_tag": "进阶验收"
+  },
+  "2096": {
+    "function_domain": "出行域",
+    "task_detail": "模糊时间理解",
+    "acceptance_tag": "进阶验收"
+  },
+  "2097": {
+    "function_domain": "出行域",
+    "task_detail": "模糊时间理解",
+    "acceptance_tag": "进阶验收"
+  },
+  "2098": {
+    "function_domain": "出行域",
+    "task_detail": "模糊时间理解",
+    "acceptance_tag": "进阶验收"
+  },
+  "2099": {
+    "function_domain": "出行域",
+    "task_detail": "模糊地点理解",
+    "acceptance_tag": "进阶验收"
+  },
+  "2100": {
+    "function_domain": "出行域",
+    "task_detail": "模糊地点理解",
+    "acceptance_tag": "进阶验收"
+  },
+  "2101": {
+    "function_domain": "出行域",
+    "task_detail": "模糊地点理解",
+    "acceptance_tag": "进阶验收"
+  },
+  "2102": {
+    "function_domain": "出行域",
+    "task_detail": "模糊地点理解",
+    "acceptance_tag": "进阶验收"
+  },
+  "2103": {
+    "function_domain": "出行域",
+    "task_detail": "模糊地点理解",
+    "acceptance_tag": "进阶验收"
+  },
+  "2104": {
+    "function_domain": "出行域",
+    "task_detail": "模糊地点理解",
+    "acceptance_tag": "进阶验收"
+  },
+  "2105": {
+    "function_domain": "出行域",
+    "task_detail": "模糊地点理解",
+    "acceptance_tag": "进阶验收"
+  },
+  "2106": {
+    "function_domain": "出行域",
+    "task_detail": "模糊地点理解",
+    "acceptance_tag": "进阶验收"
+  },
+  "2107": {
+    "function_domain": "出行域",
+    "task_detail": "模糊地点理解",
+    "acceptance_tag": "进阶验收"
+  },
+  "2108": {
+    "function_domain": "出行域",
+    "task_detail": "模糊地点理解",
+    "acceptance_tag": "进阶验收"
+  },
+  "2109": {
+    "function_domain": "出行域",
+    "task_detail": "模糊地点理解",
+    "acceptance_tag": "进阶验收"
+  },
+  "2110": {
+    "function_domain": "出行域",
+    "task_detail": "模糊地点理解",
+    "acceptance_tag": "进阶验收"
+  },
+  "2111": {
+    "function_domain": "出行域",
+    "task_detail": "模糊地点理解",
+    "acceptance_tag": "进阶验收"
+  },
+  "2112": {
+    "function_domain": "出行域",
+    "task_detail": "模糊地点理解",
+    "acceptance_tag": "进阶验收"
+  },
+  "2113": {
+    "function_domain": "出行域",
+    "task_detail": "模糊地点理解",
+    "acceptance_tag": "进阶验收"
+  },
+  "2114": {
+    "function_domain": "出行域",
+    "task_detail": "模糊地点理解",
+    "acceptance_tag": "进阶验收"
+  },
+  "2115": {
+    "function_domain": "出行域",
+    "task_detail": "地域文化表达适配",
+    "acceptance_tag": "中等验收"
+  },
+  "2116": {
+    "function_domain": "出行域",
+    "task_detail": "地域文化表达适配",
+    "acceptance_tag": "中等验收"
+  },
+  "2117": {
+    "function_domain": "出行域",
+    "task_detail": "地域文化表达适配",
+    "acceptance_tag": "中等验收"
+  },
+  "2118": {
+    "function_domain": "出行域",
+    "task_detail": "地域文化表达适配",
+    "acceptance_tag": "中等验收"
+  },
+  "2119": {
+    "function_domain": "出行域",
+    "task_detail": "口语化模糊意图理解",
+    "acceptance_tag": "进阶验收"
+  },
+  "2120": {
+    "function_domain": "出行域",
+    "task_detail": "口语化模糊意图理解",
+    "acceptance_tag": "进阶验收"
+  },
+  "2121": {
+    "function_domain": "出行域",
+    "task_detail": "口语化模糊意图理解",
+    "acceptance_tag": "进阶验收"
+  },
+  "2122": {
+    "function_domain": "出行域",
+    "task_detail": "口语化模糊意图理解",
+    "acceptance_tag": "进阶验收"
+  },
+  "2123": {
+    "function_domain": "出行域",
+    "task_detail": "口语化模糊意图理解",
+    "acceptance_tag": "进阶验收"
+  },
+  "2124": {
+    "function_domain": "出行域",
+    "task_detail": "口语化模糊意图理解",
+    "acceptance_tag": "进阶验收"
+  },
+  "2125": {
+    "function_domain": "出行域",
+    "task_detail": "口语化模糊意图理解",
+    "acceptance_tag": "进阶验收"
+  },
+  "2126": {
+    "function_domain": "出行域",
+    "task_detail": "简单条件出行规划",
+    "acceptance_tag": "基础验收"
+  },
+  "2127": {
+    "function_domain": "出行域",
+    "task_detail": "简单条件出行规划",
+    "acceptance_tag": "基础验收"
+  },
+  "2128": {
+    "function_domain": "出行域",
+    "task_detail": "简单条件出行规划",
+    "acceptance_tag": "基础验收"
+  },
+  "2129": {
+    "function_domain": "出行域",
+    "task_detail": "简单条件出行规划",
+    "acceptance_tag": "基础验收"
+  },
+  "2130": {
+    "function_domain": "出行域",
+    "task_detail": "简单条件出行规划",
+    "acceptance_tag": "基础验收"
+  },
+  "2131": {
+    "function_domain": "出行域",
+    "task_detail": "复杂条件出行规划",
+    "acceptance_tag": "中等验收"
+  },
+  "2132": {
+    "function_domain": "出行域",
+    "task_detail": "复杂条件出行规划",
+    "acceptance_tag": "中等验收"
+  },
+  "2133": {
+    "function_domain": "出行域",
+    "task_detail": "复杂条件出行规划",
+    "acceptance_tag": "中等验收"
+  },
+  "2134": {
+    "function_domain": "出行域",
+    "task_detail": "复杂条件出行规划",
+    "acceptance_tag": "中等验收"
+  },
+  "2135": {
+    "function_domain": "出行域",
+    "task_detail": "复杂条件出行规划",
+    "acceptance_tag": "中等验收"
+  },
+  "2136": {
+    "function_domain": "出行域",
+    "task_detail": "复杂条件出行规划",
+    "acceptance_tag": "中等验收"
+  },
+  "2137": {
+    "function_domain": "出行域",
+    "task_detail": "复杂条件出行规划",
+    "acceptance_tag": "中等验收"
+  },
+  "2138": {
+    "function_domain": "出行域",
+    "task_detail": "复杂条件出行规划",
+    "acceptance_tag": "中等验收"
+  },
+  "2139": {
+    "function_domain": "出行域",
+    "task_detail": "模糊条件出行规划",
+    "acceptance_tag": "进阶验收"
+  },
+  "2140": {
+    "function_domain": "出行域",
+    "task_detail": "模糊条件出行规划",
+    "acceptance_tag": "进阶验收"
+  },
+  "2141": {
+    "function_domain": "出行域",
+    "task_detail": "模糊条件出行规划",
+    "acceptance_tag": "进阶验收"
+  },
+  "2142": {
+    "function_domain": "出行域",
+    "task_detail": "模糊条件出行规划",
+    "acceptance_tag": "进阶验收"
+  },
+  "2143": {
+    "function_domain": "出行域",
+    "task_detail": "模糊条件出行规划",
+    "acceptance_tag": "进阶验收"
+  },
+  "2144": {
+    "function_domain": "出行域",
+    "task_detail": "连续对话导航",
+    "acceptance_tag": "中等验收"
+  },
+  "2149": {
+    "function_domain": "出行域",
+    "task_detail": "连续对话导航",
+    "acceptance_tag": "中等验收"
+  },
+  "2151": {
+    "function_domain": "出行域",
+    "task_detail": "连续对话导航",
+    "acceptance_tag": "中等验收"
+  },
+  "2156": {
+    "function_domain": "出行域",
+    "task_detail": "目的地修正",
+    "acceptance_tag": "进阶验收"
+  },
+  "2160": {
+    "function_domain": "出行域",
+    "task_detail": "连续对话导航",
+    "acceptance_tag": "中等验收"
+  },
+  "2164": {
+    "function_domain": "出行域",
+    "task_detail": "连续对话导航",
+    "acceptance_tag": "中等验收"
+  },
+  "2167": {
+    "function_domain": "出行域",
+    "task_detail": "连续对话导航",
+    "acceptance_tag": "中等验收"
+  },
+  "3001": {
+    "function_domain": "车书域",
+    "task_detail": "交通法规问答",
+    "acceptance_tag": "基础验收"
+  },
+  "3002": {
+    "function_domain": "车书域",
+    "task_detail": "交通法规问答",
+    "acceptance_tag": "基础验收"
+  },
+  "3003": {
+    "function_domain": "车书域",
+    "task_detail": "交通法规问答",
+    "acceptance_tag": "基础验收"
+  },
+  "3004": {
+    "function_domain": "车书域",
+    "task_detail": "交通法规问答",
+    "acceptance_tag": "基础验收"
+  },
+  "3005": {
+    "function_domain": "车书域",
+    "task_detail": "交通法规问答",
+    "acceptance_tag": "基础验收"
+  },
+  "3006": {
+    "function_domain": "车书域",
+    "task_detail": "道路标志解读",
+    "acceptance_tag": "进阶验收"
+  },
+  "3007": {
+    "function_domain": "车书域",
+    "task_detail": "道路标志解读",
+    "acceptance_tag": "进阶验收"
+  },
+  "3008": {
+    "function_domain": "车书域",
+    "task_detail": "道路标志解读",
+    "acceptance_tag": "进阶验收"
+  },
+  "3009": {
+    "function_domain": "车书域",
+    "task_detail": "道路标志解读",
+    "acceptance_tag": "进阶验收"
+  },
+  "3010": {
+    "function_domain": "车书域",
+    "task_detail": "道路标志解读",
+    "acceptance_tag": "进阶验收"
+  },
+  "3011": {
+    "function_domain": "车书域",
+    "task_detail": "驾驶操控功能设置",
+    "acceptance_tag": "中等验收"
+  },
+  "3012": {
+    "function_domain": "车书域",
+    "task_detail": "驾驶操控功能设置",
+    "acceptance_tag": "中等验收"
+  },
+  "3013": {
+    "function_domain": "车书域",
+    "task_detail": "驾驶操控功能设置",
+    "acceptance_tag": "中等验收"
+  },
+  "3014": {
+    "function_domain": "车书域",
+    "task_detail": "驾驶操控功能设置",
+    "acceptance_tag": "中等验收"
+  },
+  "3015": {
+    "function_domain": "车书域",
+    "task_detail": "交通处罚标准查询",
+    "acceptance_tag": "基础验收"
+  },
+  "3016": {
+    "function_domain": "车书域",
+    "task_detail": "交通处罚标准查询",
+    "acceptance_tag": "基础验收"
+  },
+  "3017": {
+    "function_domain": "车书域",
+    "task_detail": "交通处罚标准查询",
+    "acceptance_tag": "基础验收"
+  },
+  "3018": {
+    "function_domain": "车书域",
+    "task_detail": "交通处罚标准查询",
+    "acceptance_tag": "基础验收"
+  },
+  "3019": {
+    "function_domain": "车书域",
+    "task_detail": "交通处罚标准查询",
+    "acceptance_tag": "基础验收"
+  },
+  "3020": {
+    "function_domain": "车书域",
+    "task_detail": "交通处罚标准查询",
+    "acceptance_tag": "基础验收"
+  },
+  "3021": {
+    "function_domain": "车书域",
+    "task_detail": "车辆参数配置解析",
+    "acceptance_tag": "基础验收"
+  },
+  "3022": {
+    "function_domain": "车书域",
+    "task_detail": "车辆参数配置解析",
+    "acceptance_tag": "基础验收"
+  },
+  "3023": {
+    "function_domain": "车书域",
+    "task_detail": "车辆参数配置解析",
+    "acceptance_tag": "基础验收"
+  },
+  "3024": {
+    "function_domain": "车书域",
+    "task_detail": "车辆参数配置解析",
+    "acceptance_tag": "基础验收"
+  },
+  "3025": {
+    "function_domain": "车书域",
+    "task_detail": "车辆安全技术解析",
+    "acceptance_tag": "中等验收"
+  },
+  "3026": {
+    "function_domain": "车书域",
+    "task_detail": "车辆安全技术解析",
+    "acceptance_tag": "中等验收"
+  },
+  "3027": {
+    "function_domain": "车书域",
+    "task_detail": "车辆安全技术解析",
+    "acceptance_tag": "中等验收"
+  },
+  "3028": {
+    "function_domain": "车书域",
+    "task_detail": "车辆安全技术解析",
+    "acceptance_tag": "中等验收"
+  },
+  "3029": {
+    "function_domain": "车书域",
+    "task_detail": "车辆安全技术解析",
+    "acceptance_tag": "中等验收"
+  },
+  "3030": {
+    "function_domain": "车书域",
+    "task_detail": "车辆安全技术解析",
+    "acceptance_tag": "中等验收"
+  },
+  "3031": {
+    "function_domain": "车书域",
+    "task_detail": "车辆技术原理阐释",
+    "acceptance_tag": "基础验收"
+  },
+  "3032": {
+    "function_domain": "车书域",
+    "task_detail": "车辆技术原理阐释",
+    "acceptance_tag": "基础验收"
+  },
+  "3033": {
+    "function_domain": "车书域",
+    "task_detail": "车辆技术原理阐释",
+    "acceptance_tag": "基础验收"
+  },
+  "3034": {
+    "function_domain": "车书域",
+    "task_detail": "车辆技术原理阐释",
+    "acceptance_tag": "基础验收"
+  },
+  "3035": {
+    "function_domain": "车书域",
+    "task_detail": "车辆技术原理阐释",
+    "acceptance_tag": "基础验收"
+  },
+  "3036": {
+    "function_domain": "车书域",
+    "task_detail": "汽车知识解读",
+    "acceptance_tag": "基础验收"
+  },
+  "3037": {
+    "function_domain": "车书域",
+    "task_detail": "汽车知识解读",
+    "acceptance_tag": "基础验收"
+  },
+  "3038": {
+    "function_domain": "车书域",
+    "task_detail": "汽车知识解读",
+    "acceptance_tag": "基础验收"
+  },
+  "3039": {
+    "function_domain": "车书域",
+    "task_detail": "汽车知识解读",
+    "acceptance_tag": "基础验收"
+  },
+  "3040": {
+    "function_domain": "车书域",
+    "task_detail": "车辆维保问答",
+    "acceptance_tag": "中等验收"
+  },
+  "3041": {
+    "function_domain": "车书域",
+    "task_detail": "车辆维保问答",
+    "acceptance_tag": "中等验收"
+  },
+  "3042": {
+    "function_domain": "车书域",
+    "task_detail": "车辆维保问答",
+    "acceptance_tag": "中等验收"
+  },
+  "3043": {
+    "function_domain": "车书域",
+    "task_detail": "车辆维保问答",
+    "acceptance_tag": "中等验收"
+  },
+  "3044": {
+    "function_domain": "车书域",
+    "task_detail": "车辆维保问答",
+    "acceptance_tag": "中等验收"
+  },
+  "3045": {
+    "function_domain": "车书域",
+    "task_detail": "车辆维保问答",
+    "acceptance_tag": "中等验收"
+  },
+  "3046": {
+    "function_domain": "车书域",
+    "task_detail": "汽车品牌市场问答",
+    "acceptance_tag": "基础验收"
+  },
+  "3047": {
+    "function_domain": "车书域",
+    "task_detail": "汽车品牌市场问答",
+    "acceptance_tag": "基础验收"
+  },
+  "3048": {
+    "function_domain": "车书域",
+    "task_detail": "汽车品牌市场问答",
+    "acceptance_tag": "基础验收"
+  },
+  "3049": {
+    "function_domain": "车书域",
+    "task_detail": "汽车品牌市场问答",
+    "acceptance_tag": "基础验收"
+  },
+  "3050": {
+    "function_domain": "车书域",
+    "task_detail": "汽车品牌市场问答",
+    "acceptance_tag": "基础验收"
+  },
+  "3051": {
+    "function_domain": "车书域",
+    "task_detail": "车辆安全应急问答",
+    "acceptance_tag": "中等验收"
+  },
+  "3052": {
+    "function_domain": "车书域",
+    "task_detail": "车辆安全应急问答",
+    "acceptance_tag": "中等验收"
+  },
+  "3053": {
+    "function_domain": "车书域",
+    "task_detail": "车辆安全应急问答",
+    "acceptance_tag": "中等验收"
+  },
+  "3054": {
+    "function_domain": "车书域",
+    "task_detail": "车辆安全应急问答",
+    "acceptance_tag": "中等验收"
+  },
+  "3055": {
+    "function_domain": "车书域",
+    "task_detail": "车辆安全应急问答",
+    "acceptance_tag": "中等验收"
+  },
+  "3056": {
+    "function_domain": "车书域",
+    "task_detail": "车辆安全应急问答",
+    "acceptance_tag": "中等验收"
+  },
+  "3057": {
+    "function_domain": "车书域",
+    "task_detail": "座舱功能设置",
+    "acceptance_tag": "基础验收"
+  },
+  "3058": {
+    "function_domain": "车书域",
+    "task_detail": "座舱功能设置",
+    "acceptance_tag": "基础验收"
+  },
+  "3059": {
+    "function_domain": "车书域",
+    "task_detail": "座舱功能设置",
+    "acceptance_tag": "基础验收"
+  },
+  "3060": {
+    "function_domain": "车书域",
+    "task_detail": "座舱功能设置",
+    "acceptance_tag": "基础验收"
+  },
+  "3061": {
+    "function_domain": "车书域",
+    "task_detail": "座舱功能设置",
+    "acceptance_tag": "基础验收"
+  },
+  "3062": {
+    "function_domain": "车书域",
+    "task_detail": "座舱功能设置",
+    "acceptance_tag": "基础验收"
+  },
+  "3063": {
+    "function_domain": "车书域",
+    "task_detail": "座舱功能设置",
+    "acceptance_tag": "基础验收"
+  },
+  "3064": {
+    "function_domain": "车书域",
+    "task_detail": "座舱功能设置",
+    "acceptance_tag": "基础验收"
+  },
+  "3065": {
+    "function_domain": "车书域",
+    "task_detail": "驾驶操控功能设置",
+    "acceptance_tag": "中等验收"
+  },
+  "3066": {
+    "function_domain": "车书域",
+    "task_detail": "驾驶操控功能设置",
+    "acceptance_tag": "中等验收"
+  },
+  "3067": {
+    "function_domain": "车书域",
+    "task_detail": "驾驶操控功能设置",
+    "acceptance_tag": "中等验收"
+  },
+  "3068": {
+    "function_domain": "车书域",
+    "task_detail": "驾驶操控功能设置",
+    "acceptance_tag": "中等验收"
+  },
+  "3069": {
+    "function_domain": "车书域",
+    "task_detail": "驾驶操控功能设置",
+    "acceptance_tag": "中等验收"
+  },
+  "3070": {
+    "function_domain": "车书域",
+    "task_detail": "驾驶操控功能设置",
+    "acceptance_tag": "中等验收"
+  },
+  "3071": {
+    "function_domain": "车书域",
+    "task_detail": "驾驶操控功能设置",
+    "acceptance_tag": "中等验收"
+  },
+  "3072": {
+    "function_domain": "车书域",
+    "task_detail": "驾驶操控功能设置",
+    "acceptance_tag": "中等验收"
+  },
+  "3073": {
+    "function_domain": "车书域",
+    "task_detail": "驾驶操控功能设置",
+    "acceptance_tag": "中等验收"
+  },
+  "3074": {
+    "function_domain": "车书域",
+    "task_detail": "驾驶操控功能设置",
+    "acceptance_tag": "中等验收"
+  },
+  "3075": {
+    "function_domain": "车书域",
+    "task_detail": "车机系统设置",
+    "acceptance_tag": "基础验收"
+  },
+  "3076": {
+    "function_domain": "车书域",
+    "task_detail": "车机系统设置",
+    "acceptance_tag": "基础验收"
+  },
+  "3077": {
+    "function_domain": "车书域",
+    "task_detail": "车机系统设置",
+    "acceptance_tag": "基础验收"
+  },
+  "3078": {
+    "function_domain": "车书域",
+    "task_detail": "车机系统设置",
+    "acceptance_tag": "基础验收"
+  },
+  "3079": {
+    "function_domain": "车书域",
+    "task_detail": "车机系统设置",
+    "acceptance_tag": "基础验收"
+  },
+  "3080": {
+    "function_domain": "车书域",
+    "task_detail": "车机系统设置",
+    "acceptance_tag": "基础验收"
+  },
+  "3081": {
+    "function_domain": "车书域",
+    "task_detail": "车机系统设置",
+    "acceptance_tag": "基础验收"
+  },
+  "3082": {
+    "function_domain": "车书域",
+    "task_detail": "车辆参数配置解析",
+    "acceptance_tag": "基础验收"
+  },
+  "3083": {
+    "function_domain": "车书域",
+    "task_detail": "车辆参数配置解析",
+    "acceptance_tag": "基础验收"
+  },
+  "3084": {
+    "function_domain": "车书域",
+    "task_detail": "本品信息查询",
+    "acceptance_tag": "中等验收"
+  },
+  "3085": {
+    "function_domain": "车书域",
+    "task_detail": "汽车知识解读",
+    "acceptance_tag": "基础验收"
+  },
+  "3086": {
+    "function_domain": "车书域",
+    "task_detail": "车辆维保问答",
+    "acceptance_tag": "中等验收"
+  },
+  "3087": {
+    "function_domain": "车书域",
+    "task_detail": "汽车知识解读",
+    "acceptance_tag": "基础验收"
+  },
+  "3088": {
+    "function_domain": "车书域",
+    "task_detail": "座舱功能设置",
+    "acceptance_tag": "基础验收"
+  },
+  "3089": {
+    "function_domain": "车书域",
+    "task_detail": "汽车知识解读",
+    "acceptance_tag": "基础验收"
+  },
+  "3090": {
+    "function_domain": "车书域",
+    "task_detail": "座舱功能设置",
+    "acceptance_tag": "基础验收"
+  },
+  "3091": {
+    "function_domain": "车书域",
+    "task_detail": "本品信息查询",
+    "acceptance_tag": "中等验收"
+  },
+  "3092": {
+    "function_domain": "车书域",
+    "task_detail": "车辆维保问答",
+    "acceptance_tag": "中等验收"
+  },
+  "3093": {
+    "function_domain": "车书域",
+    "task_detail": "车机系统设置",
+    "acceptance_tag": "基础验收"
+  },
+  "3094": {
+    "function_domain": "车书域",
+    "task_detail": "汽车知识解读",
+    "acceptance_tag": "基础验收"
+  },
+  "3095": {
+    "function_domain": "车书域",
+    "task_detail": "车机系统设置",
+    "acceptance_tag": "基础验收"
+  },
+  "3096": {
+    "function_domain": "车书域",
+    "task_detail": "车辆维保问答",
+    "acceptance_tag": "中等验收"
+  },
+  "3097": {
+    "function_domain": "车书域",
+    "task_detail": "车辆维保问答",
+    "acceptance_tag": "中等验收"
+  },
+  "3098": {
+    "function_domain": "车书域",
+    "task_detail": "本品信息查询",
+    "acceptance_tag": "中等验收"
+  },
+  "3099": {
+    "function_domain": "车书域",
+    "task_detail": "本品信息查询",
+    "acceptance_tag": "中等验收"
+  },
+  "3100": {
+    "function_domain": "车书域",
+    "task_detail": "本品信息查询",
+    "acceptance_tag": "中等验收"
+  },
+  "3101": {
+    "function_domain": "车书域",
+    "task_detail": "汽车知识解读",
+    "acceptance_tag": "基础验收"
+  },
+  "3127": {
+    "function_domain": "车书域",
+    "task_detail": "交通法规问答",
+    "acceptance_tag": "基础验收"
+  },
+  "3128": {
+    "function_domain": "车书域",
+    "task_detail": "车辆安全功能问答",
+    "acceptance_tag": "中等验收"
+  },
+  "3129": {
+    "function_domain": "车书域",
+    "task_detail": "车辆安全功能问答",
+    "acceptance_tag": "中等验收"
+  },
+  "3130": {
+    "function_domain": "车书域",
+    "task_detail": "车辆安全功能问答",
+    "acceptance_tag": "中等验收"
+  },
+  "3131": {
+    "function_domain": "车书域",
+    "task_detail": "车辆安全功能问答",
+    "acceptance_tag": "中等验收"
+  },
+  "3132": {
+    "function_domain": "车书域",
+    "task_detail": "交通处罚标准查询",
+    "acceptance_tag": "基础验收"
+  },
+  "3133": {
+    "function_domain": "车书域",
+    "task_detail": "车辆安全技术解析",
+    "acceptance_tag": "中等验收"
+  },
+  "3134": {
+    "function_domain": "车书域",
+    "task_detail": "交通法规问答",
+    "acceptance_tag": "基础验收"
+  },
+  "3135": {
+    "function_domain": "车书域",
+    "task_detail": "交通法规问答",
+    "acceptance_tag": "基础验收"
+  },
+  "3136": {
+    "function_domain": "车书域",
+    "task_detail": "指令否定与修正",
+    "acceptance_tag": "进阶验收"
+  },
+  "3137": {
+    "function_domain": "车书域",
+    "task_detail": "指令否定与修正",
+    "acceptance_tag": "进阶验收"
+  },
+  "3138": {
+    "function_domain": "车书域",
+    "task_detail": "多问题回答",
+    "acceptance_tag": "中等验收"
+  },
+  "3139": {
+    "function_domain": "车书域",
+    "task_detail": "多问题回答",
+    "acceptance_tag": "中等验收"
+  },
+  "3140": {
+    "function_domain": "车书域",
+    "task_detail": "多问题回答",
+    "acceptance_tag": "中等验收"
+  },
+  "3141": {
+    "function_domain": "车书域",
+    "task_detail": "多问题回答",
+    "acceptance_tag": "中等验收"
+  },
+  "3142": {
+    "function_domain": "车书域",
+    "task_detail": "多问题回答",
+    "acceptance_tag": "中等验收"
+  },
+  "3143": {
+    "function_domain": "车书域",
+    "task_detail": "多问题回答",
+    "acceptance_tag": "中等验收"
+  },
+  "3144": {
+    "function_domain": "车书域",
+    "task_detail": "多问题回答",
+    "acceptance_tag": "中等验收"
+  },
+  "3145": {
+    "function_domain": "车书域",
+    "task_detail": "多问题回答",
+    "acceptance_tag": "中等验收"
+  },
+  "3146": {
+    "function_domain": "车书域",
+    "task_detail": "多问题回答",
+    "acceptance_tag": "中等验收"
+  },
+  "3147": {
+    "function_domain": "车书域",
+    "task_detail": "多问题回答",
+    "acceptance_tag": "中等验收"
+  },
+  "3148": {
+    "function_domain": "车书域",
+    "task_detail": "汽车质量相关知识问答",
+    "acceptance_tag": "基础验收"
+  },
+  "3149": {
+    "function_domain": "车书域",
+    "task_detail": "汽车质量相关知识问答",
+    "acceptance_tag": "基础验收"
+  },
+  "3150": {
+    "function_domain": "车书域",
+    "task_detail": "汽车质量相关知识问答",
+    "acceptance_tag": "基础验收"
+  },
+  "3151": {
+    "function_domain": "车书域",
+    "task_detail": "汽车质量相关知识问答",
+    "acceptance_tag": "基础验收"
+  },
+  "3152": {
+    "function_domain": "车书域",
+    "task_detail": "汽车质量相关知识问答",
+    "acceptance_tag": "基础验收"
+  },
+  "3153": {
+    "function_domain": "车书域",
+    "task_detail": "汽车质量相关知识问答",
+    "acceptance_tag": "基础验收"
+  },
+  "3154": {
+    "function_domain": "车书域",
+    "task_detail": "汽车质量相关知识问答",
+    "acceptance_tag": "基础验收"
+  },
+  "3155": {
+    "function_domain": "车书域",
+    "task_detail": "汽车质量相关知识问答",
+    "acceptance_tag": "基础验收"
+  },
+  "3156": {
+    "function_domain": "车书域",
+    "task_detail": "汽车质量相关知识问答",
+    "acceptance_tag": "基础验收"
+  },
+  "3157": {
+    "function_domain": "车书域",
+    "task_detail": "事故处理指导",
+    "acceptance_tag": "中等验收"
+  },
+  "3158": {
+    "function_domain": "车书域",
+    "task_detail": "本品信息查询",
+    "acceptance_tag": "中等验收"
+  },
+  "3159": {
+    "function_domain": "车书域",
+    "task_detail": "汽车知识解读",
+    "acceptance_tag": "基础验收"
+  },
+  "3160": {
+    "function_domain": "车书域",
+    "task_detail": "交通法规问答",
+    "acceptance_tag": "基础验收"
+  },
+  "3161": {
+    "function_domain": "车书域",
+    "task_detail": "车机系统设置",
+    "acceptance_tag": "基础验收"
+  },
+  "3162": {
+    "function_domain": "车书域",
+    "task_detail": "车辆安全功能问答",
+    "acceptance_tag": "中等验收"
+  },
+  "3163": {
+    "function_domain": "车书域",
+    "task_detail": "车辆安全功能问答",
+    "acceptance_tag": "中等验收"
+  },
+  "3164": {
+    "function_domain": "车书域",
+    "task_detail": "车辆安全功能问答",
+    "acceptance_tag": "中等验收"
+  },
+  "3165": {
+    "function_domain": "车书域",
+    "task_detail": "车辆安全功能问答",
+    "acceptance_tag": "中等验收"
+  },
+  "3166": {
+    "function_domain": "车书域",
+    "task_detail": "车辆安全应急问答",
+    "acceptance_tag": "中等验收"
+  },
+  "3167": {
+    "function_domain": "车书域",
+    "task_detail": "汽车知识解读",
+    "acceptance_tag": "基础验收"
+  },
+  "3168": {
+    "function_domain": "车书域",
+    "task_detail": "汽车知识解读",
+    "acceptance_tag": "基础验收"
+  },
+  "3169": {
+    "function_domain": "车书域",
+    "task_detail": "汽车品牌市场问答",
+    "acceptance_tag": "基础验收"
+  },
+  "3170": {
+    "function_domain": "车书域",
+    "task_detail": "汽车品牌市场问答",
+    "acceptance_tag": "基础验收"
+  },
+  "3171": {
+    "function_domain": "车书域",
+    "task_detail": "汽车品牌市场问答",
+    "acceptance_tag": "基础验收"
+  },
+  "3172": {
+    "function_domain": "车书域",
+    "task_detail": "车辆安全功能问答",
+    "acceptance_tag": "中等验收"
+  },
+  "3173": {
+    "function_domain": "车书域",
+    "task_detail": "汽车品牌市场问答",
+    "acceptance_tag": "基础验收"
+  },
+  "3174": {
+    "function_domain": "车书域",
+    "task_detail": "本品信息查询",
+    "acceptance_tag": "中等验收"
+  },
+  "3175": {
+    "function_domain": "车书域",
+    "task_detail": "本品信息查询",
+    "acceptance_tag": "中等验收"
+  },
+  "3176": {
+    "function_domain": "车书域",
+    "task_detail": "车辆安全功能问答",
+    "acceptance_tag": "中等验收"
+  },
+  "3177": {
+    "function_domain": "车书域",
+    "task_detail": "本品信息查询",
+    "acceptance_tag": "中等验收"
+  },
+  "4001": {
+    "function_domain": "娱乐域",
+    "task_detail": "艺人影音搜索与播放",
+    "acceptance_tag": "基础验收"
+  },
+  "4002": {
+    "function_domain": "娱乐域",
+    "task_detail": "艺人影音搜索与播放",
+    "acceptance_tag": "基础验收"
+  },
+  "4003": {
+    "function_domain": "娱乐域",
+    "task_detail": "艺人影音搜索与播放",
+    "acceptance_tag": "基础验收"
+  },
+  "4004": {
+    "function_domain": "娱乐域",
+    "task_detail": "艺人影音搜索与播放",
+    "acceptance_tag": "基础验收"
+  },
+  "4005": {
+    "function_domain": "娱乐域",
+    "task_detail": "艺人影音搜索与播放",
+    "acceptance_tag": "基础验收"
+  },
+  "4006": {
+    "function_domain": "娱乐域",
+    "task_detail": "艺人影音搜索与播放",
+    "acceptance_tag": "基础验收"
+  },
+  "4007": {
+    "function_domain": "娱乐域",
+    "task_detail": "艺人影音搜索与播放",
+    "acceptance_tag": "基础验收"
+  },
+  "4008": {
+    "function_domain": "娱乐域",
+    "task_detail": "风格影音搜索与播放",
+    "acceptance_tag": "基础验收"
+  },
+  "4009": {
+    "function_domain": "娱乐域",
+    "task_detail": "风格影音搜索与播放",
+    "acceptance_tag": "基础验收"
+  },
+  "4010": {
+    "function_domain": "娱乐域",
+    "task_detail": "风格影音搜索与播放",
+    "acceptance_tag": "基础验收"
+  },
+  "4011": {
+    "function_domain": "娱乐域",
+    "task_detail": "风格影音搜索与播放",
+    "acceptance_tag": "基础验收"
+  },
+  "4012": {
+    "function_domain": "娱乐域",
+    "task_detail": "风格影音搜索与播放",
+    "acceptance_tag": "基础验收"
+  },
+  "4013": {
+    "function_domain": "娱乐域",
+    "task_detail": "风格影音搜索与播放",
+    "acceptance_tag": "基础验收"
+  },
+  "4014": {
+    "function_domain": "娱乐域",
+    "task_detail": "风格影音搜索与播放",
+    "acceptance_tag": "基础验收"
+  },
+  "4015": {
+    "function_domain": "娱乐域",
+    "task_detail": "风格影音搜索与播放",
+    "acceptance_tag": "基础验收"
+  },
+  "4016": {
+    "function_domain": "娱乐域",
+    "task_detail": "风格影音搜索与播放",
+    "acceptance_tag": "基础验收"
+  },
+  "4017": {
+    "function_domain": "娱乐域",
+    "task_detail": "风格影音搜索与播放",
+    "acceptance_tag": "基础验收"
+  },
+  "4018": {
+    "function_domain": "娱乐域",
+    "task_detail": "风格影音搜索与播放",
+    "acceptance_tag": "基础验收"
+  },
+  "4019": {
+    "function_domain": "娱乐域",
+    "task_detail": "风格影音搜索与播放",
+    "acceptance_tag": "基础验收"
+  },
+  "4020": {
+    "function_domain": "娱乐域",
+    "task_detail": "风格影音搜索与播放",
+    "acceptance_tag": "基础验收"
+  },
+  "4021": {
+    "function_domain": "娱乐域",
+    "task_detail": "风格影音搜索与播放",
+    "acceptance_tag": "基础验收"
+  },
+  "4022": {
+    "function_domain": "娱乐域",
+    "task_detail": "风格影音搜索与播放",
+    "acceptance_tag": "基础验收"
+  },
+  "4023": {
+    "function_domain": "娱乐域",
+    "task_detail": "风格影音搜索与播放",
+    "acceptance_tag": "基础验收"
+  },
+  "4024": {
+    "function_domain": "娱乐域",
+    "task_detail": "影音播放意图修正",
+    "acceptance_tag": "进阶验收"
+  },
+  "4025": {
+    "function_domain": "娱乐域",
+    "task_detail": "影音播放意图修正",
+    "acceptance_tag": "进阶验收"
+  },
+  "4026": {
+    "function_domain": "娱乐域",
+    "task_detail": "影音播放意图修正",
+    "acceptance_tag": "进阶验收"
+  },
+  "4027": {
+    "function_domain": "娱乐域",
+    "task_detail": "影音播放意图修正",
+    "acceptance_tag": "进阶验收"
+  },
+  "4028": {
+    "function_domain": "娱乐域",
+    "task_detail": "影音播放意图修正",
+    "acceptance_tag": "进阶验收"
+  },
+  "4029": {
+    "function_domain": "娱乐域",
+    "task_detail": "影音播放意图修正",
+    "acceptance_tag": "进阶验收"
+  },
+  "4030": {
+    "function_domain": "娱乐域",
+    "task_detail": "影音播放意图修正",
+    "acceptance_tag": "进阶验收"
+  },
+  "4031": {
+    "function_domain": "娱乐域",
+    "task_detail": "影音播放意图修正",
+    "acceptance_tag": "进阶验收"
+  },
+  "4032": {
+    "function_domain": "娱乐域",
+    "task_detail": "多条件影视推荐",
+    "acceptance_tag": "中等验收"
+  },
+  "4033": {
+    "function_domain": "娱乐域",
+    "task_detail": "多条件影视推荐",
+    "acceptance_tag": "中等验收"
+  },
+  "4034": {
+    "function_domain": "娱乐域",
+    "task_detail": "多条件影视推荐",
+    "acceptance_tag": "中等验收"
+  },
+  "4035": {
+    "function_domain": "娱乐域",
+    "task_detail": "多条件影视推荐",
+    "acceptance_tag": "中等验收"
+  },
+  "4036": {
+    "function_domain": "娱乐域",
+    "task_detail": "多条件影视推荐",
+    "acceptance_tag": "中等验收"
+  },
+  "4037": {
+    "function_domain": "娱乐域",
+    "task_detail": "多条件影视推荐",
+    "acceptance_tag": "中等验收"
+  },
+  "4038": {
+    "function_domain": "娱乐域",
+    "task_detail": "特定条件影音搜索",
+    "acceptance_tag": "中等验收"
+  },
+  "4039": {
+    "function_domain": "娱乐域",
+    "task_detail": "多条件影视推荐",
+    "acceptance_tag": "中等验收"
+  },
+  "4040": {
+    "function_domain": "娱乐域",
+    "task_detail": "多条件影视推荐",
+    "acceptance_tag": "中等验收"
+  },
+  "4041": {
+    "function_domain": "娱乐域",
+    "task_detail": "多条件影视推荐",
+    "acceptance_tag": "中等验收"
+  },
+  "4042": {
+    "function_domain": "娱乐域",
+    "task_detail": "多条件影视推荐",
+    "acceptance_tag": "中等验收"
+  },
+  "4043": {
+    "function_domain": "娱乐域",
+    "task_detail": "特定条件影音搜索",
+    "acceptance_tag": "中等验收"
+  },
+  "4044": {
+    "function_domain": "娱乐域",
+    "task_detail": "特定条件影音搜索",
+    "acceptance_tag": "中等验收"
+  },
+  "4045": {
+    "function_domain": "娱乐域",
+    "task_detail": "特定条件影音搜索",
+    "acceptance_tag": "中等验收"
+  },
+  "4046": {
+    "function_domain": "娱乐域",
+    "task_detail": "特定条件影音搜索",
+    "acceptance_tag": "中等验收"
+  },
+  "4047": {
+    "function_domain": "娱乐域",
+    "task_detail": "多条件影视推荐",
+    "acceptance_tag": "中等验收"
+  },
+  "4048": {
+    "function_domain": "娱乐域",
+    "task_detail": "多条件影视推荐",
+    "acceptance_tag": "中等验收"
+  },
+  "4049": {
+    "function_domain": "娱乐域",
+    "task_detail": "多条件影视推荐",
+    "acceptance_tag": "中等验收"
+  },
+  "4050": {
+    "function_domain": "娱乐域",
+    "task_detail": "多条件影视推荐",
+    "acceptance_tag": "中等验收"
+  },
+  "4051": {
+    "function_domain": "娱乐域",
+    "task_detail": "多条件影视推荐",
+    "acceptance_tag": "中等验收"
+  },
+  "4052": {
+    "function_domain": "娱乐域",
+    "task_detail": "多条件影视推荐",
+    "acceptance_tag": "中等验收"
+  },
+  "4053": {
+    "function_domain": "娱乐域",
+    "task_detail": "多条件影视推荐",
+    "acceptance_tag": "中等验收"
+  },
+  "4054": {
+    "function_domain": "娱乐域",
+    "task_detail": "多条件影视推荐",
+    "acceptance_tag": "中等验收"
+  },
+  "4055": {
+    "function_domain": "娱乐域",
+    "task_detail": "娱乐多任务并行",
+    "acceptance_tag": "中等验收"
+  },
+  "4056": {
+    "function_domain": "娱乐域",
+    "task_detail": "娱乐多任务并行",
+    "acceptance_tag": "中等验收"
+  },
+  "4057": {
+    "function_domain": "娱乐域",
+    "task_detail": "娱乐多任务并行",
+    "acceptance_tag": "中等验收"
+  },
+  "4058": {
+    "function_domain": "娱乐域",
+    "task_detail": "特定条件影音搜索",
+    "acceptance_tag": "中等验收"
+  },
+  "4059": {
+    "function_domain": "娱乐域",
+    "task_detail": "特定条件影音搜索",
+    "acceptance_tag": "中等验收"
+  },
+  "4060": {
+    "function_domain": "娱乐域",
+    "task_detail": "特定条件影音搜索",
+    "acceptance_tag": "中等验收"
+  },
+  "4061": {
+    "function_domain": "娱乐域",
+    "task_detail": "特定条件影音搜索",
+    "acceptance_tag": "中等验收"
+  },
+  "4062": {
+    "function_domain": "娱乐域",
+    "task_detail": "特定条件影音搜索",
+    "acceptance_tag": "中等验收"
+  },
+  "4063": {
+    "function_domain": "娱乐域",
+    "task_detail": "特定条件影音搜索",
+    "acceptance_tag": "中等验收"
+  },
+  "4064": {
+    "function_domain": "娱乐域",
+    "task_detail": "影音场景匹配",
+    "acceptance_tag": "中等验收"
+  },
+  "4065": {
+    "function_domain": "娱乐域",
+    "task_detail": "影音场景匹配",
+    "acceptance_tag": "中等验收"
+  },
+  "4066": {
+    "function_domain": "娱乐域",
+    "task_detail": "影音场景匹配",
+    "acceptance_tag": "中等验收"
+  },
+  "4067": {
+    "function_domain": "娱乐域",
+    "task_detail": "影音场景匹配",
+    "acceptance_tag": "中等验收"
+  },
+  "4068": {
+    "function_domain": "娱乐域",
+    "task_detail": "影音场景匹配",
+    "acceptance_tag": "中等验收"
+  },
+  "4069": {
+    "function_domain": "娱乐域",
+    "task_detail": "影音场景匹配",
+    "acceptance_tag": "中等验收"
+  },
+  "4070": {
+    "function_domain": "娱乐域",
+    "task_detail": "影音场景匹配",
+    "acceptance_tag": "中等验收"
+  },
+  "4071": {
+    "function_domain": "娱乐域",
+    "task_detail": "影音场景匹配",
+    "acceptance_tag": "中等验收"
+  },
+  "4072": {
+    "function_domain": "娱乐域",
+    "task_detail": "影音场景匹配",
+    "acceptance_tag": "中等验收"
+  },
+  "4073": {
+    "function_domain": "娱乐域",
+    "task_detail": "影音场景匹配",
+    "acceptance_tag": "中等验收"
+  },
+  "4074": {
+    "function_domain": "娱乐域",
+    "task_detail": "基于感受的影音推荐",
+    "acceptance_tag": "中等验收"
+  },
+  "4075": {
+    "function_domain": "娱乐域",
+    "task_detail": "基于感受的影音推荐",
+    "acceptance_tag": "中等验收"
+  },
+  "4076": {
+    "function_domain": "娱乐域",
+    "task_detail": "基于感受的影音推荐",
+    "acceptance_tag": "中等验收"
+  },
+  "4077": {
+    "function_domain": "娱乐域",
+    "task_detail": "基于感受的影音推荐",
+    "acceptance_tag": "中等验收"
+  },
+  "4078": {
+    "function_domain": "娱乐域",
+    "task_detail": "基于感受的影音推荐",
+    "acceptance_tag": "中等验收"
+  },
+  "4079": {
+    "function_domain": "娱乐域",
+    "task_detail": "基于感受的影音推荐",
+    "acceptance_tag": "中等验收"
+  },
+  "4080": {
+    "function_domain": "娱乐域",
+    "task_detail": "基于感受的影音推荐",
+    "acceptance_tag": "中等验收"
+  },
+  "4081": {
+    "function_domain": "娱乐域",
+    "task_detail": "基于感受的影音推荐",
+    "acceptance_tag": "中等验收"
+  },
+  "4082": {
+    "function_domain": "娱乐域",
+    "task_detail": "基于感受的影音推荐",
+    "acceptance_tag": "中等验收"
+  },
+  "4083": {
+    "function_domain": "娱乐域",
+    "task_detail": "特定条件影音搜索",
+    "acceptance_tag": "中等验收"
+  },
+  "4084": {
+    "function_domain": "娱乐域",
+    "task_detail": "特定条件影音搜索",
+    "acceptance_tag": "中等验收"
+  },
+  "4085": {
+    "function_domain": "娱乐域",
+    "task_detail": "特定条件影音搜索",
+    "acceptance_tag": "中等验收"
+  },
+  "4086": {
+    "function_domain": "娱乐域",
+    "task_detail": "特定条件影音搜索",
+    "acceptance_tag": "中等验收"
+  },
+  "4087": {
+    "function_domain": "娱乐域",
+    "task_detail": "特定条件影音搜索",
+    "acceptance_tag": "中等验收"
+  },
+  "4088": {
+    "function_domain": "娱乐域",
+    "task_detail": "特定条件影音搜索",
+    "acceptance_tag": "中等验收"
+  },
+  "4089": {
+    "function_domain": "娱乐域",
+    "task_detail": "特定条件影音搜索",
+    "acceptance_tag": "中等验收"
+  },
+  "4090": {
+    "function_domain": "娱乐域",
+    "task_detail": "特定条件影音搜索",
+    "acceptance_tag": "中等验收"
+  },
+  "4091": {
+    "function_domain": "娱乐域",
+    "task_detail": "特定条件影音搜索",
+    "acceptance_tag": "中等验收"
+  },
+  "4092": {
+    "function_domain": "娱乐域",
+    "task_detail": "连续影音追问",
+    "acceptance_tag": "进阶验收"
+  },
+  "4097": {
+    "function_domain": "娱乐域",
+    "task_detail": "连续影音追问",
+    "acceptance_tag": "进阶验收"
+  },
+  "4101": {
+    "function_domain": "娱乐域",
+    "task_detail": "连续影音追问",
+    "acceptance_tag": "进阶验收"
+  },
+  "4106": {
+    "function_domain": "娱乐域",
+    "task_detail": "连续影音追问",
+    "acceptance_tag": "进阶验收"
+  },
+  "4110": {
+    "function_domain": "娱乐域",
+    "task_detail": "连续影音追问",
+    "acceptance_tag": "进阶验收"
+  },
+  "4114": {
+    "function_domain": "娱乐域",
+    "task_detail": "连续影音追问",
+    "acceptance_tag": "进阶验收"
+  },
+  "4116": {
+    "function_domain": "娱乐域",
+    "task_detail": "连续影音追问",
+    "acceptance_tag": "进阶验收"
+  },
+  "4121": {
+    "function_domain": "娱乐域",
+    "task_detail": "艺人影音搜索与播放",
+    "acceptance_tag": "基础验收"
+  },
+  "4122": {
+    "function_domain": "娱乐域",
+    "task_detail": "影音场景匹配",
+    "acceptance_tag": "中等验收"
+  },
+  "5001": {
+    "function_domain": "闲聊域",
+    "task_detail": "实时信息问答",
+    "acceptance_tag": "基础验收"
+  },
+  "5002": {
+    "function_domain": "闲聊域",
+    "task_detail": "实时信息问答",
+    "acceptance_tag": "基础验收"
+  },
+  "5003": {
+    "function_domain": "闲聊域",
+    "task_detail": "实时信息问答",
+    "acceptance_tag": "基础验收"
+  },
+  "5004": {
+    "function_domain": "闲聊域",
+    "task_detail": "实时信息问答",
+    "acceptance_tag": "基础验收"
+  },
+  "5005": {
+    "function_domain": "闲聊域",
+    "task_detail": "实时信息问答",
+    "acceptance_tag": "基础验收"
+  },
+  "5006": {
+    "function_domain": "闲聊域",
+    "task_detail": "实时信息问答",
+    "acceptance_tag": "基础验收"
+  },
+  "5007": {
+    "function_domain": "闲聊域",
+    "task_detail": "实时信息问答",
+    "acceptance_tag": "基础验收"
+  },
+  "5008": {
+    "function_domain": "闲聊域",
+    "task_detail": "实时信息问答",
+    "acceptance_tag": "基础验收"
+  },
+  "5009": {
+    "function_domain": "闲聊域",
+    "task_detail": "实时信息问答",
+    "acceptance_tag": "基础验收"
+  },
+  "5010": {
+    "function_domain": "闲聊域",
+    "task_detail": "实时信息问答",
+    "acceptance_tag": "基础验收"
+  },
+  "5011": {
+    "function_domain": "闲聊域",
+    "task_detail": "通用知识问答",
+    "acceptance_tag": "基础验收"
+  },
+  "5012": {
+    "function_domain": "闲聊域",
+    "task_detail": "通用知识问答",
+    "acceptance_tag": "基础验收"
+  },
+  "5013": {
+    "function_domain": "闲聊域",
+    "task_detail": "通用知识问答",
+    "acceptance_tag": "基础验收"
+  },
+  "5014": {
+    "function_domain": "闲聊域",
+    "task_detail": "通用知识问答",
+    "acceptance_tag": "基础验收"
+  },
+  "5015": {
+    "function_domain": "闲聊域",
+    "task_detail": "通用知识问答",
+    "acceptance_tag": "基础验收"
+  },
+  "5016": {
+    "function_domain": "闲聊域",
+    "task_detail": "通用知识问答",
+    "acceptance_tag": "基础验收"
+  },
+  "5017": {
+    "function_domain": "闲聊域",
+    "task_detail": "通用知识问答",
+    "acceptance_tag": "基础验收"
+  },
+  "5018": {
+    "function_domain": "闲聊域",
+    "task_detail": "通用知识问答",
+    "acceptance_tag": "基础验收"
+  },
+  "5019": {
+    "function_domain": "闲聊域",
+    "task_detail": "通用知识问答",
+    "acceptance_tag": "基础验收"
+  },
+  "5020": {
+    "function_domain": "闲聊域",
+    "task_detail": "通用知识问答",
+    "acceptance_tag": "基础验收"
+  },
+  "5021": {
+    "function_domain": "闲聊域",
+    "task_detail": "通用知识问答",
+    "acceptance_tag": "基础验收"
+  },
+  "5022": {
+    "function_domain": "闲聊域",
+    "task_detail": "通用知识问答",
+    "acceptance_tag": "基础验收"
+  },
+  "5023": {
+    "function_domain": "闲聊域",
+    "task_detail": "通用知识问答",
+    "acceptance_tag": "基础验收"
+  },
+  "5024": {
+    "function_domain": "闲聊域",
+    "task_detail": "通用知识问答",
+    "acceptance_tag": "基础验收"
+  },
+  "5025": {
+    "function_domain": "闲聊域",
+    "task_detail": "趣味问答",
+    "acceptance_tag": "基础验收"
+  },
+  "5026": {
+    "function_domain": "闲聊域",
+    "task_detail": "趣味问答",
+    "acceptance_tag": "基础验收"
+  },
+  "5027": {
+    "function_domain": "闲聊域",
+    "task_detail": "趣味问答",
+    "acceptance_tag": "基础验收"
+  },
+  "5028": {
+    "function_domain": "闲聊域",
+    "task_detail": "趣味问答",
+    "acceptance_tag": "基础验收"
+  },
+  "5029": {
+    "function_domain": "闲聊域",
+    "task_detail": "趣味问答",
+    "acceptance_tag": "基础验收"
+  },
+  "5030": {
+    "function_domain": "闲聊域",
+    "task_detail": "趣味问答",
+    "acceptance_tag": "基础验收"
+  },
+  "5031": {
+    "function_domain": "闲聊域",
+    "task_detail": "日常交流",
+    "acceptance_tag": "基础验收"
+  },
+  "5032": {
+    "function_domain": "闲聊域",
+    "task_detail": "日常交流",
+    "acceptance_tag": "基础验收"
+  },
+  "5033": {
+    "function_domain": "闲聊域",
+    "task_detail": "日常交流",
+    "acceptance_tag": "基础验收"
+  },
+  "5034": {
+    "function_domain": "闲聊域",
+    "task_detail": "日常交流",
+    "acceptance_tag": "基础验收"
+  },
+  "5035": {
+    "function_domain": "闲聊域",
+    "task_detail": "日常交流",
+    "acceptance_tag": "基础验收"
+  },
+  "5036": {
+    "function_domain": "闲聊域",
+    "task_detail": "日常交流",
+    "acceptance_tag": "基础验收"
+  },
+  "5037": {
+    "function_domain": "闲聊域",
+    "task_detail": "逻辑推理问答",
+    "acceptance_tag": "中等验收"
+  },
+  "5038": {
+    "function_domain": "闲聊域",
+    "task_detail": "逻辑推理问答",
+    "acceptance_tag": "中等验收"
+  },
+  "5039": {
+    "function_domain": "闲聊域",
+    "task_detail": "逻辑推理问答",
+    "acceptance_tag": "中等验收"
+  },
+  "5040": {
+    "function_domain": "闲聊域",
+    "task_detail": "逻辑推理问答",
+    "acceptance_tag": "中等验收"
+  },
+  "5041": {
+    "function_domain": "闲聊域",
+    "task_detail": "逻辑推理问答",
+    "acceptance_tag": "中等验收"
+  },
+  "5042": {
+    "function_domain": "闲聊域",
+    "task_detail": "逻辑推理问答",
+    "acceptance_tag": "中等验收"
+  },
+  "5043": {
+    "function_domain": "闲聊域",
+    "task_detail": "通用知识问答",
+    "acceptance_tag": "基础验收"
+  },
+  "5044": {
+    "function_domain": "闲聊域",
+    "task_detail": "通用知识问答",
+    "acceptance_tag": "基础验收"
+  },
+  "5045": {
+    "function_domain": "闲聊域",
+    "task_detail": "通用知识问答",
+    "acceptance_tag": "基础验收"
+  },
+  "5046": {
+    "function_domain": "闲聊域",
+    "task_detail": "通用知识问答",
+    "acceptance_tag": "基础验收"
+  },
+  "5047": {
+    "function_domain": "闲聊域",
+    "task_detail": "多问题并列问答",
+    "acceptance_tag": "中等验收"
+  },
+  "5048": {
+    "function_domain": "闲聊域",
+    "task_detail": "多问题并列问答",
+    "acceptance_tag": "中等验收"
+  },
+  "5049": {
+    "function_domain": "闲聊域",
+    "task_detail": "多问题并列问答",
+    "acceptance_tag": "中等验收"
+  },
+  "5050": {
+    "function_domain": "闲聊域",
+    "task_detail": "多问题并列问答",
+    "acceptance_tag": "中等验收"
+  },
+  "5051": {
+    "function_domain": "闲聊域",
+    "task_detail": "干扰信息过滤",
+    "acceptance_tag": "中等验收"
+  },
+  "5052": {
+    "function_domain": "闲聊域",
+    "task_detail": "干扰信息过滤",
+    "acceptance_tag": "中等验收"
+  },
+  "5053": {
+    "function_domain": "闲聊域",
+    "task_detail": "干扰信息过滤",
+    "acceptance_tag": "中等验收"
+  },
+  "5054": {
+    "function_domain": "闲聊域",
+    "task_detail": "通用知识问答",
+    "acceptance_tag": "基础验收"
+  },
+  "5055": {
+    "function_domain": "闲聊域",
+    "task_detail": "趣味问答",
+    "acceptance_tag": "基础验收"
+  },
+  "5056": {
+    "function_domain": "闲聊域",
+    "task_detail": "趣味问答",
+    "acceptance_tag": "基础验收"
+  },
+  "5057": {
+    "function_domain": "闲聊域",
+    "task_detail": "趣味问答",
+    "acceptance_tag": "基础验收"
+  },
+  "5058": {
+    "function_domain": "闲聊域",
+    "task_detail": "通用知识问答",
+    "acceptance_tag": "基础验收"
+  },
+  "5059": {
+    "function_domain": "闲聊域",
+    "task_detail": "政治宗教伦理等敏感议题",
+    "acceptance_tag": "中等验收"
+  },
+  "5060": {
+    "function_domain": "闲聊域",
+    "task_detail": "通用知识问答",
+    "acceptance_tag": "基础验收"
+  },
+  "5061": {
+    "function_domain": "闲聊域",
+    "task_detail": "通用知识问答",
+    "acceptance_tag": "基础验收"
+  },
+  "5062": {
+    "function_domain": "闲聊域",
+    "task_detail": "日常交流",
+    "acceptance_tag": "基础验收"
+  },
+  "5063": {
+    "function_domain": "闲聊域",
+    "task_detail": "通用知识问答",
+    "acceptance_tag": "基础验收"
+  },
+  "5064": {
+    "function_domain": "闲聊域",
+    "task_detail": "通用知识问答",
+    "acceptance_tag": "基础验收"
+  },
+  "5065": {
+    "function_domain": "闲聊域",
+    "task_detail": "通用知识问答",
+    "acceptance_tag": "基础验收"
+  },
+  "5066": {
+    "function_domain": "闲聊域",
+    "task_detail": "通用知识问答",
+    "acceptance_tag": "基础验收"
+  },
+  "5067": {
+    "function_domain": "闲聊域",
+    "task_detail": "通用知识问答",
+    "acceptance_tag": "基础验收"
+  },
+  "5068": {
+    "function_domain": "闲聊域",
+    "task_detail": "通用知识问答",
+    "acceptance_tag": "基础验收"
+  },
+  "5069": {
+    "function_domain": "闲聊域",
+    "task_detail": "通用知识问答",
+    "acceptance_tag": "基础验收"
+  },
+  "5070": {
+    "function_domain": "闲聊域",
+    "task_detail": "实时信息问答",
+    "acceptance_tag": "基础验收"
+  },
+  "5071": {
+    "function_domain": "闲聊域",
+    "task_detail": "实时信息问答",
+    "acceptance_tag": "基础验收"
+  },
+  "5072": {
+    "function_domain": "闲聊域",
+    "task_detail": "通用知识问答",
+    "acceptance_tag": "基础验收"
+  },
+  "5073": {
+    "function_domain": "闲聊域",
+    "task_detail": "情绪调节",
+    "acceptance_tag": "进阶验收"
+  },
+  "5074": {
+    "function_domain": "闲聊域",
+    "task_detail": "情绪调节",
+    "acceptance_tag": "进阶验收"
+  },
+  "5075": {
+    "function_domain": "闲聊域",
+    "task_detail": "情绪调节",
+    "acceptance_tag": "进阶验收"
+  },
+  "5076": {
+    "function_domain": "闲聊域",
+    "task_detail": "情绪调节",
+    "acceptance_tag": "进阶验收"
+  },
+  "5077": {
+    "function_domain": "闲聊域",
+    "task_detail": "情绪调节",
+    "acceptance_tag": "进阶验收"
+  },
+  "5078": {
+    "function_domain": "闲聊域",
+    "task_detail": "情绪调节",
+    "acceptance_tag": "进阶验收"
+  },
+  "5079": {
+    "function_domain": "闲聊域",
+    "task_detail": "情绪调节",
+    "acceptance_tag": "进阶验收"
+  },
+  "5080": {
+    "function_domain": "闲聊域",
+    "task_detail": "情绪调节",
+    "acceptance_tag": "进阶验收"
+  },
+  "5081": {
+    "function_domain": "闲聊域",
+    "task_detail": "情绪调节",
+    "acceptance_tag": "进阶验收"
+  },
+  "5082": {
+    "function_domain": "闲聊域",
+    "task_detail": "情绪调节",
+    "acceptance_tag": "进阶验收"
+  },
+  "5083": {
+    "function_domain": "闲聊域",
+    "task_detail": "情绪调节",
+    "acceptance_tag": "进阶验收"
+  },
+  "5084": {
+    "function_domain": "闲聊域",
+    "task_detail": "情绪调节",
+    "acceptance_tag": "进阶验收"
+  },
+  "5085": {
+    "function_domain": "闲聊域",
+    "task_detail": "情绪调节",
+    "acceptance_tag": "进阶验收"
+  },
+  "5086": {
+    "function_domain": "闲聊域",
+    "task_detail": "情绪调节",
+    "acceptance_tag": "进阶验收"
+  },
+  "5087": {
+    "function_domain": "闲聊域",
+    "task_detail": "情绪调节",
+    "acceptance_tag": "进阶验收"
+  },
+  "5088": {
+    "function_domain": "闲聊域",
+    "task_detail": "情绪调节",
+    "acceptance_tag": "进阶验收"
+  },
+  "5089": {
+    "function_domain": "闲聊域",
+    "task_detail": "情绪调节",
+    "acceptance_tag": "进阶验收"
+  },
+  "5090": {
+    "function_domain": "闲聊域",
+    "task_detail": "情绪调节",
+    "acceptance_tag": "进阶验收"
+  },
+  "5091": {
+    "function_domain": "闲聊域",
+    "task_detail": "情绪调节",
+    "acceptance_tag": "进阶验收"
+  },
+  "5092": {
+    "function_domain": "闲聊域",
+    "task_detail": "趣味问答",
+    "acceptance_tag": "基础验收"
+  },
+  "5093": {
+    "function_domain": "闲聊域",
+    "task_detail": "情绪调节",
+    "acceptance_tag": "进阶验收"
+  },
+  "5094": {
+    "function_domain": "闲聊域",
+    "task_detail": "情绪调节",
+    "acceptance_tag": "进阶验收"
+  },
+  "5095": {
+    "function_domain": "闲聊域",
+    "task_detail": "情绪调节",
+    "acceptance_tag": "进阶验收"
+  },
+  "5096": {
+    "function_domain": "闲聊域",
+    "task_detail": "多轮实体指代消解",
+    "acceptance_tag": "进阶验收"
+  },
+  "5099": {
+    "function_domain": "闲聊域",
+    "task_detail": "多轮实体指代消解",
+    "acceptance_tag": "进阶验收"
+  },
+  "5102": {
+    "function_domain": "闲聊域",
+    "task_detail": "多轮实体指代消解",
+    "acceptance_tag": "进阶验收"
+  },
+  "5105": {
+    "function_domain": "闲聊域",
+    "task_detail": "多轮实体指代消解",
+    "acceptance_tag": "进阶验收"
+  },
+  "5109": {
+    "function_domain": "闲聊域",
+    "task_detail": "多轮实体指代消解",
+    "acceptance_tag": "进阶验收"
+  },
+  "5113": {
+    "function_domain": "闲聊域",
+    "task_detail": "多轮实体指代消解",
+    "acceptance_tag": "进阶验收"
+  },
+  "6001": {
+    "function_domain": "创作域",
+    "task_detail": "主题理解创作",
+    "acceptance_tag": "基础验收"
+  },
+  "6002": {
+    "function_domain": "创作域",
+    "task_detail": "主题理解创作",
+    "acceptance_tag": "基础验收"
+  },
+  "6003": {
+    "function_domain": "创作域",
+    "task_detail": "主题理解创作",
+    "acceptance_tag": "基础验收"
+  },
+  "6004": {
+    "function_domain": "创作域",
+    "task_detail": "主题理解创作",
+    "acceptance_tag": "基础验收"
+  },
+  "6005": {
+    "function_domain": "创作域",
+    "task_detail": "主题理解创作",
+    "acceptance_tag": "基础验收"
+  },
+  "6006": {
+    "function_domain": "创作域",
+    "task_detail": "主题理解创作",
+    "acceptance_tag": "基础验收"
+  },
+  "6007": {
+    "function_domain": "创作域",
+    "task_detail": "主题理解创作",
+    "acceptance_tag": "基础验收"
+  },
+  "6008": {
+    "function_domain": "创作域",
+    "task_detail": "主题理解创作",
+    "acceptance_tag": "基础验收"
+  },
+  "6009": {
+    "function_domain": "创作域",
+    "task_detail": "主题理解创作",
+    "acceptance_tag": "基础验收"
+  },
+  "6010": {
+    "function_domain": "创作域",
+    "task_detail": "主题理解创作",
+    "acceptance_tag": "基础验收"
+  },
+  "6011": {
+    "function_domain": "创作域",
+    "task_detail": "主题理解创作",
+    "acceptance_tag": "基础验收"
+  },
+  "6012": {
+    "function_domain": "创作域",
+    "task_detail": "主题理解创作",
+    "acceptance_tag": "基础验收"
+  },
+  "6013": {
+    "function_domain": "创作域",
+    "task_detail": "限定条件文本创作",
+    "acceptance_tag": "中等验收"
+  },
+  "6014": {
+    "function_domain": "创作域",
+    "task_detail": "限定条件文本创作",
+    "acceptance_tag": "中等验收"
+  },
+  "6015": {
+    "function_domain": "创作域",
+    "task_detail": "限定条件文本创作",
+    "acceptance_tag": "中等验收"
+  },
+  "6016": {
+    "function_domain": "创作域",
+    "task_detail": "限定条件文本创作",
+    "acceptance_tag": "中等验收"
+  },
+  "6017": {
+    "function_domain": "创作域",
+    "task_detail": "限定条件文本创作",
+    "acceptance_tag": "中等验收"
+  },
+  "6018": {
+    "function_domain": "创作域",
+    "task_detail": "限定条件文本创作",
+    "acceptance_tag": "中等验收"
+  },
+  "6019": {
+    "function_domain": "创作域",
+    "task_detail": "限定条件文本创作",
+    "acceptance_tag": "中等验收"
+  },
+  "6020": {
+    "function_domain": "创作域",
+    "task_detail": "限定条件文本创作",
+    "acceptance_tag": "中等验收"
+  },
+  "6021": {
+    "function_domain": "创作域",
+    "task_detail": "限定条件文本创作",
+    "acceptance_tag": "中等验收"
+  },
+  "6022": {
+    "function_domain": "创作域",
+    "task_detail": "限定条件文本创作",
+    "acceptance_tag": "中等验收"
+  },
+  "6023": {
+    "function_domain": "创作域",
+    "task_detail": "限定条件文本创作",
+    "acceptance_tag": "中等验收"
+  },
+  "6024": {
+    "function_domain": "创作域",
+    "task_detail": "社媒文案创作",
+    "acceptance_tag": "中等验收"
+  },
+  "6025": {
+    "function_domain": "创作域",
+    "task_detail": "社媒文案创作",
+    "acceptance_tag": "中等验收"
+  },
+  "6026": {
+    "function_domain": "创作域",
+    "task_detail": "限定条件文本创作",
+    "acceptance_tag": "中等验收"
+  },
+  "6027": {
+    "function_domain": "创作域",
+    "task_detail": "限定条件文本创作",
+    "acceptance_tag": "中等验收"
+  },
+  "6028": {
+    "function_domain": "创作域",
+    "task_detail": "限定条件文本创作",
+    "acceptance_tag": "中等验收"
+  },
+  "6029": {
+    "function_domain": "创作域",
+    "task_detail": "社媒文案创作",
+    "acceptance_tag": "中等验收"
+  },
+  "6030": {
+    "function_domain": "创作域",
+    "task_detail": "社媒文案创作",
+    "acceptance_tag": "中等验收"
+  },
+  "6031": {
+    "function_domain": "创作域",
+    "task_detail": "限定条件文本创作",
+    "acceptance_tag": "中等验收"
+  },
+  "6032": {
+    "function_domain": "创作域",
+    "task_detail": "社媒文案创作",
+    "acceptance_tag": "中等验收"
+  },
+  "6033": {
+    "function_domain": "创作域",
+    "task_detail": "场景氛围描写",
+    "acceptance_tag": "中等验收"
+  },
+  "6034": {
+    "function_domain": "创作域",
+    "task_detail": "场景氛围描写",
+    "acceptance_tag": "中等验收"
+  },
+  "6035": {
+    "function_domain": "创作域",
+    "task_detail": "场景氛围描写",
+    "acceptance_tag": "中等验收"
+  },
+  "6036": {
+    "function_domain": "创作域",
+    "task_detail": "场景氛围描写",
+    "acceptance_tag": "中等验收"
+  },
+  "6037": {
+    "function_domain": "创作域",
+    "task_detail": "场景氛围描写",
+    "acceptance_tag": "中等验收"
+  },
+  "6038": {
+    "function_domain": "创作域",
+    "task_detail": "场景氛围描写",
+    "acceptance_tag": "中等验收"
+  },
+  "6039": {
+    "function_domain": "创作域",
+    "task_detail": "场景氛围描写",
+    "acceptance_tag": "中等验收"
+  },
+  "6040": {
+    "function_domain": "创作域",
+    "task_detail": "场景氛围描写",
+    "acceptance_tag": "中等验收"
+  },
+  "6041": {
+    "function_domain": "创作域",
+    "task_detail": "故事内容创作",
+    "acceptance_tag": "基础验收"
+  },
+  "6042": {
+    "function_domain": "创作域",
+    "task_detail": "故事内容创作",
+    "acceptance_tag": "基础验收"
+  },
+  "6043": {
+    "function_domain": "创作域",
+    "task_detail": "故事内容创作",
+    "acceptance_tag": "基础验收"
+  },
+  "6044": {
+    "function_domain": "创作域",
+    "task_detail": "故事内容创作",
+    "acceptance_tag": "基础验收"
+  },
+  "6045": {
+    "function_domain": "创作域",
+    "task_detail": "限定条件文本创作",
+    "acceptance_tag": "中等验收"
+  },
+  "6046": {
+    "function_domain": "创作域",
+    "task_detail": "特定表达故事创作",
+    "acceptance_tag": "中等验收"
+  },
+  "6047": {
+    "function_domain": "创作域",
+    "task_detail": "特定表达故事创作",
+    "acceptance_tag": "中等验收"
+  },
+  "6048": {
+    "function_domain": "创作域",
+    "task_detail": "特定表达故事创作",
+    "acceptance_tag": "中等验收"
+  },
+  "6049": {
+    "function_domain": "创作域",
+    "task_detail": "特定表达故事创作",
+    "acceptance_tag": "中等验收"
+  },
+  "6050": {
+    "function_domain": "创作域",
+    "task_detail": "特定表达故事创作",
+    "acceptance_tag": "中等验收"
+  },
+  "6051": {
+    "function_domain": "创作域",
+    "task_detail": "特定表达故事创作",
+    "acceptance_tag": "中等验收"
+  },
+  "6052": {
+    "function_domain": "创作域",
+    "task_detail": "故事内容创作",
+    "acceptance_tag": "基础验收"
+  },
+  "6053": {
+    "function_domain": "创作域",
+    "task_detail": "故事内容创作",
+    "acceptance_tag": "基础验收"
+  },
+  "6054": {
+    "function_domain": "创作域",
+    "task_detail": "主题理解创作",
+    "acceptance_tag": "基础验收"
+  },
+  "6055": {
+    "function_domain": "创作域",
+    "task_detail": "主题理解创作",
+    "acceptance_tag": "基础验收"
+  },
+  "6056": {
+    "function_domain": "创作域",
+    "task_detail": "主题理解创作",
+    "acceptance_tag": "基础验收"
+  },
+  "6057": {
+    "function_domain": "创作域",
+    "task_detail": "社媒文案创作",
+    "acceptance_tag": "中等验收"
+  },
+  "6058": {
+    "function_domain": "创作域",
+    "task_detail": "社媒文案创作",
+    "acceptance_tag": "中等验收"
+  },
+  "6059": {
+    "function_domain": "创作域",
+    "task_detail": "社媒文案创作",
+    "acceptance_tag": "中等验收"
+  },
+  "6060": {
+    "function_domain": "创作域",
+    "task_detail": "主题理解创作",
+    "acceptance_tag": "基础验收"
+  },
+  "6061": {
+    "function_domain": "创作域",
+    "task_detail": "主题理解创作",
+    "acceptance_tag": "基础验收"
+  },
+  "6062": {
+    "function_domain": "创作域",
+    "task_detail": "主题理解创作",
+    "acceptance_tag": "基础验收"
+  },
+  "6063": {
+    "function_domain": "创作域",
+    "task_detail": "主题图像生成",
+    "acceptance_tag": "中等验收"
+  },
+  "6064": {
+    "function_domain": "创作域",
+    "task_detail": "主题图像生成",
+    "acceptance_tag": "中等验收"
+  },
+  "6065": {
+    "function_domain": "创作域",
+    "task_detail": "角色主体图像生成",
+    "acceptance_tag": "基础验收"
+  },
+  "6066": {
+    "function_domain": "创作域",
+    "task_detail": "主题图像生成",
+    "acceptance_tag": "中等验收"
+  },
+  "6067": {
+    "function_domain": "创作域",
+    "task_detail": "角色主体图像生成",
+    "acceptance_tag": "基础验收"
+  },
+  "6068": {
+    "function_domain": "创作域",
+    "task_detail": "角色主体图像生成",
+    "acceptance_tag": "基础验收"
+  },
+  "6069": {
+    "function_domain": "创作域",
+    "task_detail": "角色主体图像生成",
+    "acceptance_tag": "基础验收"
+  },
+  "6070": {
+    "function_domain": "创作域",
+    "task_detail": "角色主体图像生成",
+    "acceptance_tag": "基础验收"
+  },
+  "6071": {
+    "function_domain": "创作域",
+    "task_detail": "角色主体图像生成",
+    "acceptance_tag": "基础验收"
+  },
+  "6072": {
+    "function_domain": "创作域",
+    "task_detail": "角色主体图像生成",
+    "acceptance_tag": "基础验收"
+  },
+  "6073": {
+    "function_domain": "创作域",
+    "task_detail": "主题图像生成",
+    "acceptance_tag": "中等验收"
+  },
+  "6074": {
+    "function_domain": "创作域",
+    "task_detail": "主题图像生成",
+    "acceptance_tag": "中等验收"
+  },
+  "6075": {
+    "function_domain": "创作域",
+    "task_detail": "主题图像生成",
+    "acceptance_tag": "中等验收"
+  },
+  "6076": {
+    "function_domain": "创作域",
+    "task_detail": "主题图像生成",
+    "acceptance_tag": "中等验收"
+  },
+  "6077": {
+    "function_domain": "创作域",
+    "task_detail": "主题图像生成",
+    "acceptance_tag": "中等验收"
+  },
+  "6078": {
+    "function_domain": "创作域",
+    "task_detail": "主题图像生成",
+    "acceptance_tag": "中等验收"
+  },
+  "6079": {
+    "function_domain": "创作域",
+    "task_detail": "主题图像生成",
+    "acceptance_tag": "中等验收"
+  },
+  "6080": {
+    "function_domain": "创作域",
+    "task_detail": "主题图像生成",
+    "acceptance_tag": "中等验收"
+  },
+  "6081": {
+    "function_domain": "创作域",
+    "task_detail": "主题图像生成",
+    "acceptance_tag": "中等验收"
+  },
+  "6082": {
+    "function_domain": "创作域",
+    "task_detail": "主题图像生成",
+    "acceptance_tag": "中等验收"
+  },
+  "6083": {
+    "function_domain": "创作域",
+    "task_detail": "主题图像生成",
+    "acceptance_tag": "中等验收"
+  },
+  "6084": {
+    "function_domain": "创作域",
+    "task_detail": "主题图像生成",
+    "acceptance_tag": "中等验收"
+  },
+  "6085": {
+    "function_domain": "创作域",
+    "task_detail": "主题图像生成",
+    "acceptance_tag": "中等验收"
+  },
+  "6086": {
+    "function_domain": "创作域",
+    "task_detail": "主题图像生成",
+    "acceptance_tag": "中等验收"
+  },
+  "6087": {
+    "function_domain": "闲聊域",
+    "task_detail": "情绪调节",
+    "acceptance_tag": "进阶验收"
+  },
+  "6088": {
+    "function_domain": "闲聊域",
+    "task_detail": "情绪调节",
+    "acceptance_tag": "进阶验收"
+  },
+  "6089": {
+    "function_domain": "闲聊域",
+    "task_detail": "情绪调节",
+    "acceptance_tag": "进阶验收"
+  },
+  "6090": {
+    "function_domain": "闲聊域",
+    "task_detail": "情绪调节",
+    "acceptance_tag": "进阶验收"
+  },
+  "6091": {
+    "function_domain": "闲聊域",
+    "task_detail": "趣味问答",
+    "acceptance_tag": "基础验收"
+  },
+  "6092": {
+    "function_domain": "闲聊域",
+    "task_detail": "趣味问答",
+    "acceptance_tag": "基础验收"
+  },
+  "6093": {
+    "function_domain": "闲聊域",
+    "task_detail": "趣味问答",
+    "acceptance_tag": "基础验收"
+  },
+  "6094": {
+    "function_domain": "闲聊域",
+    "task_detail": "情绪调节",
+    "acceptance_tag": "进阶验收"
+  },
+  "6095": {
+    "function_domain": "闲聊域",
+    "task_detail": "情绪调节",
+    "acceptance_tag": "进阶验收"
+  },
+  "6096": {
+    "function_domain": "闲聊域",
+    "task_detail": "情绪调节",
+    "acceptance_tag": "进阶验收"
+  },
+  "6097": {
+    "function_domain": "闲聊域",
+    "task_detail": "情绪调节",
+    "acceptance_tag": "进阶验收"
+  },
+  "6098": {
+    "function_domain": "闲聊域",
+    "task_detail": "情绪调节",
+    "acceptance_tag": "进阶验收"
+  },
+  "7014": {
+    "function_domain": "闲聊域",
+    "task_detail": "关键信息提取",
+    "acceptance_tag": "中等验收"
+  },
+  "7015": {
+    "function_domain": "闲聊域",
+    "task_detail": "关键信息提取",
+    "acceptance_tag": "中等验收"
+  },
+  "7016": {
+    "function_domain": "闲聊域",
+    "task_detail": "关键信息提取",
+    "acceptance_tag": "中等验收"
+  },
+  "7017": {
+    "function_domain": "闲聊域",
+    "task_detail": "关键信息提取",
+    "acceptance_tag": "中等验收"
+  },
+  "7018": {
+    "function_domain": "闲聊域",
+    "task_detail": "关键信息提取",
+    "acceptance_tag": "中等验收"
+  },
+  "7019": {
+    "function_domain": "闲聊域",
+    "task_detail": "关键信息提取",
+    "acceptance_tag": "中等验收"
+  },
+  "7027": {
+    "function_domain": "闲聊域",
+    "task_detail": "关键信息提取",
+    "acceptance_tag": "中等验收"
+  },
+  "7031": {
+    "function_domain": "闲聊域",
+    "task_detail": "逻辑推理问答",
+    "acceptance_tag": "中等验收"
+  },
+  "7032": {
+    "function_domain": "闲聊域",
+    "task_detail": "逻辑推理问答",
+    "acceptance_tag": "中等验收"
+  },
+  "7033": {
+    "function_domain": "闲聊域",
+    "task_detail": "逻辑推理问答",
+    "acceptance_tag": "中等验收"
+  },
+  "7035": {
+    "function_domain": "闲聊域",
+    "task_detail": "逻辑推理问答",
+    "acceptance_tag": "中等验收"
+  },
+  "7036": {
+    "function_domain": "闲聊域",
+    "task_detail": "逻辑推理问答",
+    "acceptance_tag": "中等验收"
+  },
+  "7037": {
+    "function_domain": "闲聊域",
+    "task_detail": "逻辑推理问答",
+    "acceptance_tag": "中等验收"
+  },
+  "7039": {
+    "function_domain": "闲聊域",
+    "task_detail": "逻辑推理问答",
+    "acceptance_tag": "中等验收"
+  },
+  "7040": {
+    "function_domain": "闲聊域",
+    "task_detail": "逻辑推理问答",
+    "acceptance_tag": "中等验收"
+  },
+  "7041": {
+    "function_domain": "闲聊域",
+    "task_detail": "逻辑推理问答",
+    "acceptance_tag": "中等验收"
+  },
+  "7042": {
+    "function_domain": "闲聊域",
+    "task_detail": "逻辑推理问答",
+    "acceptance_tag": "中等验收"
+  },
+  "7043": {
+    "function_domain": "闲聊域",
+    "task_detail": "逻辑推理问答",
+    "acceptance_tag": "中等验收"
+  },
+  "7045": {
+    "function_domain": "闲聊域",
+    "task_detail": "英语理解能力",
+    "acceptance_tag": "基础验收"
+  },
+  "7046": {
+    "function_domain": "闲聊域",
+    "task_detail": "英语理解能力",
+    "acceptance_tag": "基础验收"
+  },
+  "7047": {
+    "function_domain": "闲聊域",
+    "task_detail": "中英混合输入理解",
+    "acceptance_tag": "基础验收"
+  },
+  "7048": {
+    "function_domain": "闲聊域",
+    "task_detail": "英语理解能力",
+    "acceptance_tag": "基础验收"
+  },
+  "7049": {
+    "function_domain": "闲聊域",
+    "task_detail": "英语理解能力",
+    "acceptance_tag": "基础验收"
+  },
+  "7050": {
+    "function_domain": "闲聊域",
+    "task_detail": "英语理解能力",
+    "acceptance_tag": "基础验收"
+  },
+  "7051": {
+    "function_domain": "闲聊域",
+    "task_detail": "英语理解能力",
+    "acceptance_tag": "基础验收"
+  },
+  "7052": {
+    "function_domain": "闲聊域",
+    "task_detail": "中英混合输入理解",
+    "acceptance_tag": "基础验收"
+  },
+  "7053": {
+    "function_domain": "闲聊域",
+    "task_detail": "英语理解能力",
+    "acceptance_tag": "基础验收"
+  },
+  "7054": {
+    "function_domain": "闲聊域",
+    "task_detail": "中英混合输入理解",
+    "acceptance_tag": "基础验收"
+  },
+  "7055": {
+    "function_domain": "闲聊域",
+    "task_detail": "英语理解能力",
+    "acceptance_tag": "基础验收"
+  },
+  "7057": {
+    "function_domain": "闲聊域",
+    "task_detail": "英语理解能力",
+    "acceptance_tag": "基础验收"
+  },
+  "7058": {
+    "function_domain": "闲聊域",
+    "task_detail": "英语理解能力",
+    "acceptance_tag": "基础验收"
+  },
+  "7059": {
+    "function_domain": "闲聊域",
+    "task_detail": "中英混合输入理解",
+    "acceptance_tag": "基础验收"
+  },
+  "7060": {
+    "function_domain": "闲聊域",
+    "task_detail": "政治宗教伦理等敏感议题",
+    "acceptance_tag": "中等验收"
+  },
+  "7061": {
+    "function_domain": "闲聊域",
+    "task_detail": "政治宗教伦理等敏感议题",
+    "acceptance_tag": "中等验收"
+  },
+  "7062": {
+    "function_domain": "闲聊域",
+    "task_detail": "政治宗教伦理等敏感议题",
+    "acceptance_tag": "中等验收"
+  },
+  "7063": {
+    "function_domain": "闲聊域",
+    "task_detail": "政治宗教伦理等敏感议题",
+    "acceptance_tag": "中等验收"
+  },
+  "7064": {
+    "function_domain": "闲聊域",
+    "task_detail": "政治宗教伦理等敏感议题",
+    "acceptance_tag": "中等验收"
+  },
+  "7065": {
+    "function_domain": "闲聊域",
+    "task_detail": "政治宗教伦理等敏感议题",
+    "acceptance_tag": "中等验收"
+  },
+  "7066": {
+    "function_domain": "闲聊域",
+    "task_detail": "政治宗教伦理等敏感议题",
+    "acceptance_tag": "中等验收"
+  },
+  "7067": {
+    "function_domain": "闲聊域",
+    "task_detail": "政治宗教伦理等敏感议题",
+    "acceptance_tag": "中等验收"
+  },
+  "7068": {
+    "function_domain": "闲聊域",
+    "task_detail": "政治宗教伦理等敏感议题",
+    "acceptance_tag": "中等验收"
+  },
+  "7069": {
+    "function_domain": "闲聊域",
+    "task_detail": "政治宗教伦理等敏感议题",
+    "acceptance_tag": "中等验收"
+  },
+  "7070": {
+    "function_domain": "闲聊域",
+    "task_detail": "政治宗教伦理等敏感议题",
+    "acceptance_tag": "中等验收"
+  },
+  "7072": {
+    "function_domain": "闲聊域",
+    "task_detail": "政治宗教伦理等敏感议题",
+    "acceptance_tag": "中等验收"
+  },
+  "7073": {
+    "function_domain": "闲聊域",
+    "task_detail": "政治宗教伦理等敏感议题",
+    "acceptance_tag": "中等验收"
+  },
+  "7074": {
+    "function_domain": "闲聊域",
+    "task_detail": "政治宗教伦理等敏感议题",
+    "acceptance_tag": "中等验收"
+  },
+  "7075": {
+    "function_domain": "闲聊域",
+    "task_detail": "政治宗教伦理等敏感议题",
+    "acceptance_tag": "中等验收"
+  },
+  "7076": {
+    "function_domain": "闲聊域",
+    "task_detail": "政治宗教伦理等敏感议题",
+    "acceptance_tag": "中等验收"
+  },
+  "7077": {
+    "function_domain": "闲聊域",
+    "task_detail": "政治宗教伦理等敏感议题",
+    "acceptance_tag": "中等验收"
+  },
+  "7079": {
+    "function_domain": "闲聊域",
+    "task_detail": "政治宗教伦理等敏感议题",
+    "acceptance_tag": "中等验收"
+  },
+  "7080": {
+    "function_domain": "闲聊域",
+    "task_detail": "政治宗教伦理等敏感议题",
+    "acceptance_tag": "中等验收"
+  },
+  "7081": {
+    "function_domain": "闲聊域",
+    "task_detail": "政治宗教伦理等敏感议题",
+    "acceptance_tag": "中等验收"
+  },
+  "7082": {
+    "function_domain": "闲聊域",
+    "task_detail": "政治宗教伦理等敏感议题",
+    "acceptance_tag": "中等验收"
+  },
+  "7084": {
+    "function_domain": "闲聊域",
+    "task_detail": "逻辑推理问答",
+    "acceptance_tag": "中等验收"
+  },
+  "7085": {
+    "function_domain": "闲聊域",
+    "task_detail": "逻辑推理问答",
+    "acceptance_tag": "中等验收"
+  },
+  "7098": {
+    "function_domain": "闲聊域",
+    "task_detail": "隐私问题",
+    "acceptance_tag": "进阶验收"
+  },
+  "7099": {
+    "function_domain": "闲聊域",
+    "task_detail": "隐私问题",
+    "acceptance_tag": "进阶验收"
+  },
+  "7100": {
+    "function_domain": "闲聊域",
+    "task_detail": "政治宗教伦理等敏感议题",
+    "acceptance_tag": "中等验收"
+  },
+  "7101": {
+    "function_domain": "闲聊域",
+    "task_detail": "政治宗教伦理等敏感议题",
+    "acceptance_tag": "中等验收"
+  },
+  "7102": {
+    "function_domain": "闲聊域",
+    "task_detail": "政治宗教伦理等敏感议题",
+    "acceptance_tag": "中等验收"
+  },
+  "7103": {
+    "function_domain": "闲聊域",
+    "task_detail": "政治宗教伦理等敏感议题",
+    "acceptance_tag": "中等验收"
+  },
+  "7104": {
+    "function_domain": "闲聊域",
+    "task_detail": "政治宗教伦理等敏感议题",
+    "acceptance_tag": "中等验收"
+  },
+  "7105": {
+    "function_domain": "闲聊域",
+    "task_detail": "政治宗教伦理等敏感议题",
+    "acceptance_tag": "中等验收"
+  },
+  "7106": {
+    "function_domain": "闲聊域",
+    "task_detail": "政治宗教伦理等敏感议题",
+    "acceptance_tag": "中等验收"
+  },
+  "7111": {
+    "function_domain": "闲聊域",
+    "task_detail": "政治宗教伦理等敏感议题",
+    "acceptance_tag": "中等验收"
+  },
+  "7112": {
+    "function_domain": "闲聊域",
+    "task_detail": "政治宗教伦理等敏感议题",
+    "acceptance_tag": "中等验收"
+  },
+  "7115": {
+    "function_domain": "闲聊域",
+    "task_detail": "政治宗教伦理等敏感议题",
+    "acceptance_tag": "中等验收"
+  },
+  "7130": {
+    "function_domain": "车书域",
+    "task_detail": "车辆维保问答",
+    "acceptance_tag": "中等验收"
+  },
+  "7144": {
+    "function_domain": "闲聊域",
+    "task_detail": "语气模仿",
+    "acceptance_tag": "基础验收"
+  },
+  "7145": {
+    "function_domain": "闲聊域",
+    "task_detail": "语气模仿",
+    "acceptance_tag": "基础验收"
+  },
+  "7146": {
+    "function_domain": "闲聊域",
+    "task_detail": "语气模仿",
+    "acceptance_tag": "基础验收"
+  },
+  "7147": {
+    "function_domain": "闲聊域",
+    "task_detail": "语气模仿",
+    "acceptance_tag": "基础验收"
+  },
+  "7148": {
+    "function_domain": "闲聊域",
+    "task_detail": "语气模仿",
+    "acceptance_tag": "基础验收"
+  },
+  "8001": {
+    "function_domain": "车控域",
+    "task_detail": "跨域车控执行",
+    "acceptance_tag": "进阶验收"
+  },
+  "8005": {
+    "function_domain": "出行域",
+    "task_detail": "跨域导航执行",
+    "acceptance_tag": "进阶验收"
+  },
+  "8009": {
+    "function_domain": "出行域",
+    "task_detail": "跨域导航执行",
+    "acceptance_tag": "进阶验收"
+  },
+  "8013": {
+    "function_domain": "娱乐域",
+    "task_detail": "跨域影音检索",
+    "acceptance_tag": "进阶验收"
+  },
+  "8016": {
+    "function_domain": "娱乐域",
+    "task_detail": "跨域影音检索",
+    "acceptance_tag": "进阶验收"
+  },
+  "8019": {
+    "function_domain": "出行域",
+    "task_detail": "跨域导航执行",
+    "acceptance_tag": "进阶验收"
+  },
+  "8027": {
+    "function_domain": "娱乐域",
+    "task_detail": "跨域影音检索",
+    "acceptance_tag": "进阶验收"
+  },
+  "8029": {
+    "function_domain": "出行域",
+    "task_detail": "跨域导航执行",
+    "acceptance_tag": "进阶验收"
+  },
+  "8031": {
+    "function_domain": "出行域",
+    "task_detail": "跨域导航执行",
+    "acceptance_tag": "进阶验收"
+  },
+  "8034": {
+    "function_domain": "车控域",
+    "task_detail": "跨域车控执行",
+    "acceptance_tag": "进阶验收"
+  },
+  "8036": {
+    "function_domain": "车控域",
+    "task_detail": "跨域车控执行",
+    "acceptance_tag": "进阶验收"
+  },
+  "8039": {
+    "function_domain": "出行域",
+    "task_detail": "跨域导航执行",
+    "acceptance_tag": "进阶验收"
+  },
+  "8042": {
+    "function_domain": "车控域",
+    "task_detail": "跨域车控执行",
+    "acceptance_tag": "进阶验收"
+  },
+  "8044": {
+    "function_domain": "车控域",
+    "task_detail": "跨域车控执行",
+    "acceptance_tag": "进阶验收"
+  },
+  "8046": {
+    "function_domain": "车控域",
+    "task_detail": "跨域车控执行",
+    "acceptance_tag": "进阶验收"
+  },
+  "8048": {
+    "function_domain": "出行域",
+    "task_detail": "跨域导航执行",
+    "acceptance_tag": "进阶验收"
+  },
+  "8051": {
+    "function_domain": "车控域",
+    "task_detail": "跨域车控执行",
+    "acceptance_tag": "进阶验收"
+  },
+  "8305": {
+    "function_domain": "车控域",
+    "task_detail": "天窗天幕控制",
+    "acceptance_tag": "基础验收"
+  },
+  "8317": {
+    "function_domain": "车控域",
+    "task_detail": "音量控制",
+    "acceptance_tag": "基础验收"
+  },
+  "9002": {
+    "function_domain": "车书域",
+    "task_detail": "本品信息查询",
+    "acceptance_tag": "中等验收"
+  },
+  "9004": {
+    "function_domain": "车书域",
+    "task_detail": "图标问答",
+    "acceptance_tag": "进阶验收"
+  },
+  "9005": {
+    "function_domain": "车书域",
+    "task_detail": "图标问答",
+    "acceptance_tag": "进阶验收"
+  },
+  "9006": {
+    "function_domain": "车书域",
+    "task_detail": "图标问答",
+    "acceptance_tag": "进阶验收"
+  },
+  "9007": {
+    "function_domain": "车书域",
+    "task_detail": "本品信息查询",
+    "acceptance_tag": "中等验收"
+  },
+  "9008": {
+    "function_domain": "车书域",
+    "task_detail": "本品信息查询",
+    "acceptance_tag": "中等验收"
+  },
+  "9009": {
+    "function_domain": "车书域",
+    "task_detail": "本品信息查询",
+    "acceptance_tag": "中等验收"
+  },
+  "9016": {
+    "function_domain": "车书域",
+    "task_detail": "本品信息查询",
+    "acceptance_tag": "中等验收"
+  },
+  "9018": {
+    "function_domain": "车书域",
+    "task_detail": "本品信息查询",
+    "acceptance_tag": "中等验收"
+  },
+  "9019": {
+    "function_domain": "车书域",
+    "task_detail": "事故处理指导",
+    "acceptance_tag": "中等验收"
+  },
+  "9020": {
+    "function_domain": "车书域",
+    "task_detail": "事故处理指导",
+    "acceptance_tag": "中等验收"
+  },
+  "9021": {
+    "function_domain": "车书域",
+    "task_detail": "事故处理指导",
+    "acceptance_tag": "中等验收"
+  },
+  "9022": {
+    "function_domain": "车书域",
+    "task_detail": "车辆问题反馈",
+    "acceptance_tag": "进阶验收"
+  },
+  "9023": {
+    "function_domain": "车书域",
+    "task_detail": "车辆问题反馈",
+    "acceptance_tag": "进阶验收"
+  },
+  "9024": {
+    "function_domain": "车书域",
+    "task_detail": "车辆问题反馈",
+    "acceptance_tag": "进阶验收"
+  },
+  "9028": {
+    "function_domain": "车书域",
+    "task_detail": "保养预约",
+    "acceptance_tag": "进阶验收"
+  },
+  "9029": {
+    "function_domain": "车书域",
+    "task_detail": "保养预约",
+    "acceptance_tag": "进阶验收"
+  },
+  "9030": {
+    "function_domain": "车书域",
+    "task_detail": "保养预约",
+    "acceptance_tag": "进阶验收"
+  },
+  "9091": {
+    "function_domain": "车控域",
+    "task_detail": "预设条件车控",
+    "acceptance_tag": "进阶验收"
+  },
+  "9092": {
+    "function_domain": "车控域",
+    "task_detail": "预设条件车控",
+    "acceptance_tag": "进阶验收"
+  },
+  "9093": {
+    "function_domain": "车控域",
+    "task_detail": "座舱氛围生成",
+    "acceptance_tag": "进阶验收"
+  },
+  "9094": {
+    "function_domain": "车控域",
+    "task_detail": "座舱氛围生成",
+    "acceptance_tag": "进阶验收"
+  },
+  "9095": {
+    "function_domain": "车控域",
+    "task_detail": "座舱氛围生成",
+    "acceptance_tag": "进阶验收"
+  },
+  "9096": {
+    "function_domain": "车控域",
+    "task_detail": "预设条件车控",
+    "acceptance_tag": "进阶验收"
+  },
+  "9103": {
+    "function_domain": "车控域",
+    "task_detail": "座舱氛围生成",
+    "acceptance_tag": "进阶验收"
+  },
+  "9104": {
+    "function_domain": "车控域",
+    "task_detail": "座舱氛围生成",
+    "acceptance_tag": "进阶验收"
+  },
+  "9105": {
+    "function_domain": "车控域",
+    "task_detail": "座舱氛围生成",
+    "acceptance_tag": "进阶验收"
+  },
+  "7133": {
+    "function_domain": "闲聊域",
+    "task_detail": "人设问答",
+    "acceptance_tag": "基础验收"
+  },
+  "7134": {
+    "function_domain": "闲聊域",
+    "task_detail": "人设问答",
+    "acceptance_tag": "基础验收"
+  },
+  "7135": {
+    "function_domain": "闲聊域",
+    "task_detail": "人设问答",
+    "acceptance_tag": "基础验收"
+  },
+  "7136": {
+    "function_domain": "闲聊域",
+    "task_detail": "人设问答",
+    "acceptance_tag": "基础验收"
+  },
+  "7137": {
+    "function_domain": "闲聊域",
+    "task_detail": "人设问答",
+    "acceptance_tag": "基础验收"
+  },
+  "7138": {
+    "function_domain": "闲聊域",
+    "task_detail": "人设问答",
+    "acceptance_tag": "基础验收"
+  },
+  "7139": {
+    "function_domain": "闲聊域",
+    "task_detail": "人设问答",
+    "acceptance_tag": "基础验收"
+  },
+  "7140": {
+    "function_domain": "闲聊域",
+    "task_detail": "人设问答",
+    "acceptance_tag": "基础验收"
+  },
+  "7141": {
+    "function_domain": "闲聊域",
+    "task_detail": "人设问答",
+    "acceptance_tag": "基础验收"
+  },
+  "7142": {
+    "function_domain": "闲聊域",
+    "task_detail": "人设问答",
+    "acceptance_tag": "基础验收"
+  },
+  "7143": {
+    "function_domain": "闲聊域",
+    "task_detail": "语气模仿",
+    "acceptance_tag": "基础验收"
+  },
+  "7149": {
+    "function_domain": "闲聊域",
+    "task_detail": "语气模仿",
+    "acceptance_tag": "基础验收"
+  },
+  "7150": {
+    "function_domain": "闲聊域",
+    "task_detail": "语气模仿",
+    "acceptance_tag": "基础验收"
+  },
+  "7151": {
+    "function_domain": "闲聊域",
+    "task_detail": "语气模仿",
+    "acceptance_tag": "基础验收"
+  },
+  "7152": {
+    "function_domain": "闲聊域",
+    "task_detail": "语气模仿",
+    "acceptance_tag": "基础验收"
+  },
+  "8024": {
+    "function_domain": "车控域",
+    "task_detail": "跨域车控执行",
+    "acceptance_tag": "进阶验收"
+  }
+}

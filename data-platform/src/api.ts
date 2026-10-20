@@ -173,6 +173,8 @@ export const getAllResults = async (params?: {
     case_id?: string;
     /** 模糊匹配 video_results.case_id（子串）；用于「按用例筛选」ID 搜索 */
     case_id_search?: string;
+    task_detail?: string;
+    acceptance_tag?: string;
     /** 按分析批次过滤（analysis_tasks.id） */
     task_id?: string;
     /** true 时包含分析失败(status=failed)的记录；默认 false 排除 */
@@ -2278,5 +2280,5 @@ export const saveReportConfig = async (kind: RecipeKind, content: string): Promi
 /** Local content-search adapter, backed exclusively by authorized live records. */
 export const getCaseContentSearch = async (params: Parameters<typeof getAllResults>[0], requestOptions?: {signal?:AbortSignal}) => {
     const response=await api.get('/cases/search',{params:{...params, hide_volkswagen:true},signal:requestOptions?.signal});
-    return response.data as PaginatedResponse<any> & {status?:'indexing';scanned?:number};
+    return response.data as PaginatedResponse<any> & {status?:'indexing';scanned?:number;facets?:{task_types:string[];difficulties:string[]}};
 };

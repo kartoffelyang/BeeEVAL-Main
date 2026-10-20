@@ -1,3 +1,4 @@
+import caseClassification from "./data/case-classification.json";
 import { isHiddenVehicle } from '../src/utils/vehicleVisibility';
 import { createHash } from "node:crypto";
 import type { IncomingMessage, ServerResponse } from "node:http";
@@ -59,6 +60,15 @@ export function caseContent(row: CaseRecord): string {
   textCache.set(row, value);
   return value;
 }
+/** Official source taxonomy; display-only snapshot, never inferred from scores. */
+export function classifyCase(row: CaseRecord) {
+  if (row._locked) return { task_detail: "", acceptance_tag: "" };
+  const tag = (caseClassification as Record<string, any>)[String(row.case_id)] || {};
+  return {
+    task_detail: row.task_detail || row.metadata?.task_detail || tag.task_detail || "未分类",
+    acceptance_tag: row.acceptance_tag || row.metadata?.acceptance_tag || tag.acceptance_tag || "未分类",
+  };
+}
 export function queryCases(rows: CaseRecord[], params: URLSearchParams) {
   const terms = (params.get("search") || "")
     .trim()
@@ -82,6 +92,9 @@ export function queryCases(rows: CaseRecord[], params: URLSearchParams) {
     ])
       if (params.get(field) && String(row[field] ?? "") !== params.get(field))
         return false;
+    const classification = classifyCase(row);
+    for (const key of ["task_detail", "acceptance_tag"] as const)
+      if (params.get(key) && classification[key] !== params.get(key)) return false;
     const score = row.metadata?.response_quality_score;
     if (
       (params.has("min_score") || params.has("max_score")) &&
@@ -119,6 +132,13 @@ export function queryCases(rows: CaseRecord[], params: URLSearchParams) {
     Math.min(100, Math.floor(Number(params.get("limit")) || 30)),
   );
   return {
+    facets: (() => {
+      const scoped = rows.filter(row => !row._locked && hasVehicleModel(row.brand_model) && (params.get("hide_volkswagen") !== "true" || !isHiddenVehicle(row.brand_model)) &&
+        ["brand_model", "system_version", "function_domain"].every(key => !params.get(key) || String(row[key] ?? "") === params.get(key)));
+      const tags = scoped.map(classifyCase);
+      return { task_types: [...new Set(tags.map(t => t.task_detail))].sort((a,b) => a.localeCompare(b, "zh-CN")),
+        difficulties: [...new Set(tags.map(t => t.acceptance_tag))] };
+    })(),
     data: filtered.slice(offset, offset + limit),
     total: filtered.length,
     offset,

@@ -43,6 +43,7 @@ const result = (id, text) => ({
     },
   ],
   total: 1,
+  facets: {task_types:["天窗天幕控制", "车窗开合控制"], difficulties:["基础验收", "进阶验收"]},
 });
 (async () => {
   const esbuild = require(resolve("esbuild"));
@@ -98,6 +99,11 @@ const result = (id, text) => ({
   );
   await act(async () => requests.at(-1).resolve(result("1", "打开天窗")));
   assert.ok(document.querySelector(".case-group"));
+  if (process.env.BEEEVAL_PREVIEW_HTML) {
+    const fs = require("node:fs");
+    const css = fs.readdirSync("dist/assets").find(name => name.endsWith(".css"));
+    fs.writeFileSync(process.env.BEEEVAL_PREVIEW_HTML, `<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="stylesheet" href="file://${root}/dist/assets/${css}"></head><body style="background:#f7f7f3">${document.querySelector("#root").innerHTML}</body></html>`);
+  }
   const scroll = document.querySelector(".workspace-scroll");
   scroll.scrollTop = 777;
   const input = () => document.querySelector(".case-search-box input");
@@ -150,6 +156,20 @@ const result = (id, text) => ({
     "新的天窗结果",
   );
   assert.equal(scroll.scrollTop, 777);
+  assert.ok(document.querySelector('select[aria-label="任务类型"]'));
+  assert.ok(document.querySelector('select[aria-label="难度"]'));
+  await act(async () => Simulate.change(document.querySelector('select[aria-label="任务类型"]'), {target:{value:"天窗天幕控制"}}));
+  assert.equal(requests.at(-1).params.task_detail,"天窗天幕控制");
+  assert.equal(requests.at(-1).params.offset,0);
+  await act(async () => requests.at(-1).resolve(result("5", "任务筛选结果")));
+  await act(async () => Simulate.change(document.querySelector('select[aria-label="难度"]'), {target:{value:"进阶验收"}}));
+  assert.equal(requests.at(-1).params.acceptance_tag,"进阶验收");
+  assert.equal(requests.at(-1).params.task_detail,"天窗天幕控制");
+  await act(async () => requests.at(-1).resolve(result("6", "难度筛选结果")));
+  const domainSelect=[...document.querySelectorAll('select')].find(el=>el.closest('label')?.textContent.includes('功能域'));
+  await act(async () => Simulate.change(domainSelect,{target:{value:"出行域"}}));
+  assert.equal(requests.at(-1).params.task_detail,undefined);
+  assert.equal(requests.at(-1).params.acceptance_tag,undefined);
   await act(async () => app.unmount());
   console.log(
     "PASS: visible results survive loading/errors, same-query retry works, new searches cancel stale requests, late results cannot overwrite current query, scroll remains stable.",

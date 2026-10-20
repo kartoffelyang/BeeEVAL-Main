@@ -39,7 +39,7 @@ function stored(key: string, fallback: any) {
 }
 export default function CaseSearch() {
   const { language } = useLanguage();
-  const { tv, td } = useMetricsTranslation();
+  const { tv, td, tt } = useMetricsTranslation();
   const c = (zh: string, en: string) => (language === "zh" ? zh : en);
   const [params, setParams] = useSearchParams();
   const { vehicles, setVehicles } = useComparison();
@@ -49,6 +49,9 @@ export default function CaseSearch() {
   const [rows, setRows] = useState<any[]>([]);
   const [total, setTotal] = useState(0);
   const [domains, setDomains] = useState<string[]>([]);
+  const [taskTypes, setTaskTypes] = useState<string[]>([]);
+  const [difficulties, setDifficulties] = useState<string[]>([]);
+  const gradeLabel = (value: string) => ({ "基础验收": c("基础", "Basic"), "中等验收": c("中等", "Intermediate"), "进阶验收": c("进阶", "Advanced"), "未分类": c("未分类", "Unclassified") }[value] || value);
   const [loading, setLoading] = useState(true);
   const [searchProgress, setSearchProgress] = useState("");
   const [searchWarning, setSearchWarning] = useState("");
@@ -138,6 +141,8 @@ export default function CaseSearch() {
           system_version: version || undefined,
           function_domain: params.get("function_domain") || undefined,
           case_id: params.get("case_id") || undefined,
+          task_detail: params.get("task_detail") || undefined,
+          acceptance_tag: params.get("acceptance_tag") || undefined,
           search: params.get("q") || undefined,
           video_name: params.get("video_name") || undefined,
           ...scoreBounds(params.get("score")),
@@ -163,6 +168,8 @@ export default function CaseSearch() {
           setSearchWarning(r.warning || "");
           setLoading(false);
           if (!cancelled) {
+            setTaskTypes(r.facets?.task_types || []);
+            setDifficulties(r.facets?.difficulties || []);
             setRows(r.data);
             setTotal(r.total);
           }
@@ -225,6 +232,12 @@ export default function CaseSearch() {
     value ? p.set(key, value) : p.delete(key);
     if (key !== "page") p.delete("page");
     if (key === "brand_model") p.delete("system_version");
+    if (["brand_model", "system_version", "function_domain"].includes(key)) {
+      p.delete("task_detail");
+      p.delete("acceptance_tag");
+      setTaskTypes([]);
+      setDifficulties([]);
+    }
     setParams(p);
   };
   const submit = (e?: FormEvent, value = draft) => {
@@ -400,6 +413,20 @@ export default function CaseSearch() {
           </LightSelect>
         </label>
         <label>
+          {c("任务类型", "Task type")}
+          <LightSelect aria-label={c("任务类型", "Task type")} value={params.get("task_detail") || ""} onChange={(e) => change("task_detail", e.target.value)}>
+            <option value="">{c("全部任务类型", "All task types")}</option>
+            {taskTypes.map(task => <option key={task} value={task}>{task === "未分类" ? c("未分类", "Unclassified") : tt(task)}</option>)}
+          </LightSelect>
+        </label>
+        <label>
+          {c("难度", "Difficulty")}
+          <LightSelect aria-label={c("难度", "Difficulty")} title={c("沿用题库的验收梯度标签，不按评估得分划分", "Uses official acceptance grades, independently of evaluation scores")} value={params.get("acceptance_tag") || ""} onChange={(e) => change("acceptance_tag", e.target.value)}>
+            <option value="">{c("全部难度", "All difficulties")}</option>
+            {["基础验收", "中等验收", "进阶验收", "未分类"].filter(grade => difficulties.includes(grade)).map(grade => <option key={grade} value={grade}>{gradeLabel(grade)}</option>)}
+          </LightSelect>
+        </label>
+        <label>
           {c("得分", "Score")}
           <LightSelect
             title={c(
@@ -435,6 +462,8 @@ export default function CaseSearch() {
         "brand_model",
         "system_version",
         "function_domain",
+        "task_detail",
+        "acceptance_tag",
         "score",
       ].some((key) => params.get(key)) && (
         <div className="case-active-filters">
@@ -445,6 +474,8 @@ export default function CaseSearch() {
             "brand_model",
             "system_version",
             "function_domain",
+            "task_detail",
+            "acceptance_tag",
             "score",
           ]
             .filter((key) => params.get(key))
@@ -458,6 +489,8 @@ export default function CaseSearch() {
                   ? tv(params.get(key)!)
                   : key === "function_domain"
                     ? td(params.get(key)!)
+                    : key === "task_detail" ? tt(params.get(key)!)
+                    : key === "acceptance_tag" ? gradeLabel(params.get(key)!)
                     : key === "score"
                       ? SCORE_RANGES.find((r) => r.value === params.get(key))?.[
                           language === "zh" ? "zh" : "en"
