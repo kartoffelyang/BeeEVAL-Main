@@ -45,10 +45,13 @@ export function mountAccountMenu(user){
     catch{status.textContent='退出失败，请重试。';button.disabled=false}
    });
   }
+  let adminLink=menu.querySelector('.admin-permissions-entry');
+  if(user.role==='admin'&&!adminLink){adminLink=document.createElement('a');adminLink.className='admin-permissions-entry';adminLink.href='/data/admin/users';adminLink.textContent='账号权限管理';adminLink.target='_blank';adminLink.rel='noopener';menu.querySelector('.account-signout').before(adminLink)}
+  if(user.role!=='admin')adminLink?.remove();
   const name=user.display_name||user.username||'U';
   menu.querySelector('.account-avatar').textContent=Array.from(name)[0].toUpperCase();
   menu.querySelector('.account-avatar').title=name;
   menu.querySelector('.account-name').textContent=name;
-  menu.querySelector('.account-tier').textContent=({admin:'管理员',free:'Free',base:'Base',plus:'Plus',pro:'Pro',trial:'试用会员'})[user.capabilities?.level||user.membership_tier]||'会员';
+  menu.querySelector('.account-tier').textContent=({admin:'管理员',free:'Free',base:'Base',plus:'Plus',pro:'Pro',max:'Max',trial:'试用会员'})[user.capabilities?.level||user.membership_tier]||'会员';
  });
 }

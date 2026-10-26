@@ -87,7 +87,7 @@ class ReportGrant(BaseModel):
     report_key:str=Field(pattern=r"^[a-z0-9-]{1,64}$")
 @router.post('/report-entitlements')
 def grant_report(req:ReportGrant,user=Depends(require_user(roles=('admin',)))):
-    if req.report_key not in {'whitepaper','fallback','zeekr9x','l9livis','travel','multi-stop','i8-livis'}:raise HTTPException(400,detail='报告不存在')
+    if req.report_key not in {'whitepaper','fallback','zeekr9x','l9livis','travel','multi-stop','i8-livis','scenarios'}:raise HTTPException(400,detail='报告不存在')
     if not supabase.raw_sql('SELECT id FROM users WHERE id=%s',[req.user_id]).data:raise HTTPException(404,detail='账号不存在')
     supabase.raw_sql('INSERT INTO user_report_entitlements(user_id,report_key,granted_by) VALUES(%s,%s,%s) ON CONFLICT(user_id,report_key) DO UPDATE SET granted_by=EXCLUDED.granted_by,granted_at=NOW(),expires_at=NULL',[req.user_id,req.report_key,user['id']])
     return {'ok':True}

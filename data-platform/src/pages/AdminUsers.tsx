@@ -50,14 +50,15 @@ import { useLanguage } from '../contexts/LanguageContext';
 
 const ROLE_OPTIONS: { value: UserRole; key: string; cls: string }[] = [
     { value: 'admin',   key: 'role_admin',   cls: 'bg-red-100 text-red-700 border-red-200' },
-    { value: 'analyst', key: 'role_analyst',  cls: 'bg-blue-100 text-blue-700 border-blue-200' },
-    { value: 'tester',  key: 'role_tester',   cls: 'bg-emerald-100 text-emerald-700 border-emerald-200' },
     { value: 'viewer',  key: 'role_viewer',   cls: 'bg-purple-100 text-purple-700 border-purple-200' },
 ];
 
+const MEMBERSHIP_OPTIONS = ['free','base','plus','pro','trial'] as const;
+const membershipLabel = (tier: string|null|undefined) => tier ? ({free:'Free',base:'Base',plus:'Plus',pro:'Pro',max:'Max',trial:'试用会员'} as Record<string,string>)[tier] || tier : '原有账号';
+
 const roleMeta = (role: UserRole, t: (k: string) => string) => {
-    const m = ROLE_OPTIONS.find((r) => r.value === role) || ROLE_OPTIONS[2];
-    return { label: t(m.key), cls: m.cls };
+    const m = ROLE_OPTIONS.find((r) => r.value === role) || ROLE_OPTIONS[1];
+    return { label: m.value === 'admin' ? '管理员' : '会员', cls: m.cls };
 };
 
 // 到期时间的展示元数据：颜色 + 状态 + 文案。临近到期阈值 7 天。
@@ -134,6 +135,10 @@ const isoToDateInput = (iso: string | null | undefined): string => {
 const errMsg = (detail: any, t: (k: string) => string) => {
     if (typeof detail !== 'string') return t('admin_users_op_failed');
     const map: Record<string, string> = {
+        membership_changed_reload: '会员等级已被其他管理员修改，请刷新后重试',
+        scenario_access_changed_reload: '场景库权限已被其他管理员修改，请刷新后重试',
+        admin_scenario_always_enabled: '管理员始终拥有场景库权限',
+        admin_membership_managed_by_role: '管理员权限由角色管理，无需设置会员等级',
         invalid_username: t('admin_users_err_invalid_username'),
         username_taken: t('admin_users_err_username_taken'),
         password_too_long: t('admin_users_err_pwd_too_long'),
@@ -163,8 +168,10 @@ const AdminUsers: React.FC = () => {
 
     // 内联编辑某行的状态
     const [editingId, setEditingId] = useState<number | null>(null);
-    const [editDraft, setEditDraft] = useState<{ role: UserRole; display_name: string; is_active: boolean }>({
-        role: 'tester',
+    const [editDraft, setEditDraft] = useState<{ role: UserRole; display_name: string; is_active: boolean; membership_tier: string; scenario_enabled: boolean }>({
+        role: 'viewer',
+        membership_tier: '',
+        scenario_enabled: false,
         display_name: '',
         is_active: true,
     });
@@ -232,7 +239,9 @@ const AdminUsers: React.FC = () => {
     const startEdit = (u: UserPublic) => {
         setEditingId(u.id);
         setEditDraft({
-            role: u.role,
+            role: u.role === 'admin' ? 'admin' : 'viewer',
+            membership_tier: u.membership_tier || '',
+            scenario_enabled: !!u.scenario_enabled,
             display_name: u.display_name || '',
             is_active: u.is_active,
         });
@@ -247,7 +256,9 @@ const AdminUsers: React.FC = () => {
         setError(null);
         try {
             const payload: any = {};
-            if (editDraft.role !== u.role) payload.role = editDraft.role;
+            if (u.role!=="admin" && editDraft.scenario_enabled!==!!u.scenario_enabled){payload.scenario_enabled=editDraft.scenario_enabled;payload.expected_scenario_enabled=!!u.scenario_enabled;}
+            if (editDraft.membership_tier && editDraft.membership_tier !== (u.membership_tier || '')) {payload.membership_tier=editDraft.membership_tier;payload.expected_membership_tier=u.membership_tier || null;}
+            if (editDraft.role !== (u.role === 'admin' ? 'admin' : 'viewer')) payload.role = editDraft.role;
             if (editDraft.display_name !== (u.display_name || '')) {
                 payload.display_name = editDraft.display_name || null;
             }
@@ -287,7 +298,7 @@ const AdminUsers: React.FC = () => {
         );
         let active = 0;
         for (const u of users) {
-            byRole[u.role] += 1;
+            byRole[u.role === 'admin' ? 'admin' : 'viewer'] += 1;
             if (u.is_active) active += 1;
         }
         return { total, active, byRole };
@@ -343,7 +354,7 @@ const AdminUsers: React.FC = () => {
                 {ROLE_OPTIONS.map((r) => (
                     <SummaryCard
                         key={r.value}
-                        label={t(r.key)}
+                        label={r.value === 'admin' ? '管理员' : '会员'}
                         value={summary.byRole[r.value]}
                     />
                 ))}
@@ -436,6 +447,7 @@ const AdminUsers: React.FC = () => {
                             <tr>
                                 <th className="px-4 py-3 text-left font-medium">{t('admin_users_col_user')}</th>
                                 <th className="px-4 py-3 text-left font-medium">{t('admin_users_col_role')}</th>
+                                <th className="px-4 py-3 text-left font-medium">会员等级</th><th className="px-4 py-3 text-left font-medium">场景库权限</th><th className="px-4 py-3 text-left font-medium">注册来源</th>
                                 <th className="px-4 py-3 text-left font-medium">{t('admin_users_col_status')}</th>
                                 <th className="px-4 py-3 text-left font-medium">{t('admin_users_col_expires')}</th>
                                 <th className="px-4 py-3 text-left font-medium">{t('admin_users_col_last_login')}</th>
@@ -446,19 +458,19 @@ const AdminUsers: React.FC = () => {
                         <tbody className="divide-y divide-ink/[0.08]">
                             {loading && users.length === 0 ? (
                                 <tr>
-                                    <td colSpan={7} className="px-4 py-12 text-center text-text-muted">
+                                    <td colSpan={12} className="px-4 py-12 text-center text-text-muted">
                                         <Loader2 className="w-5 h-5 animate-spin inline mr-2" />
                                         {t('loading')}
                                     </td>
                                 </tr>
                             ) : users.length === 0 ? (
                                 <tr>
-                                    <td colSpan={7} className="px-4 py-12 text-center text-text-muted">
+                                    <td colSpan={12} className="px-4 py-12 text-center text-text-muted">
                                         {t('admin_users_empty')}
                                     </td>
                                 </tr>
                             ) : (
-                                users.map((u) => {
+                                users.slice().sort((a,b)=>b.id-a.id).map((u) => {
                                     const isMe = me?.id === u.id;
                                     const isEditing = editingId === u.id;
                                     const role = roleMeta(u.role, t);
@@ -505,7 +517,7 @@ const AdminUsers: React.FC = () => {
                                                     >
                                                     {ROLE_OPTIONS.map((r) => (
                                                             <option key={r.value} value={r.value}>
-                                                                {t(r.key)}
+                                                                {r.value === 'admin' ? '管理员' : '会员'}
                                                             </option>
                                                         ))}
                                                     </LightSelect>
@@ -517,6 +529,13 @@ const AdminUsers: React.FC = () => {
                                                     </span>
                                                 )}
                                             </td>
+                                            <td className="px-4 py-3">
+                                                {u.role==='admin' ? <span className="text-text-muted">管理员权限</span> : isEditing ? <LightSelect aria-label="会员等级" value={editDraft.membership_tier} onChange={e=>setEditDraft(d=>({...d,membership_tier:e.target.value}))} className="px-2 py-1 border border-ink/[0.1] rounded text-sm"><option value="" disabled>原有账号</option>{MEMBERSHIP_OPTIONS.map(tier=><option key={tier} value={tier}>{membershipLabel(tier)}</option>)}</LightSelect> : <span className="text-xs px-2 py-1 rounded border border-ink/[0.1]">{membershipLabel(u.membership_tier)}</span>}
+                                            </td>
+                                            <td className="px-4 py-3 whitespace-nowrap">
+                                                {u.role==='admin' ? <span className="text-text-muted">始终开放</span> : isEditing ? <LightSelect aria-label={`场景库权限 ${u.username}`} value={editDraft.scenario_enabled?'open':'closed'} onChange={e=>setEditDraft(d=>({...d,scenario_enabled:e.target.value==='open'}))} className="px-2 py-1 border border-ink/[0.1] rounded text-sm"><option value="closed">不开放</option><option value="open">开放</option></LightSelect> : <span className={u.scenario_enabled?'font-medium text-ink':'text-text-muted'}>{u.scenario_enabled?'开放':'不开放'}</span>}
+                                            </td>
+                                            <td className="px-4 py-3 whitespace-nowrap">{u.registration_source==='wechat' ? '微信注册' : '网站 / 后台'}{u.status && u.status!=='active' && <div className="text-xs text-text-muted">{u.status==='pending'?'待审核':u.status}</div>}</td>
                                             <td className="px-4 py-3">
                                                 {isEditing && !isMe ? (
                                                     <label className="inline-flex items-center gap-2 text-sm">
@@ -721,7 +740,7 @@ const CreateUserModal: React.FC<{
     const [username, setUsername] = useState('');
     const [displayName, setDisplayName] = useState('');
     const [password, setPassword] = useState('');
-    const [role, setRole] = useState<UserRole>('tester');
+    const [role, setRole] = useState<UserRole>('viewer');
     const [expiryMode, setExpiryMode] = useState<'permanent' | 'date'>('permanent');
     const [expiryDate, setExpiryDate] = useState<string>('');  // 'YYYY-MM-DD'
     const [submitting, setSubmitting] = useState(false);
@@ -746,7 +765,7 @@ const CreateUserModal: React.FC<{
                 password,
                 role,
                 display_name: displayName.trim() || null,
-                must_reset_pwd: true,
+                must_reset_pwd: false,
             };
             if (expiryMode === 'date') {
                 payload.expires_at = dateInputToIso(expiryDate);
@@ -800,7 +819,7 @@ const CreateUserModal: React.FC<{
                     >
                         {ROLE_OPTIONS.map((r) => (
                             <option key={r.value} value={r.value}>
-                                {t(r.key)}
+                                {r.value === 'admin' ? '管理员' : '会员'}
                             </option>
                         ))}
                     </LightSelect>
@@ -1469,7 +1488,7 @@ const BulkProvisionModal: React.FC<{
                             {result.rows.map((row, idx) => (
                                 <tr key={`${row.email}-${idx}`}>
                                     <td className="px-3 py-2 text-text-secondary">{row.email}</td>
-                                    <td className="px-3 py-2 text-text-secondary">{t(`role_${row.role}`)}</td>
+                                    <td className="px-3 py-2 text-text-secondary">{row.role === 'admin' ? '管理员' : '会员'}</td>
                                     <td className="px-3 py-2">
                                         <BulkStatusBadge status={row.status} t={t} />
                                     </td>
@@ -1592,7 +1611,7 @@ const BulkPreviewTableRow: React.FC<{
             <td className="px-3 py-2 text-text-muted">{row.row_no}</td>
             <td className="px-3 py-2 text-text-secondary font-mono">{row.email || '—'}</td>
             <td className="px-3 py-2 text-text-secondary">{row.display_name || '—'}</td>
-            <td className="px-3 py-2 text-text-secondary">{t(`role_${row.role}`)}</td>
+            <td className="px-3 py-2 text-text-secondary">{row.role === 'admin' ? '管理员' : '会员'}</td>
             <td className="px-3 py-2 text-text-muted">{row.department || '—'}</td>
             <td className="px-3 py-2 text-text-secondary">
                 {row.expires_days != null
@@ -1726,7 +1745,7 @@ const ApproveApplicationModal: React.FC<{
                         onChange={(e) => setRole(e.target.value as UserRole)}
                         className="modal-input">
                         {ROLE_OPTIONS.map((r) => (
-                            <option key={r.value} value={r.value}>{t(r.key)}</option>
+                            <option key={r.value} value={r.value}>{r.value === 'admin' ? '管理员' : '会员'}</option>
                         ))}
                     </LightSelect>
                 </Field>

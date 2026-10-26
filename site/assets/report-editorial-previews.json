@@ -1,0 +1,294 @@
+{
+  "fallback": {
+    "zh": {
+      "title": "企业应把“失败后还能继续完成需求”作为产品能力",
+      "paragraphs": [
+        "评测案例已经出现话术引导、手动指引、界面接管、相近功能替代、网络重试与能力边界说明。但同样的兜底方式，可能帮用户继续完成，也可能让用户陷入重复、错误入口或目标偏移。",
+        "管理层建议：先修复循环、失真与错误接管，再扩大开放问答覆盖。",
+        "将投入首先放在高频需求的真实恢复路径：正确入口、具体控件、保留约束、接续服务。更强的模型可以补充能力，但不自动补齐界面和服务流程。",
+        "没听懂、缺知识、没接入、暂时故障、条件不足和不应执行，需要不同负责人和处理路径。统一回复“我还在学习”会掩盖真正问题。",
+        "不具备条件或权限时，应解释边界并提供允许的替代入口。理解意图与执行授权必须分别判断；合理拒绝不应被迫追求自动完成。",
+        "页面是否正确、参数是否保留、用户能否找到操作、最终是否成功，都需要后续证据。回复中的“已打开”只能证明系统这样说。"
+      ],
+      "table": [],
+      "section": "judgment"
+    },
+    "en": {
+      "title": "Enterprises should treat the ability to continue fulfilling a need after failure as a product capability",
+      "paragraphs": [
+        "The sample already includes phrasing guidance, manual instructions, UI handoffs, similar-feature alternatives, network retries and capability-boundary explanations. Yet the same fallback method can either help users continue or leave them repeating themselves, following incorrect entry points or drifting away from the goal.",
+        "Executive recommendation: fix loops, misleading feedback and incorrect handoffs before expanding open-ended Q&A coverage.",
+        "Prioritize genuine recovery paths for frequent needs: correct entry points, specific controls, retained constraints and service continuity. Stronger models can add capabilities, but do not automatically complete UI and service workflows.",
+        "Misunderstanding, missing knowledge, unavailable integration, temporary faults, insufficient conditions and prohibited actions require different owners and handling paths. A uniform “I am still learning” response hides the actual problem.",
+        "When conditions or permissions are missing, explain boundaries and provide permitted alternatives. Intent understanding and execution authorization must be assessed separately; appropriate refusals should not be forced into automatic completion.",
+        "Whether the page is correct, parameters are retained, users can find the action and the task ultimately succeeds all require subsequent evidence. “Opened” in a response only proves that the system said so."
+      ],
+      "table": [],
+      "section": "judgment",
+      "outline": [
+        "Actual records support behavioral analysis; final recovery still requires follow-up testing",
+        "Effective fallback changes the path according to the cause of failure",
+        "Eight findings point to the same issue: recovery paths need design and verification",
+        "Other products expand the mechanism framework; they cannot replace cockpit testing"
+      ]
+    }
+  },
+  "l9livis": {
+    "zh": {
+      "title": "常用任务具有较好的兑现基础，动态信息与生成能力仍有明确边界。",
+      "paragraphs": [
+        "理想L9 Livis的优势更接近用车助手与家庭内容服务，而不是所有AI任务都同样成熟。",
+        "能把不少日常需求办成， 但“查得到、改得对、生成得出”仍需要分别验收。",
+        "889条记录中，成功741、失败148；完成率83.4%，全量质量均分4.19/5。",
+        "车书域164/171成功；多任务车机执行9/10成功；特定条件影音搜索20/20成功。这些场景更能说明助手如何减少查手册、切换菜单与内容查找的工作。",
+        "车控对象修正3/8成功；实时路况查询5/10、交通票务查询2/6；主题与角色图像生成0/24。它们分别涉及最终意图、外部数据及能力支持范围，不能统称为模型不够聪明。",
+        "理想L9 Livis全量完成率83.4%，行业样本总体76.0%。车控域69.0%、创作域63.5%，需要结合支持范围分别评价。"
+      ],
+      "table": [],
+      "section": "judgment"
+    },
+    "en": {
+      "title": "Everyday tasks have a solid delivery foundation; dynamic information and generation retain clear limits.",
+      "paragraphs": [
+        "L9 Livis excels more as an ownership assistant and family-content service than as an equally mature solution for every AI task.",
+        "Many everyday needs can be fulfilled, but retrieval, correct adjustment, and generation need separate acceptance checks.",
+        "Of 889 records for version 9.0.2, 741 succeeded, 148 failed, and 0 had unknown outcomes. Cached overall score: 4.12/5; mean case-level total: 4.19/5. Completion and ratings use different aggregation methods and cannot be converted into each other.",
+        "Vehicle knowledge succeeded 164/171; multi-task infotainment execution 9/10; condition-specific media search 20/20. These show how the assistant reduces manual lookup, menu switching, and content-search work.",
+        "Control target correction succeeded 3/8; live traffic 5/10; transport ticket queries 2/6; theme/character image generation 0/24. These concern final intent, external data, and supported capabilities respectively—not simply an insufficiently intelligent model.",
+        "Completion across 288 questions is 87.2%, above the 77.0% aggregate. Control 76.6% and entertainment 96.3% exceed the aggregate, but only 13 common creative questions and no image-generation tasks cannot conceal full-record creation at 63.5%."
+      ],
+      "table": [],
+      "section": "judgment",
+      "outline": [
+        "Six domains diverge: knowledge is most stable; creation and control lower full-set performance.",
+        "Scenario results: ownership guidance and compound operations are strong; corrections and dynamic information are weaker.",
+        "Benchmarking supports everyday-task strengths; the full capability scope needs a separate view.",
+        "Strengths reflect real family-ownership work: operating, finding, and understanding."
+      ]
+    }
+  },
+  "multi-stop": {
+    "zh": {
+      "title": "极氪是优先学习对象，银河是必须补看的执行标杆",
+      "paragraphs": [
+        "若要选一个主标杆，选极氪9X；若要把多点规划的产品机制学完整，极氪、银河、Livis需要组合着看。结论针对受测版本，不能扩展为品牌全系排名。",
+        "把用户的一句话保存成一份可以继续编辑、澄清和执行的行程，而不是在每轮回答时重新搜索一个地点。"
+      ],
+      "table": [
+        [
+          "产品决策",
+          "推荐标杆",
+          "重点学习"
+        ],
+        [
+          "固定多站与复合任务",
+          "极氪9X + 银河M9",
+          "终点与途经点分离；按用户顺序组织路线；功能型需求落成站点"
+        ],
+        [
+          "候选选择与局部澄清",
+          "小米YU7 + Livis",
+          "区分途经点和终点，问清尚未确定的POI，保留已知目标"
+        ],
+        [
+          "路线优化与主题行程",
+          "极氪为起点，补看问界内容组织",
+          "明确优化目标，区分地图求解与旅行建议，检查条件是否真满足"
+        ],
+        [
+          "蔚来改进优先级",
+          "先参考执行链，再扩充行程内容",
+          "保住多站结构、解决POI选择、核对实际路线，随后做最短时间与主题约束"
+        ]
+      ],
+      "section": "s1"
+    },
+    "en": {
+      "title": "ZEEKR is the primary learning reference; Galaxy is an essential execution benchmark",
+      "paragraphs": [
+        "If one primary reference must be chosen, choose ZEEKR 9X. To understand multi-stop product mechanisms fully, examine ZEEKR, Galaxy and Livis together. Findings concern tested versions, not brand-wide rankings.",
+        "Preserve a user's single request as an itinerary that can be edited, clarified and executed, rather than restarting a single-place search every turn."
+      ],
+      "table": [
+        [
+          "Product decision",
+          "Recommended benchmark",
+          "Learning focus"
+        ],
+        [
+          "Fixed multi-stop and compound tasks",
+          "ZEEKR 9X + Galaxy M9",
+          "Separate endpoint and waypoints; preserve user ordering; turn functional needs into stops"
+        ],
+        [
+          "Candidate selection and targeted clarification",
+          "Xiaomi YU7 + Livis",
+          "Distinguish waypoints from endpoint, clarify unresolved POIs and retain known goals"
+        ],
+        [
+          "Route optimization and themed itineraries",
+          "Start with ZEEKR; add AITO's content organization",
+          "Specify the optimization objective, separate map solving from travel advice, and verify constraints"
+        ],
+        [
+          "NIO improvement priorities",
+          "Learn the execution chain before expanding itinerary content",
+          "Retain multi-stop structure, resolve POI selection and verify actual routes; then address shortest time and themed constraints"
+        ]
+      ],
+      "section": "s1",
+      "outline": [
+        "Why choose ZEEKR as the primary benchmark when both reach 100% completion?",
+        "Four task types in multi-stop planning: stop count alone does not measure difficulty",
+        "Six cases turn leadership comparisons into mechanisms we can learn",
+        "Reusable task mechanisms matter more than super-thinking branding"
+      ]
+    }
+  },
+  "i8-livis": {
+    "zh": {
+      "title": "Livis阶段总体表现改善；功能取消与小样本测试波动需要分开。",
+      "paragraphs": [
+        "主要增益在出行组织、知识回答和部分组合任务；图像生成取消是独立的产品取舍。",
+        "升级有进步，也有收缩； 分别看总体表现、功能取舍与测试波动。",
+        "i8的716条记录中成功550、失败165、未知1，完成率76.9%；Livis的889条记录中成功741、失败148，完成率83.4%。",
+        "多目的地路径规划：6/11 → 11/12；多任务车机执行：9/13 → 9/10。样本数与任务结构不同，比例差异需要结合具体案例判断。",
+        "主题及角色图像生成：18/19 → 0/24。新版记录明确不支持，说明受测车端功能范围收缩。",
+        "车控对象修正：3/8 → 3/8。样本数与任务结构不同，比例差异需要结合具体案例判断。"
+      ],
+      "table": [],
+      "section": "verdict"
+    },
+    "en": {
+      "title": "Overall performance improves at the Livis stage; feature removal and small-sample test variation must be separated.",
+      "paragraphs": [
+        "Gains center on travel orchestration, knowledge answers, and some compound tasks. Removing image generation is a distinct product trade-off.",
+        "The upgrade brings progress and reduced scope; assess overall performance, feature trade-offs, and test variation separately.",
+        "Keeping the latest record for each question yields 77.2% → 83.4% overall. Fixing i8 weights across common scenarios and acceptance levels yields 77.1% → 82.9%; the improvement direction survives composition adjustment.",
+        "Multi-destination routing improves from 5/9 → 11/12; multi-task infotainment execution from 6/9 → 9/10. These small-sample signals need interpretation alongside broader task-family and overall results.",
+        "The image-generation family changes from 17/18 → 0/24, with scenario means 4.14 → 1.70. This is reduced experience scope following feature removal—not a new model drawing worse.",
+        "Both vehicles succeed on 3 target-correction questions. Changing the sample from 7 to 8 alone changes the rate from 42.9% to 37.5%. Such differences are treated as test variation. Evidence is insufficient to confirm systematic regression beyond feature removal."
+      ],
+      "table": [],
+      "section": "verdict",
+      "outline": [
+        "Overall progress cannot replace local review: creation and control move in different directions.",
+        "Task orchestration and knowledge services are the main enhancements; Agents did not first appear with Livis.",
+        "Small-sample percentage differences are test variation, not regression conclusions.",
+        "Removing image generation reduces feature scope; it does not establish worse model drawing ability."
+      ]
+    }
+  },
+  "zeekr9x": {
+    "zh": {
+      "title": "知识与出行已形成优势，车控兑现仍是优先改进项。",
+      "paragraphs": [
+        "基于受测版本的研究判断：座舱 AI 的下一步提升，应优先解决对象、约束与动作结果的连接。",
+        "它已经能完成不少复杂的信息任务， 但把一句自然需求变成正确的车辆动作，仍有断点。",
+        "855条记录中，成功712、失败143；完成率83.3%，全量质量均分4.34/5。",
+        "多目的地路径规划 10/10 成功，车辆技术与原理解释 35/35 成功，限定条件与社媒文案创作 22/22 成功。适合作为回归测试与产品体验设计的起点，小样本不能外推到所有同类任务。",
+        "车控域 109/169 成功（64.5%）；60 条失败占全部失败的 42.0%。车控对象修正 2/7、连续对话车控 3/7、模糊车控理解 4/12，提示应先核查动作对象与最终意图。",
+        "极氪9X全量完成率83.3%，行业样本总体76.0%。车控域64.5%、创作域95.1%，需要结合支持范围分别评价。"
+      ],
+      "table": [],
+      "section": "judgment"
+    },
+    "en": {
+      "title": "Knowledge and travel are established strengths; vehicle-control execution remains the priority.",
+      "paragraphs": [
+        "Research finding for the tested version: the next improvement in cockpit AI should connect target objects, constraints, and actual action outcomes.",
+        "It can already complete many complex information tasks, but converting a natural request into the correct vehicle action still has gaps.",
+        "Of 855 case-level records, 712 succeeded and 143 failed: an 83.3% completion rate. The platform-cached overall score is 4.33/5; the mean case-level total score is 4.34/5. These use different aggregation methods, and neither substitutes for the task success rate.",
+        "Multi-destination routing succeeded in 10/10 cases; vehicle technology and principle explanations in 35/35; constrained and social-media copywriting in 22/22. These are starting points for regression tests and experience design; small samples cannot establish performance across every similar task.",
+        "Vehicle control succeeded in 109/169 cases (64.5%); its 60 failures represent 42.0% of all failures. Target correction achieved 2/7, continuous-dialogue control 3/7, and ambiguous control understanding 4/12. Verify the target object and final intent first.",
+        "Across 288 screened common questions, the 9X achieved 85.1%, versus 77.0% for the aggregate of 7 versions; vehicle control was 55.3% versus 58.1%. This descriptive comparison after question-text screening is neither a brand ranking nor a causal conclusion."
+      ],
+      "table": [],
+      "section": "judgment",
+      "outline": [
+        "Across six domains, vehicle control is the clearest performance gap.",
+        "Scenario results: routing and vehicle knowledge are strong; target correction and charging-site filtering are weaker.",
+        "Stricter benchmarking still supports an overall advantage, but vehicle control needs separate scrutiny.",
+        "Product strengths should be expressed through demonstrated task chains."
+      ]
+    }
+  },
+  "travel": {
+    "zh": {
+      "title": "先把“能回答”升级成“能完成出行任务”",
+      "paragraphs": [
+        "从受测ET5来看，问题核心是任务链可靠性。用户已经给出了清晰目标，系统却仍让用户重新选择、重新解释，甚至把查询变成导航。",
+        "出行助手的价值，是减少用户为完成同一目标付出的操作和认知成本。一次说清、多轮保留、正确执行、失败可恢复，应成为统一的产品门槛。"
+      ],
+      "table": [
+        [
+          "负责人需要作出的决定",
+          "判断依据",
+          "建议"
+        ],
+        [
+          "P0：先修导航底座和会话状态",
+          "基础任务完成率42.6%；直接导航28.6%，目的地修正12.5%",
+          "先解决找对地点、改对目的地、记住选择、确认执行结果"
+        ],
+        [
+          "P1：形成蔚来的电动出行优势",
+          "补能查询有成功案例，补能与路线组合却失败",
+          "把可筛选充电站接入有序路线，保留最终目的地与用户条件"
+        ],
+        [
+          "P1：让家庭及生活需求可执行",
+          "生活搜索失败12条，口语需求完成率14.3%",
+          "围绕医院、卫生间、停车等任务补齐实体关系与可靠属性"
+        ],
+        [
+          "P2：暂缓扩张泛旅游和票务承诺",
+          "票务缺属性，同行也出现失败；长文行程不等于路线执行",
+          "先接可靠数据与工具，再增加能力入口；避免用流畅文案掩盖无法执行"
+        ]
+      ],
+      "section": "s1"
+    },
+    "en": {
+      "title": "Move from answering questions to completing travel tasks",
+      "paragraphs": [
+        "In the tested ET5, the central issue is task-chain reliability. Even after users state a clear goal, the system asks them to choose or explain again, and sometimes turns an information query into navigation.",
+        "A travel assistant creates value by reducing the interaction and cognitive effort needed to achieve the same goal. State the task once, retain it across turns, execute correctly and recover from failure: these should be shared product requirements."
+      ],
+      "table": [
+        [
+          "Decisions for the product owner",
+          "Evidence",
+          "Recommendation"
+        ],
+        [
+          "P0: Repair navigation foundations and conversation state first",
+          "Basic-task completion 42.6%; direct navigation 28.6%; destination correction 12.5%",
+          "Find the right place, update the destination correctly, retain selections and confirm actual execution"
+        ],
+        [
+          "P1: Build NIO's electric-travel advantage",
+          "Charging queries have successful cases, but combining charging with routes fails",
+          "Integrate filterable charging stations into ordered routes while retaining the final destination and user constraints"
+        ],
+        [
+          "P1: Make family and everyday needs executable",
+          "12 local-service search failures; colloquial-request completion 14.3%",
+          "Complete entity relationships and reliable attributes for hospitals, toilets, parking and similar tasks"
+        ],
+        [
+          "P2: Defer broader tourism and ticketing promises",
+          "Ticketing lacks attributes and peers also fail; a lengthy itinerary is not an executed route",
+          "Connect reliable data and tools before adding capability entry points; fluent copy must not conceal an inability to execute"
+        ]
+      ],
+      "section": "s1",
+      "outline": [
+        "ET5 trails this benchmark group, with gaps already evident in basic tasks",
+        "The largest gaps: multiple destinations, corrections, colloquial needs and destination chaining",
+        "Low scores point to three capability layers: understanding goals, maintaining state and connecting reliable services",
+        "Select benchmarks by task: each competitor offers specific strengths"
+      ]
+    }
+  }
+}

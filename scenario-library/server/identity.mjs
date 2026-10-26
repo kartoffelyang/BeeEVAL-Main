@@ -6,7 +6,7 @@ export async function sharedIdentity(req,db){
  const r=await fetch('https://open.beeeval.com/api/auth/me',{headers:{Authorization:'Bearer '+token},signal:AbortSignal.timeout(10000)});
  if(!r.ok){if(r.status>=500)throw Error('账号服务暂时不可用');return null}
  const identity=await r.json();
- if(identity.role!=='admin'&&['free','trial'].includes(identity.membership_tier))return null;
+ if(identity.role!=='admin'&&!identity.report_entitlements?.includes('scenarios'))return null;
  const existingAdmin=identity.username==='admin'&&identity.role==='admin'?db.prepare('SELECT id FROM users WHERE username=?').get('admin'):null;
  const id=existingAdmin?.id||`beeeval:${identity.id}`;
  let user=db.prepare('SELECT id,username,role FROM users WHERE id=?').get(id);

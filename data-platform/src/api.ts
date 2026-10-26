@@ -1514,7 +1514,10 @@ export interface UserPublic {
     username: string;
     display_name: string | null;
     role: UserRole;
-    membership_tier?: 'free'|'base'|'plus'|'pro'|'trial';
+    membership_tier?: 'free'|'base'|'plus'|'pro'|'max'|'trial'|null;
+    scenario_enabled?: boolean;
+    registration_source?: 'wechat'|'website';
+    status?: string;
     is_active: boolean;
     must_reset_pwd: boolean;
     created_at: string;
@@ -1643,6 +1646,10 @@ export const adminUpdateUser = async (
     id: number,
     payload: {
         role?: UserRole;
+        membership_tier?: 'free'|'base'|'plus'|'pro'|'max'|'trial';
+        scenario_enabled?: boolean;
+        expected_scenario_enabled?: boolean;
+        expected_membership_tier?: string|null;
         display_name?: string | null;
         is_active?: boolean;
         /** 显式清除到期时间 → 改成永久；优先级高于 expires_at / expires_days */

@@ -10,7 +10,7 @@ const reports=await fetch('/assets/report-previews.json',{cache:'no-store'}).the
 const reportBadge=r=>r.badge||(r.access==='free'?'Free':'');
 $$('a[data-preview]').filter(a=>a.matches('.report-cover,.small-cover')).forEach(a=>{const label=reportBadge(reports[a.dataset.preview]);if(!label)return;let badge=a.querySelector('.report-free-badge');if(!badge){badge=document.createElement('b');badge.className='report-free-badge';a.prepend(badge)}badge.textContent=label});
 let currentReport;
-const canReadReport=r=>!!memberUser&&(r.access==='free'||memberUser.report_entitlements?.some(id=>reports[id]===r)||memberUser.capabilities?.reports||memberUser.role==='admin');
+const canReadReport=r=>!!memberUser&&(r.access!=='admin'||memberUser.role==='admin')&&(r.access==='free'||memberUser.report_entitlements?.some(id=>reports[id]===r)||memberUser.capabilities?.reports||memberUser.role==='admin');
 function reportDestination(id){const r=reports[id];return canReadReport(r)?'/'+(localStorage.getItem('beeeval-site-language')==='en'?r.englishPath:r.path):'/preview.html?report='+encodeURIComponent(id)}
 function openReport(id){if(reports[id])location.href=reportDestination(id)}
 $$('button[data-preview]').forEach(b=>{if(canReadReport(reports[b.dataset.preview]))b.innerHTML='阅读全文 <span>↗</span>'});

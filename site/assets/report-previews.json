@@ -3,37 +3,27 @@
     "title": "2026 座舱 AI 行业趋势白皮书",
     "path": "reports/whitepaper/",
     "category": "年度研究",
-    "summary": "观察八个受测版本与六大功能域，探讨座舱 AI 的产品演进。",
+    "summary": "报告正在准备中，正式上线后开放阅读。",
     "englishPath": "reports/whitepaper/en.html",
-    "findings": [
-      "竞争正在从通用问答转向场景整合，能力组合比单一总分更能解释产品差异。",
-      "语言与知识已形成基础，连续任务、反馈与多模态仍存在体验缺口。",
-      "围绕真实用车任务组织研发与评测，持续衡量效果、效率、性能和成本。"
-    ],
-    "outline": [
-      "行业全景与六域表现",
-      "场景竞争与标杆路径",
-      "年度趋势与产品建设重点"
-    ],
-    "scope": "受测版本与样本范围、完整图表、案例分析及方法说明，详见完整报告。",
+    "findings": [],
+    "outline": [],
+    "scope": "数据截至2026-10-07；按各受测版本全量记录统计，专项采用对应领域或场景的全部记录。",
     "en": {
       "title": "2026 Cockpit AI Industry Whitepaper",
-      "summary": "Eight tested versions and six domains reveal how cockpit AI is evolving.",
+      "summary": "This report is being prepared and will be available after publication.",
       "category": "Annual research",
-      "findings": [
-        "Competition is moving from general answers to integrated scenarios; capability profiles explain product differences better than a single score.",
-        "Language and knowledge provide a foundation, while task continuity, feedback and multimodal delivery still have gaps.",
-        "Organize development and evaluation around real vehicle tasks, considering effectiveness, efficiency, performance and cost."
-      ]
+      "findings": []
     },
-    "access": "paid",
-    "badge": "待上线"
+    "access": "admin",
+    "badge": "待上线",
+    "updatedAt": "2026-10-21",
+    "revision": "20261021-full-bank"
   },
   "fallback": {
     "title": "当座舱 AI 帮不上忙：从失败话术到任务恢复",
     "path": "reports/fallback/",
     "category": "失败案例专题",
-    "summary": "基于30条实际测试记录，研究失败反馈、接管指引与任务恢复。",
+    "summary": "结合5个受测版本的全量表现与30个失败案例，研究失败反馈、接管指引与任务恢复。",
     "englishPath": "reports/fallback/en.html",
     "findings": [
       "失败反馈的价值，在于帮助用户继续推进任务，而不只是说明“暂时做不到”。",
@@ -45,7 +35,7 @@
       "典型案例与恢复机制",
       "产品设计与复测建议"
     ],
-    "scope": "受测版本与样本范围、完整图表、案例分析及方法说明，详见完整报告。",
+    "scope": "数据截至2026-10-07；按各受测版本全量记录统计，专项采用对应领域或场景的全部记录。",
     "en": {
       "title": "When Cockpit AI Falls Short: From Failure Responses to Task Recovery",
       "summary": "30 real test records examining failure responses, handover guidance and task recovery.",
@@ -56,7 +46,9 @@
         "Existing records support behavioral analysis; verified recovery and eventual completion require further testing."
       ]
     },
-    "access": "paid"
+    "access": "paid",
+    "updatedAt": "2026-10-21",
+    "revision": "20261021-full-bank"
   },
   "zeekr9x": {
     "title": "极氪 9X 座舱 AI 专题报告",
@@ -74,7 +66,7 @@
       "路线规划与车书知识表现较强，车控对象修正和补能条件筛选存在差距。",
       "结合六域画像、行业样本与真实案例，明确产品亮点和改进优先级。"
     ],
-    "scope": "受测版本与样本范围、完整图表、案例分析及方法说明，详见完整报告。",
+    "scope": "数据截至2026-10-07；按各受测版本全量记录统计，专项采用对应领域或场景的全部记录。",
     "en": {
       "title": "ZEEKR 9X Cockpit AI Study",
       "summary": "855 BeeEVAL records covering six-domain performance, scenarios, industry benchmarks and improvement priorities.",
@@ -86,7 +78,9 @@
       ]
     },
     "access": "free",
-    "badge": "限时免费"
+    "badge": "限时免费",
+    "updatedAt": "2026-10-21",
+    "revision": "20261021-full-bank"
   },
   "l9livis": {
     "title": "理想 L9 Livis 座舱 AI 单车专题报告",
@@ -104,7 +98,7 @@
       "车书知识、组合操作与使用指导是优势，改口和动态服务需要进一步完善。",
       "总体分数之外，报告拆解六域与细分场景，区分常用任务优势和完整能力范围。"
     ],
-    "scope": "受测版本与样本范围、完整图表、案例分析及方法说明，详见完整报告。",
+    "scope": "数据截至2026-10-07；按各受测版本全量记录统计，专项采用对应领域或场景的全部记录。",
     "en": {
       "title": "Li Auto L9 Livis Cockpit AI Study",
       "summary": "889 BeeEVAL records examining everyday task completion, six-domain performance, live information and generative capabilities.",
@@ -116,7 +110,9 @@
       ]
     },
     "access": "free",
-    "badge": "限时免费"
+    "badge": "限时免费",
+    "updatedAt": "2026-10-21",
+    "revision": "20261021-full-bank"
   },
   "travel": {
     "title": "蔚来出行 AI 专项对标与改进建议",
@@ -134,7 +130,7 @@
       "典型案例与任务链诊断",
       "标杆机制与改进建议"
     ],
-    "scope": "受测版本与样本范围、完整图表、案例分析及方法说明，详见完整报告。",
+    "scope": "数据截至2026-10-07；按各受测版本全量记录统计，专项采用对应领域或场景的全部记录。",
     "en": {
       "title": "NIO Mobility AI: Benchmarking and Improvement",
       "summary": "Destination, routing and charging tasks reveal experience gaps in NIO ET5.",
@@ -145,7 +141,9 @@
         "Task-specific benchmarks turn understanding, task state and service integration into concrete improvement directions."
       ]
     },
-    "access": "paid"
+    "access": "paid",
+    "updatedAt": "2026-10-21",
+    "revision": "20261021-full-bank"
   },
   "multi-stop": {
     "title": "多点行程规划：品牌对标与产品启示",
@@ -163,7 +161,7 @@
       "多点规划的难度来自顺序、约束和任务衔接，不能只用站点数量衡量。",
       "通过典型案例提炼可复制的规划与执行机制，而不止比较品牌排名。"
     ],
-    "scope": "受测版本与样本范围、完整图表、案例分析及方法说明，详见完整报告。",
+    "scope": "数据截至2026-10-07；按各受测版本全量记录统计，专项采用对应领域或场景的全部记录。",
     "en": {
       "title": "Multi-stop Trip Planning: Brand Benchmarks and Product Insights",
       "summary": "Compare multi-stop planning across brands through cases, execution gaps and transferable product improvements.",
@@ -174,7 +172,9 @@
         "Representative cases reveal reusable planning and execution mechanisms beyond brand rankings."
       ]
     },
-    "access": "paid"
+    "access": "paid",
+    "updatedAt": "2026-10-21",
+    "revision": "20261021-full-bank"
   },
   "i8-livis": {
     "title": "理想 i8 → L9 Livis 座舱 AI 能力变化报告",
@@ -192,7 +192,7 @@
       "多地点与组合任务组织增强，图像生成取消属于功能范围取舍。",
       "小样本比例波动不等于能力退化；持续短板与明确功能取消应分别验证。"
     ],
-    "scope": "受测版本与样本范围、完整图表、案例分析及方法说明，详见完整报告。",
+    "scope": "数据截至2026-10-07；按各受测版本全量记录统计，专项采用对应领域或场景的全部记录。",
     "en": {
       "title": "Li Auto i8 → L9 Livis: Cockpit AI Capability Evolution",
       "summary": "Compare i8 and L9 Livis across vehicles and collection periods. Distinguish capability gains, feature removal and small-sample variation to assess product trade-offs and persistent gaps.",
@@ -204,6 +204,8 @@
       ]
     },
     "access": "free",
-    "badge": "限时免费"
+    "badge": "限时免费",
+    "updatedAt": "2026-10-21",
+    "revision": "20261021-full-bank"
   }
 }
