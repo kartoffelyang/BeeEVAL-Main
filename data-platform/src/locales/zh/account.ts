@@ -37,7 +37,7 @@ const account = {
   'admin_pending_reject': '拒绝',
   'admin_pending_department': '部门',
   'admin_pending_approve_title': '审批账号申请',
-  'admin_pending_approve_hint': '审批通过后将生成初始密码并发送邀请邮件（若已配置 SMTP），用户首次登录需修改密码。',
+  'admin_pending_approve_hint': '审批通过后自动生成初始密码并发送开通邮件。用户可直接登录，无需先改密码。',
   'admin_pending_approve_submit': '通过并开通',
 
   // 数据截止时间
@@ -110,7 +110,7 @@ const account = {
 
   // 账号管理页
   'admin_users_title': '账号管理',
-  'admin_users_subtitle': '仅管理员可见。新建用户后请妥善告知初始密码，用户首次登录将被强制改密。',
+  'admin_users_subtitle': '仅管理员可见。按角色、会员等级及独立的场景库授权管理账号。',
   'admin_users_refresh': '刷新',
   'admin_users_create': '新建账号',
   'admin_users_summary_total': '总账号',
@@ -139,7 +139,7 @@ const account = {
   'admin_users_initial_password': '初始密码',
   'admin_users_pwd_hint': '至少 6 个字符',
   'admin_users_role': '角色',
-  'admin_users_create_hint': '新账号默认要求首次登录改密。请用安全渠道告知用户初始密码。',
+  'admin_users_create_hint': '新账号可使用初始密码直接登录。请通过安全渠道告知用户。',
   'admin_users_create_submit': '创建',
   'admin_users_create_invalid': '请输入用户名，密码至少 6 位',
   'admin_users_reset_pwd_title': '重置密码 — @{{name}}',
@@ -197,8 +197,8 @@ const account = {
   'admin_users_bulk_expiry_label': '本批账号使用期限',
   'admin_users_bulk_expiry_days_prefix': '到期天数',
   'admin_users_bulk_expiry_days_suffix': '天后',
-  'admin_users_bulk_expiry_hint': '本次创建的所有账号将共用同一到期时间；邮件中会告知用户。',
-  'admin_users_bulk_expiry_row_override_hint': '若 Excel 中"到期天数"列填了值，对应行将以行级值为准，覆盖上面的批次默认。',
+  'admin_users_bulk_expiry_hint': '账号有效期将随开通邮件发送。',
+  'admin_users_bulk_expiry_row_override_hint': 'Excel 的“有效天数”优先于批次期限；填“永久”或 0 表示该账号永久有效。',
   'admin_users_bulk_err_invalid_expiry_days': '到期天数无效（1–3650 天）',
   'admin_users_bulk_err_expires_days_invalid': '到期天数无效（需为 1 以上的整数）',
   'admin_users_bulk_err_expires_days_too_large': '到期天数超过上限（最多 3650 天）',
@@ -244,7 +244,7 @@ const account = {
   'admin_users_bulk_err_smtp_not_configured': '系统尚未配置 SMTP 邮件服务',
   'admin_users_bulk_err_email_required': '邮箱必填',
   'admin_users_bulk_err_email_invalid': '邮箱格式不合法',
-  'admin_users_bulk_err_role_invalid': '角色不合法（仅 admin/analyst/tester/viewer）',
+  'admin_users_bulk_err_role_invalid': '角色只能填写会员或管理员（member / admin）',
   'admin_users_bulk_err_display_too_long': '姓名超长（≤128 字符）',
   'admin_users_bulk_err_department_too_long': '部门超长（≤128 字符）',
   'admin_users_bulk_err_duplicate_in_file': '同一文件中重复',

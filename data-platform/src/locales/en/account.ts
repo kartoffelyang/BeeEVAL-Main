@@ -37,7 +37,7 @@ const account = {
   'admin_pending_reject': 'Reject',
   'admin_pending_department': 'Department',
   'admin_pending_approve_title': 'Approve Application',
-  'admin_pending_approve_hint': 'On approval, an initial password is generated and an invite email is sent (if SMTP is configured). The user must change the password on first login.',
+  'admin_pending_approve_hint': 'Approval generates an initial password and sends an account invitation. Users can sign in directly without resetting it first.',
   'admin_pending_approve_submit': 'Approve & Provision',
 
   // Data visible cutoff
@@ -110,7 +110,7 @@ const account = {
 
   // Admin users page
   'admin_users_title': 'Account management',
-  'admin_users_subtitle': 'Visible to administrators only. After creating a user, share the initial password securely — they will be required to change it on first sign-in.',
+  'admin_users_subtitle': 'Administrators only. Manage roles, membership tiers and independently licensed scenario access.',
   'admin_users_refresh': 'Refresh',
   'admin_users_create': 'New account',
   'admin_users_summary_total': 'Total accounts',
@@ -139,7 +139,7 @@ const account = {
   'admin_users_initial_password': 'Initial password',
   'admin_users_pwd_hint': 'At least 6 characters',
   'admin_users_role': 'Role',
-  'admin_users_create_hint': 'New accounts are required to change their password on first sign-in. Share the initial password through a secure channel.',
+  'admin_users_create_hint': 'New accounts can sign in directly with their initial password. Share it through a secure channel.',
   'admin_users_create_submit': 'Create',
   'admin_users_create_invalid': 'Please enter a username and a password of at least 6 characters',
   'admin_users_reset_pwd_title': 'Reset password — @{{name}}',
@@ -197,8 +197,8 @@ const account = {
   'admin_users_bulk_expiry_label': 'Validity for this batch',
   'admin_users_bulk_expiry_days_prefix': 'Expires in',
   'admin_users_bulk_expiry_days_suffix': 'day(s)',
-  'admin_users_bulk_expiry_hint': 'All accounts created in this batch will share the same expiration date, which will be included in the invitation email.',
-  'admin_users_bulk_expiry_row_override_hint': 'Rows that fill in the "expires_days" column in the Excel will use that per-row value instead of the batch default above.',
+  'admin_users_bulk_expiry_hint': 'Account validity will be included in the invitation email.',
+  'admin_users_bulk_expiry_row_override_hint': 'Per-row valid days override the batch default. Enter 0 or permanent for a permanent account.',
   'admin_users_bulk_err_invalid_expiry_days': 'Invalid expiry days (must be 1–3650)',
   'admin_users_bulk_err_expires_days_invalid': 'Invalid valid-days value (must be a positive integer)',
   'admin_users_bulk_err_expires_days_too_large': 'Valid days exceed maximum (3650)',
@@ -244,7 +244,7 @@ const account = {
   'admin_users_bulk_err_smtp_not_configured': 'SMTP email service is not configured on the server',
   'admin_users_bulk_err_email_required': 'Email is required',
   'admin_users_bulk_err_email_invalid': 'Invalid email format',
-  'admin_users_bulk_err_role_invalid': 'Invalid role (must be admin/analyst/tester/viewer)',
+  'admin_users_bulk_err_role_invalid': 'Role must be member or admin.',
   'admin_users_bulk_err_display_too_long': 'Name too long (≤128 chars)',
   'admin_users_bulk_err_department_too_long': 'Department too long (≤128 chars)',
   'admin_users_bulk_err_duplicate_in_file': 'Duplicate in the same file',
