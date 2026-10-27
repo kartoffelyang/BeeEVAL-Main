@@ -1,11 +1,10 @@
 import {useTrialAccess, TRIAL_DOMAIN, TRIAL_DOMAINS} from "../contexts/TrialContext";
 import React, { useState, useEffect, useMemo, useCallback } from 'react';
-import { Swords, Clock, ChevronLeft, ChevronRight, ArrowUp, ArrowDown, ArrowUpDown, SlidersHorizontal } from 'lucide-react';
+import { ChevronLeft, ChevronRight, ArrowUp, ArrowDown, ArrowUpDown, SlidersHorizontal } from 'lucide-react';
 import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 import { useMetricsTranslation } from '../hooks/useMetricsTranslation';
 import { getPKCases, getFilterOptions, type PKCaseItem } from '../api';
-import { useAuth } from '../contexts/AuthContext';
 import { useComparison, vehicleKey, parseVehicleKey } from './vehicle-scores/ComparisonContext';
 import VehicleSelector from './vehicle-scores/VehicleSelector';
 import PKCompareModal from './vehicle-scores/PKCompareModal';
@@ -26,31 +25,7 @@ const VehiclePK: React.FC = () => {
     const {trial,guardDomain}=useTrialAccess();
     const { t } = useTranslation();
     const { td, tv } = useMetricsTranslation();
-    const { user } = useAuth();
     const { primaryKey, competitorKeys } = useComparison();
-
-    // 体验员（viewer）内测期禁用车型 PK：保留入口，进入渲染占位提示。
-    if (user?.role === 'viewer') {
-        return (
-            <div className="p-8 max-w-7xl mx-auto">
-                <div className="bg-surface-raised rounded-2xl border border-ink/[0.08] shadow-sm
-                                py-20 px-8 flex flex-col items-center justify-center text-center
-                                space-y-4 min-h-[60vh]">
-                    <div className="w-16 h-16 rounded-2xl bg-purple-100 border border-purple-200
-                                    flex items-center justify-center">
-                        <Swords className="w-8 h-8 text-purple-700" />
-                    </div>
-                    <h1 className="text-2xl font-bold text-text-primary">{t('vehicle_pk')}</h1>
-                    <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full
-                                    bg-amber-100 border border-amber-200 text-amber-700 text-sm">
-                        <Clock className="w-4 h-4" />
-                        {t('vehicle_pk_coming_soon')}
-                    </div>
-                    <p className="text-text-muted text-sm max-w-md mt-2">{t('vehicle_pk_coming_soon_desc')}</p>
-                </div>
-            </div>
-        );
-    }
 
     // 选中车型 = 本品 + 竞品（本品排首列），最多 5 款。
     const selectedKeys = useMemo(() => {

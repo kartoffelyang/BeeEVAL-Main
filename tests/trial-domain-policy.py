@@ -45,6 +45,11 @@ if len(sys.argv)>1:
  def body(tree,name):return ast.unparse(next(n for n in tree.body if isinstance(n,(ast.FunctionDef,ast.AsyncFunctionDef)) and n.name==name))
  for name in ['get_all_results','get_pk_cases']:
   assert 'function_domain = DOMAIN' in body(video,name)
+ for name in ['get_pk_cases','get_pk_detail']:
+  assert 'mimo-split-v1' in body(video,name) and 'evaluation_publication_results' in body(video,name)
+ assert 'ORDER BY vr.created_at ASC, vr.id ASC' in body(video,'get_pk_cases')
+ assert 'ORDER BY vr.created_at DESC, vr.id DESC' in body(video,'get_pk_detail')
+ assert 'matched_cases' in body(video,'get_pk_cases')
  assert 'authorize_video(current_user, req.path)' in body(video,'sign_video_stream')
  assert "vr.function_domain = '出行域'" in body(video,'get_pk_detail')
  for name in ['get_criteria_by_domain','get_vehicle_task_completion','get_vehicle_acceptance_task_detail','get_metrics_baseline','get_metric_domain_breakdown']:

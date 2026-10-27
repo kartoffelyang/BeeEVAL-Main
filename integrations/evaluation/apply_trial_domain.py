@@ -19,6 +19,23 @@ def aggregate_boundary(s):
  s=section(s,'get_vehicle_scores',lambda b:b.replace('    if is_domain_trial(current_user):\n        return VehicleScoreSnapshot(**await vehicle_snapshot(brand_model, system_version))\n',''))
  s=section(s,'get_vehicle_task_detail_cases',lambda b:b.replace('scope_clause(ver_clause, ver_params, domain_scope(current_user))','scope_clause(ver_clause, ver_params, DOMAIN if is_domain_trial(current_user) else None)'))
  return s
+def comparison_sources(s):
+ for name in ['get_pk_cases','get_pk_detail']:
+  def update(b):
+   b=b.replace("vr.metadata->>'analysis_source' = 'mimo-v2.5'", "vr.metadata->>'analysis_source' IN ('mimo-v2.5','mimo-split-v1')")
+   needle='where_parts.append("vr.metadata->>\'analysis_source\' IN (\'mimo-v2.5\',\'mimo-split-v1\')")'
+   if 'ep.result_id=vr.id' not in b:
+    indent='        ' if name=='get_pk_cases' else '            '
+    b=b.replace(indent+needle,indent+needle+'\n'+indent+"if current_user.get('role') not in ('admin','analyst'):\n"+indent+'    where_parts.append("EXISTS (SELECT 1 FROM evaluation_publication_results ep WHERE ep.result_id=vr.id)")',1)
+   if name=='get_pk_cases':
+    b=b.replace('SELECT COUNT(DISTINCT vr.case_id) FROM video_results vr{where_clause}', 'SELECT COUNT(*) FROM (SELECT vr.case_id FROM video_results vr{where_clause} GROUP BY vr.case_id HAVING COUNT(DISTINCT vr.brand_model) >= 2) matched_cases')
+    b=b.replace('                   ) AS vehicle_scores', '                       ORDER BY vr.created_at ASC, vr.id ASC\n                   ) AS vehicle_scores') if 'ORDER BY vr.created_at ASC, vr.id ASC' not in b else b
+   else:
+    b=b.replace('            if sv:\n                where_parts.append("vr.system_version = %s")\n                params.append(sv)', '            where_parts.append("vr.system_version IS NOT DISTINCT FROM %s")\n            params.append(sv)')
+    b=b.replace('                GROUP BY vr.id\n                LIMIT 1','                GROUP BY vr.id\n                ORDER BY vr.created_at DESC, vr.id DESC\n                LIMIT 1')
+   return b
+  s=section(s,name,update)
+ return s
 markers = {
  'api/auth/deps.py': 'restrict_request(user, req)',
  'api/services/trial_policy.py': '"max", "trial")',
@@ -29,6 +46,7 @@ markers = {
 present=[text in (root/file).read_text() for file,text in markers.items()]
 if all(present):
  edit('api/routers/aggregation.py',aggregate_boundary)
+ edit('api/routers/video.py',comparison_sources)
  print('Trial policy refreshed: full aggregates; travel-only questions and video. No accounts changed.')
  sys.exit(0)
 assert not any(present), 'Partial Trial policy detected: restore the source backup before applying.'
@@ -79,5 +97,5 @@ def video(s):
   b=b.replace('async def sign_video_stream(req: VideoSignRequest):','async def sign_video_stream(req: VideoSignRequest, current_user: dict = Depends(get_current_user)):')
   return after_doc(b,'    authorize_video(current_user, req.path)\n')
  return section(s,'sign_video_stream',sign)
-edit('api/routers/video.py',video)
+edit('api/routers/video.py',lambda s:comparison_sources(video(s)))
 print('Trial domain policy applied. No user accounts changed.')
