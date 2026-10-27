@@ -50,6 +50,12 @@ class Tests(unittest.TestCase):
     self.assertIn('https://www.beeeval.com/login.html',plain);self.assertNotIn('Dr.Bee',plain);self.assertNotIn('5 款',plain)
     self.assertIn('Test1234',plain);self.assertNotIn('<王>',html);self.assertIn('&lt;王&gt;',html)
     self.assertIn('Trial' if tier=='trial' else tier.capitalize(),plain)
+    for body in (plain,html):
+     self.assertNotIn('场景库',body);self.assertNotIn('Scenario library',body)
+     if tier=='trial':
+      self.assertNotIn('汇总得分',body);self.assertNotIn('rankings',body)
+      self.assertIn('试用账号仅开放出行域。' if lang=='zh' else 'Trial accounts only have access to the travel domain.',body)
+    if lang=='zh':self.assertEqual(subject,'【BeeEVAL】账号开通')
  def test_commit(self):
   source=Path(sys.argv[1]).read_text();patched=patch(source);self.assertEqual(patch(patched),patched)
   nodes=[n for n in ast.parse(patched).body if isinstance(n,ast.ClassDef) and n.name.startswith('Bulk') or isinstance(n,(ast.FunctionDef,ast.AsyncFunctionDef)) and n.name=='_create_one_and_invite']
