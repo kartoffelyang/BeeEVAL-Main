@@ -58,7 +58,7 @@ async def vehicle_snapshot(brand_model, system_version):
     r = rows[0] if rows else {}; score = float(r['score']) if r.get('score') is not None else None
     criteria = await analytics.get_criteria_by_domain(brand_model=brand_model,system_version=system_version,trial_domain=DOMAIN)
     return dict(brand_model=brand_model,system_version=system_version,last_computed_at=None,
-        criteria_scores=criteria[0].criteria if criteria else [],
+        criteria_scores=[item.model_dump() for item in criteria[0].criteria] if criteria else [],
         function_domain_scores=[dict(dimension_key=DOMAIN,avg_score=score,sample_count=int(r['samples']))] if score is not None else [],
         overall_score=None,overall_domain_count=1,overall_sample_count=int(r.get('samples',0)),
         case_avg_score=score,case_count=int(r.get('cases',0)))
