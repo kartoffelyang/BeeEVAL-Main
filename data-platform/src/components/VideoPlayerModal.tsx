@@ -4,6 +4,7 @@ import { preloadNasVideo, signVideo, type VideoQuality } from '../api';
 import { SERVER_URL } from '../config';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from '../contexts/AuthContext';
+import { isDomainTrial } from '../contexts/TrialContext';
 
 interface Props {
     open: boolean;
@@ -218,7 +219,8 @@ const VideoPlayerModal: React.FC<Props> = ({ open, videoPath, title, onClose, al
                         }}
                         onPlaying={() => setPhase('ready')}
                         onLoadedData={() => {
-                            if (videoPath && videoPath.startsWith('/')) {
+                            // Trial playback is signed, but cache administration is not a Trial permission.
+                            if (!isDomainTrial(user) && videoPath && videoPath.startsWith('/')) {
                                 let dp = videoPath;
                                 try { dp = decodeURIComponent(videoPath); } catch { /* ignore */ }
                                 preloadNasVideo(dp);
