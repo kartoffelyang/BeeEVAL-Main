@@ -166,7 +166,8 @@ export function createCaseSearch(
   const indexes: Map<string, Index> = globalCaches.get(upstream) || new Map();
   globalCaches.set(upstream, indexes);
   const ttl = 15 * 60_000;
-  async function fetchJson(path: string, authorization: string) {
+  async function fetchJson(path: string, authorization: string, retries = 0): Promise<any> {
+    try {
     const r = await fetch(upstream + path, {
       headers: { Authorization: authorization },
       signal: AbortSignal.timeout(60_000),
@@ -176,7 +177,12 @@ export function createCaseSearch(
       e.status = r.status;
       throw e;
     }
-    return r.json();
+    return await r.json();
+    } catch (error: any) {
+      const transient = [502, 503, 504].includes(error.status) || ["TimeoutError", "AbortError", "TypeError"].includes(error.name);
+      if (retries > 0 && transient) return fetchJson(path, authorization, retries - 1);
+      throw error;
+    }
   }
   async function load(
     index: Index,
@@ -209,7 +215,7 @@ export function createCaseSearch(
         const pages = await Promise.all(offsets.map(async (value) => {
           const query = new URLSearchParams(scope);
           query.set("offset", String(value));
-          const page = await fetchJson("/api/video/all-results?" + query, authorization);
+          const page = await fetchJson("/api/video/all-results?" + query, authorization, 2);
           if (!Array.isArray(page.data) || page.total !== index.total)
             throw new Error("case_data_changed_retry");
           if (page.data.length !== Math.min(pageSize, index.total - value))

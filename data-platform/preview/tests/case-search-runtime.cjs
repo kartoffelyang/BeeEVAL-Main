@@ -91,6 +91,7 @@ const esbuild = require(require.resolve("esbuild", { paths: [root] }));
   assert.equal(queryCases([...invalidRows, rows[0]], new URLSearchParams({offset:"1"})).data.length, 0);
   assert.equal(search("车型甲").total, 0); // names/domains cannot masquerade as matching case content
   let visibleUntil = null;
+  let pageFailure = true;
   let role = "admin",
     valid = true,
     calls = 0;
@@ -109,6 +110,10 @@ const esbuild = require(require.resolve("esbuild", { paths: [root] }));
       return { ok: true, json: async () => ({ id: 1, role, data_visible_until: visibleUntil }) };
     assert.ok(u.searchParams.get("freeze_snapshot") || u.searchParams.get("created_before"), "index pages must share the database snapshot cutoff");
     calls++;
+    if (pageFailure && u.searchParams.get("offset") === "200") {
+      pageFailure = false;
+      return {ok:false,status:503};
+    }
     const visible = visibleUntil ? full.slice(0,100) : full;
     const offset = Number(u.searchParams.get("offset")),
       limit = Number(u.searchParams.get("limit"));
@@ -158,9 +163,9 @@ const esbuild = require(require.resolve("esbuild", { paths: [root] }));
   assert.equal(r.status, 200);
   assert.equal(r.body.total, 1);
   assert.equal(r.body.data[0].id, "310");
-  assert.equal(calls, 3);
+  assert.equal(calls, 4);
   await request();
-  assert.equal(calls, 3); // complete index reused, not a first-page scan
+  assert.equal(calls, 4); // complete index reused, not a first-page scan
   role = "viewer";
   r = await request();
   for (let i = 0; i < 20 && r.status === 202; i++) {
