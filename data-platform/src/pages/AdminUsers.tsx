@@ -741,6 +741,8 @@ const CreateUserModal: React.FC<{
     const [displayName, setDisplayName] = useState('');
     const [password, setPassword] = useState('');
     const [role, setRole] = useState<UserRole>('viewer');
+    const [membershipTier,setMembershipTier] = useState<typeof MEMBERSHIP_OPTIONS[number]>('free');
+    const [scenarioEnabled,setScenarioEnabled] = useState(false);
     const [expiryMode, setExpiryMode] = useState<'permanent' | 'date'>('permanent');
     const [expiryDate, setExpiryDate] = useState<string>('');  // 'YYYY-MM-DD'
     const [submitting, setSubmitting] = useState(false);
@@ -764,6 +766,8 @@ const CreateUserModal: React.FC<{
                 username: username.trim(),
                 password,
                 role,
+                membership_tier: role === 'admin' ? null : membershipTier,
+                scenario_enabled: scenarioEnabled,
                 display_name: displayName.trim() || null,
                 must_reset_pwd: false,
             };
@@ -824,6 +828,7 @@ const CreateUserModal: React.FC<{
                         ))}
                     </LightSelect>
                 </Field>
+                <ProvisionAccessFields role={role} tier={membershipTier} scenario={scenarioEnabled} onTier={setMembershipTier} onScenario={setScenarioEnabled}/>
 
                 <Field label={t('admin_users_expiry_field_label')}>
                     <ExpirySelector
@@ -1171,7 +1176,9 @@ const BulkProvisionModal: React.FC<{
         const map: Record<string, string> = {
             email_required: t('admin_users_bulk_err_email_required'),
             email_invalid: t('admin_users_bulk_err_email_invalid'),
-            role_invalid: t('admin_users_bulk_err_role_invalid'),
+            role_invalid: '角色只能填写会员或管理员',
+            membership_tier_invalid: '会员等级只能填写 Free、Base、Plus、Pro 或 Trial',
+            scenario_enabled_invalid: '场景库授权只能填写开放或不开放',
             display_name_too_long: t('admin_users_bulk_err_display_too_long'),
             department_too_long: t('admin_users_bulk_err_department_too_long'),
             duplicate_in_file: t('admin_users_bulk_err_duplicate_in_file'),
@@ -1271,6 +1278,8 @@ const BulkProvisionModal: React.FC<{
                     email: row.email,
                     display_name: row.display_name,
                     role: row.role,
+                    membership_tier: row.membership_tier,
+                    scenario_enabled: row.scenario_enabled,
                     department: row.department,
                     // 行级 expires_days 优先于批次默认；preview 阶段后端已校验
                     expires_days: row.expires_days ?? null,
@@ -1292,7 +1301,7 @@ const BulkProvisionModal: React.FC<{
 
     const renderUploadStage = () => (
         <div className="space-y-4">
-            <div className="text-sm text-text-secondary">{t('admin_users_bulk_desc')}</div>
+            <div className="text-sm text-text-secondary">{language==='zh'?'上传 Excel / CSV 名单，分别设置角色、会员等级和场景库授权。提交后自动生成初始密码，并通过邮件告知账号、实际权限与有效期，用户可直接登录。':'Upload an Excel / CSV roster with role, membership and independent scenario access. Users receive credentials, permissions and validity by email and can sign in directly.'}</div>
 
             <div className="flex flex-wrap items-center gap-2">
                 <button
@@ -1441,7 +1450,7 @@ const BulkProvisionModal: React.FC<{
                                 <th className="px-3 py-2 text-left">#</th>
                                 <th className="px-3 py-2 text-left">{t('admin_users_bulk_col_email')}</th>
                                 <th className="px-3 py-2 text-left">{t('admin_users_bulk_col_name')}</th>
-                                <th className="px-3 py-2 text-left">{t('admin_users_bulk_col_role')}</th>
+                                <th className="px-3 py-2 text-left">{t('admin_users_bulk_col_role')}</th><th className="px-3 py-2 text-left">会员等级</th><th className="px-3 py-2 text-left">场景库授权</th>
                                 <th className="px-3 py-2 text-left">{t('admin_users_bulk_col_dept')}</th>
                                 <th className="px-3 py-2 text-left">{t('admin_users_bulk_col_expires_days')}</th>
                                 <th className="px-3 py-2 text-left">{t('admin_users_bulk_col_status')}</th>
@@ -1479,7 +1488,7 @@ const BulkProvisionModal: React.FC<{
                         <thead className="bg-surface text-text-muted uppercase tracking-wide sticky top-0">
                             <tr>
                                 <th className="px-3 py-2 text-left">{t('admin_users_bulk_col_email')}</th>
-                                <th className="px-3 py-2 text-left">{t('admin_users_bulk_col_role')}</th>
+                                <th className="px-3 py-2 text-left">{t('admin_users_bulk_col_role')}</th><th className="px-3 py-2 text-left">会员等级</th><th className="px-3 py-2 text-left">场景库授权</th>
                                 <th className="px-3 py-2 text-left">{t('admin_users_bulk_col_status')}</th>
                                 <th className="px-3 py-2 text-left">{t('admin_users_bulk_col_detail')}</th>
                             </tr>
@@ -1488,7 +1497,7 @@ const BulkProvisionModal: React.FC<{
                             {result.rows.map((row, idx) => (
                                 <tr key={`${row.email}-${idx}`}>
                                     <td className="px-3 py-2 text-text-secondary">{row.email}</td>
-                                    <td className="px-3 py-2 text-text-secondary">{row.role === 'admin' ? '管理员' : '会员'}</td>
+                                    <td className="px-3 py-2 text-text-secondary">{row.role === 'admin' ? '管理员' : '会员'}</td><td className="px-3 py-2">{row.role==='admin'?'全部权限':membershipLabel(row.membership_tier || 'free')}</td><td className="px-3 py-2">{row.role==='admin'||row.scenario_enabled?'开放':'不开放'}</td>
                                     <td className="px-3 py-2">
                                         <BulkStatusBadge status={row.status} t={t} />
                                     </td>
@@ -1611,10 +1620,10 @@ const BulkPreviewTableRow: React.FC<{
             <td className="px-3 py-2 text-text-muted">{row.row_no}</td>
             <td className="px-3 py-2 text-text-secondary font-mono">{row.email || '—'}</td>
             <td className="px-3 py-2 text-text-secondary">{row.display_name || '—'}</td>
-            <td className="px-3 py-2 text-text-secondary">{row.role === 'admin' ? '管理员' : '会员'}</td>
+            <td className="px-3 py-2 text-text-secondary">{row.role === 'admin' ? '管理员' : '会员'}</td><td className="px-3 py-2">{row.role==='admin'?'全部权限':membershipLabel(row.membership_tier || 'free')}</td><td className="px-3 py-2">{row.role==='admin'||row.scenario_enabled?'开放':'不开放'}</td>
             <td className="px-3 py-2 text-text-muted">{row.department || '—'}</td>
             <td className="px-3 py-2 text-text-secondary">
-                {row.expires_days != null
+                {row.expires_days===0 ? '永久' : row.expires_days != null
                     ? t('admin_users_bulk_expiry_days_cell', { days: String(row.expires_days) })
                     : <span className="text-text-muted">{t('admin_users_bulk_expiry_use_batch')}</span>}
             </td>
@@ -1688,6 +1697,8 @@ const ApproveApplicationModal: React.FC<{
 }> = ({ application, onClose, onApproved }) => {
     const { t } = useLanguage();
     const [role, setRole] = useState<UserRole>('viewer');
+    const [membershipTier,setMembershipTier] = useState<typeof MEMBERSHIP_OPTIONS[number]>('free');
+    const [scenarioEnabled,setScenarioEnabled] = useState(false);
     const [displayName, setDisplayName] = useState('');
     const [department, setDepartment] = useState('');
     const [expiryMode, setExpiryMode] = useState<'permanent' | 'date'>('permanent');
@@ -1707,6 +1718,8 @@ const ApproveApplicationModal: React.FC<{
         try {
             const payload: Parameters<typeof adminApproveApplication>[1] = {
                 role,
+                membership_tier: role === 'admin' ? null : membershipTier,
+                scenario_enabled: scenarioEnabled,
                 display_name: displayName.trim() || null,
                 department: department.trim() || null,
                 email_lang: 'zh',
@@ -1749,6 +1762,7 @@ const ApproveApplicationModal: React.FC<{
                         ))}
                     </LightSelect>
                 </Field>
+                <ProvisionAccessFields role={role} tier={membershipTier} scenario={scenarioEnabled} onTier={setMembershipTier} onScenario={setScenarioEnabled}/>
                 <Field label={t('admin_users_expiry')}>
                     <ExpirySelector
                         mode={expiryMode}
@@ -1778,3 +1792,5 @@ const ApproveApplicationModal: React.FC<{
         </ModalShell>
     );
 };
+
+const ProvisionAccessFields: React.FC<{role:UserRole;tier:typeof MEMBERSHIP_OPTIONS[number];scenario:boolean;onTier:(value:typeof MEMBERSHIP_OPTIONS[number])=>void;onScenario:(value:boolean)=>void}> = ({role,tier,scenario,onTier,onScenario}) => role==='admin' ? <p className="text-xs text-text-muted">管理员拥有全部会员及场景库权限。</p> : <><Field label="会员等级"><LightSelect aria-label="会员等级" value={tier} onChange={e=>onTier(e.target.value as typeof tier)} className="modal-input">{MEMBERSHIP_OPTIONS.map(v=><option key={v} value={v}>{membershipLabel(v)}</option>)}</LightSelect></Field><Field label="场景库授权"><LightSelect aria-label="场景库授权" value={scenario?'open':'closed'} onChange={e=>onScenario(e.target.value==='open')} className="modal-input"><option value="closed">不开放</option><option value="open">开放</option></LightSelect><p className="text-xs text-text-muted mt-1">独立授权，不随会员等级自动开通。</p></Field></>;

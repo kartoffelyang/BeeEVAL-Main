@@ -1586,6 +1586,8 @@ export const adminCreateUser = async (payload: {
     password: string;
     role: UserRole;
     display_name?: string | null;
+    membership_tier?: 'free'|'base'|'plus'|'pro'|'trial'|null;
+    scenario_enabled?: boolean;
     must_reset_pwd?: boolean;
     /** ISO8601 字符串；与 expires_days 二选一 */
     expires_at?: string | null;
@@ -1614,6 +1616,8 @@ export const adminApproveApplication = async (
     id: number,
     payload: {
         role: UserRole;
+        membership_tier?: 'free'|'base'|'plus'|'pro'|'trial'|null;
+        scenario_enabled?: boolean;
         display_name?: string | null;
         department?: string | null;
         expires_at?: string | null;
@@ -1677,6 +1681,8 @@ export const adminDeleteUser = async (id: number): Promise<void> => {
 
 // ── 批量开通账号 ──
 export interface BulkPreviewRow {
+    membership_tier?: 'free'|'base'|'plus'|'pro'|'trial'|null;
+    scenario_enabled?: boolean;
     row_no: number;
     email: string;
     display_name: string;
@@ -1698,6 +1704,8 @@ export interface BulkPreviewResponse {
 }
 
 export interface BulkCommitRowResult {
+    membership_tier?: 'free'|'base'|'plus'|'pro'|'trial'|null;
+    scenario_enabled?: boolean;
     row_no: number;
     email: string;
     display_name: string;
@@ -1738,8 +1746,10 @@ export const adminBulkCommit = async (payload: {
         email: string;
         display_name: string;
         role: UserRole;
+        membership_tier?: 'free'|'base'|'plus'|'pro'|'trial'|null;
+        scenario_enabled?: boolean;
         department: string;
-        /** 行级到期天数（1–3650）；null / undefined 表示该行走批次默认 */
+        /** 行级到期天数（0 = 永久，1–3650 = 天数）；null / undefined 使用批次默认 */
         expires_days?: number | null;
     }>;
     email_lang: 'zh' | 'en';
