@@ -10,7 +10,7 @@ interface Props {
     videoPath: string | null;
     title?: string | null;
     onClose: () => void;
-    /** 允许体验账号(viewer)播放：仅标杆平台测试视频tab白名单传 true；其余不传，viewer 显示「暂无查看权限」。 */
+    /** Legacy viewer sample whitelist. Membership video access is authorized by the signing API. */
     allowTrial?: boolean;
 }
 
@@ -128,8 +128,8 @@ const VideoPlayerModal: React.FC<Props> = ({ open, videoPath, title, onClose, al
 
     if (!open || !videoPath) return null;
 
-    // 体验/外部账号(viewer)：除标杆平台测试视频tab(allowTrial)外，一律不给播放。
-    if (user?.role === 'viewer' && !allowTrial) {
+    // Explicit memberships use server-side video authorization; Trial signing validates the travel domain.
+    if (user?.role === 'viewer' && !['trial', 'plus', 'pro'].includes(user?.membership_tier || '') && !allowTrial) {
         return (
             <div
                 className="fixed inset-0 z-[100] flex items-center justify-center bg-ink/60 backdrop-blur-sm p-4"

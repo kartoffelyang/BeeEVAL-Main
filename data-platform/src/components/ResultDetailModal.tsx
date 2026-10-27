@@ -6,14 +6,14 @@ import { PlayCircle, X, Info, CheckCircle2, XCircle, Lock } from 'lucide-react';
 import clsx from 'clsx';
 import TranslatedText from './TranslatedText';
 import { useAuth } from '../contexts/AuthContext';
+import { isDomainTrial, TRIAL_DOMAIN } from '../contexts/TrialContext';
 import { getScreenshotUrl, getVideoPosterUrl } from '../config';
 
 interface ResultDetailModalProps {
     result: any;
     onClose: () => void;
     onPlayVideo: (path: string, title: string) => void;
-    /** 允许体验账号(viewer)查看：仅标杆平台「测试视频」tab 的白名单用例传 true；
-     *  其余所有入口不传，viewer 打开时统一显示「暂无查看权限」。 */
+    /** Legacy viewer sample whitelist. Explicit Trial memberships use domain permissions. */
     allowTrial?: boolean;
 }
 
@@ -50,8 +50,11 @@ export const ResultDetailContent: React.FC<{
     const { t } = useTranslation();
     const { tm, td, tv } = useMetricsTranslation();
     const { user } = useAuth();
-    // 体验/外部账号(viewer)：除标杆平台测试视频tab(allowTrial)外，一律不给看详情。
-    if (user?.role === 'viewer' && !allowTrial) {
+    // Tier permissions supersede the legacy viewer whitelist. Trial evidence stays travel-only.
+    const tier = user?.membership_tier;
+    const trialBlocked = isDomainTrial(user) && result.function_domain !== TRIAL_DOMAIN;
+    const legacyBlocked = user?.role === 'viewer' && !['trial', 'plus', 'pro'].includes(tier || '') && !allowTrial;
+    if (trialBlocked || legacyBlocked) {
         return <TrialLockedDetail onClose={onClose} />;
     }
 
