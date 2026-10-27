@@ -66,9 +66,10 @@ const LoginRoute: React.FC = () => {
 };
 
 const ProtectedRoutes: React.FC = () => {
+  const {user}=useAuth();
   return (
     <RequireAuth>
-      <ComparisonProvider>
+      <ComparisonProvider key={`${user?.id}:${user?.role}:${user?.membership_tier}`}>
         <AppShell>
           <Routes>
             {/* 查用例与可分享的证据入口 */}

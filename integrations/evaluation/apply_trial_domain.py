@@ -3,6 +3,19 @@ from pathlib import Path
 import ast, shutil, sys
 root=Path(sys.argv[1]);src=Path(__file__).parent
 shutil.copy2(src/'trial_domain_access.py',root/'api/services/trial_domain_access.py')
+markers = {
+ 'api/auth/deps.py': 'restrict_request(user, req)',
+ 'api/services/trial_policy.py': '"max", "trial")',
+ 'api/services/website_analytics.py': 'scope_clause(ver_clause, ver_params, trial_domain)',
+ 'api/routers/aggregation.py': 'vehicle_snapshot(brand_model, system_version)',
+ 'api/routers/video.py': 'authorize_video(current_user, req.path)',
+}
+present=[text in (root/file).read_text() for file,text in markers.items()]
+if all(present):
+ print('Trial domain policy already applied; service implementation refreshed. No accounts changed.')
+ sys.exit(0)
+assert not any(present), 'Partial Trial policy detected: restore the source backup before applying.'
+
 def edit(file, transform):
  p=root/file;s=p.read_text();s=transform(s);ast.parse(s);p.write_text(s)
 def section(s,name,transform):
