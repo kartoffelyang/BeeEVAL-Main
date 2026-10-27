@@ -90,7 +90,7 @@ const DeltaArrow: React.FC<{
 };
 
 const OverviewTab: React.FC = () => {
-    const {trial,guardDomain}=useTrialAccess();
+    const {restricted:trial,guardDomain}=useTrialAccess();
     const { t } = useTranslation();
     const { tm, td } = useMetricsTranslation();
     const {

@@ -1,3 +1,4 @@
+import {useTrialAccess} from "../../contexts/TrialContext";
 import { useEffect, useState } from "react";
 import { getTaskDetailCases } from "../../api";
 import { ResultDetailContent } from "../../components/ResultDetailModal";
@@ -33,6 +34,7 @@ export default function TaskDetailCasesModal({
   vehicleOptions,
   onClose,
 }: Props) {
+  const {guardEvidence}=useTrialAccess();
   const { language } = useLanguage();
   const c = (zh: string, en: string) => (language === "zh" ? zh : en);
   const [rows, setRows] = useState<any[]>([]);
@@ -50,6 +52,7 @@ export default function TaskDetailCasesModal({
     null,
   );
   useEffect(() => {
+    if(!guardEvidence(functionDomain)){onClose();return;}
     let cancelled = false;
     setLoading(true);
     setError(false);

@@ -1,3 +1,4 @@
+import {useTrialAccess,TRIAL_DOMAIN} from "../../contexts/TrialContext";
 import React, { useEffect, useState } from 'react';
 import { XCircle, FileText } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
@@ -27,6 +28,7 @@ const isFailed = (r: any): boolean =>
  * 每个失败用例可点开详情卡片 / 播放视频。
  */
 const FailedCasesPanel: React.FC<Props> = ({ brandModel, systemVersion, functionDomain, taskDetail, acceptanceGrade }) => {
+    const {trial,guardEvidence}=useTrialAccess();
     const { t } = useTranslation();
     const [cases, setCases] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
@@ -35,6 +37,7 @@ const FailedCasesPanel: React.FC<Props> = ({ brandModel, systemVersion, function
     const [video, setVideo] = useState<{ path: string; title: string } | null>(null);
 
     useEffect(() => {
+        if(trial && functionDomain!==TRIAL_DOMAIN){setLoading(false);return;}
         let cancelled = false;
         setLoading(true);
         setError(null);
@@ -49,6 +52,7 @@ const FailedCasesPanel: React.FC<Props> = ({ brandModel, systemVersion, function
         return () => { cancelled = true; };
     }, [brandModel, systemVersion, functionDomain, taskDetail, acceptanceGrade]);
 
+    if(trial && functionDomain!==TRIAL_DOMAIN)return <div className="p-4 text-sm text-text-muted"><button onClick={()=>guardEvidence(functionDomain)}>当前功能域的具体用例需升级会员后查看 ↗</button></div>;
     return (
         <div className="bg-surface/60 px-4 py-4 space-y-3">
             <div className="flex items-center gap-2 text-sm font-semibold text-text-secondary">

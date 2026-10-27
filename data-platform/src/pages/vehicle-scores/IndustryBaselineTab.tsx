@@ -27,7 +27,7 @@ import IndustryOverviewPlot from "./IndustryOverviewPlot";
 const GRADES = ["基础验收", "中等验收", "进阶验收"];
 const DOMAINS = ["车控域", "出行域", "车书域", "娱乐域", "闲聊域", "创作域"];
 export default function IndustryBaselineTab() {
-  const {trial}=useTrialAccess();
+  const {restricted:trial}=useTrialAccess();
   const { language } = useLanguage();
   const c = (zh: string, en: string) => (language === "zh" ? zh : en);
   const { td, tt } = useMetricsTranslation();

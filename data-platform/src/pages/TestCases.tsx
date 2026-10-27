@@ -1,3 +1,4 @@
+import {useTrialAccess,TRIAL_DOMAIN,TRIAL_DOMAINS} from "../contexts/TrialContext";
 import React, { useState, useEffect, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { deleteResult, deleteResultsBatch, getAllResults, getFilterOptions, getBatches, AnalysisBatch } from '../api';
@@ -53,6 +54,7 @@ const fmtBatchLabel = (b: AnalysisBatch) => {
 };
 
 const TestCases: React.FC<TestCasesProps> = ({ embedded = false, lockedModel, lockedVersion, hideBatchFilter = false, modelVersionOptions, selectedModelVersion, onModelVersionChange }) => {
+    const {trial,guardEvidence}=useTrialAccess();
     const { t } = useTranslation();
     const { tv, td } = useMetricsTranslation();
     const { user } = useAuth();
@@ -69,7 +71,7 @@ const TestCases: React.FC<TestCasesProps> = ({ embedded = false, lockedModel, lo
     const [dataError, setDataError] = useState(false);
     // 锁定车型时，固定到该车型，由外层选择器切换
     const [selectedModel, setSelectedModel] = useState<string>(lockedModel || 'all');
-    const [selectedDomain, setSelectedDomain] = useState<string>('all');
+    const [selectedDomain, setSelectedDomain] = useState<string>(trial ? TRIAL_DOMAIN : 'all');
     const [selectedCase, setSelectedCase] = useState<string>('all');
     // "查同组"独立于 selectedCase（后者是模糊 search，前者精确匹配 case_id）。
     // 同时设置 brand_model + case_id 才是真正的"同车型同用例"，缺一不可。
@@ -107,7 +109,7 @@ const TestCases: React.FC<TestCasesProps> = ({ embedded = false, lockedModel, lo
     useEffect(() => {
         getFilterOptions().then(opts => {
             setModels(opts.brand_models);
-            setDomains(opts.function_domains);
+            setDomains(trial ? TRIAL_DOMAINS : opts.function_domains);
         }).catch(() => {});
         // 只保留本页有有效用例的批次（test_case_count>0），避免下拉里出现空批次。
         if (showBatchFilter) getBatches().then(bs => setBatches(bs.filter(b => b.test_case_count > 0))).catch(() => setBatches([]));
@@ -117,7 +119,7 @@ const TestCases: React.FC<TestCasesProps> = ({ embedded = false, lockedModel, lo
     useEffect(() => {
         if (lockedModel) {
             setSelectedModel(lockedModel);
-            setSelectedDomain('all');
+            setSelectedDomain(trial ? TRIAL_DOMAIN : 'all');
             setSelectedCase('all');
             setGroupCaseId('');
         }
@@ -184,7 +186,7 @@ const TestCases: React.FC<TestCasesProps> = ({ embedded = false, lockedModel, lo
             setGroupCaseId('');
             setSelectedCase(result?.video_name || 'all');
         }
-        setSelectedDomain('all');
+        setSelectedDomain(trial ? TRIAL_DOMAIN : 'all');
         setScoreMin('');
         setScoreMax('');
     }, []);
@@ -280,7 +282,7 @@ const TestCases: React.FC<TestCasesProps> = ({ embedded = false, lockedModel, lo
                         onChange={(v) => {
                             if (modelVersionOptions) { onModelVersionChange?.(v); return; }
                             setSelectedModel(v);
-                            setSelectedDomain('all');
+                            setSelectedDomain(trial ? TRIAL_DOMAIN : 'all');
                             setSelectedCase('all');
                         }}
                         minWidth={140}
@@ -293,6 +295,7 @@ const TestCases: React.FC<TestCasesProps> = ({ embedded = false, lockedModel, lo
                         value={selectedDomain}
                         options={domainOptions}
                         onChange={(v) => {
+                            if(!guardEvidence(v))return;
                             setSelectedDomain(v);
                             setSelectedCase('all');
                         }}

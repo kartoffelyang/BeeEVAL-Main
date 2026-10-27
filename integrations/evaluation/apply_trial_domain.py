@@ -3,18 +3,6 @@ from pathlib import Path
 import ast, shutil, sys
 root=Path(sys.argv[1]);src=Path(__file__).parent
 shutil.copy2(src/'trial_domain_access.py',root/'api/services/trial_domain_access.py')
-markers = {
- 'api/auth/deps.py': 'restrict_request(user, req)',
- 'api/services/trial_policy.py': '"max", "trial")',
- 'api/services/website_analytics.py': 'scope_clause(ver_clause, ver_params, trial_domain)',
- 'api/routers/aggregation.py': 'vehicle_snapshot(brand_model, system_version)',
- 'api/routers/video.py': 'authorize_video(current_user, req.path)',
-}
-present=[text in (root/file).read_text() for file,text in markers.items()]
-if all(present):
- print('Trial domain policy already applied; service implementation refreshed. No accounts changed.')
- sys.exit(0)
-assert not any(present), 'Partial Trial policy detected: restore the source backup before applying.'
 
 def edit(file, transform):
  p=root/file;s=p.read_text();s=transform(s);ast.parse(s);p.write_text(s)
@@ -25,6 +13,26 @@ def section(s,name,transform):
 def after_doc(body,addition):
  n=ast.parse(body).body[0];stmt=n.body[0];line=stmt.end_lineno if isinstance(stmt,ast.Expr) and isinstance(stmt.value,ast.Constant) and isinstance(stmt.value.value,str) else n.body[0].lineno-1
  lines=body.splitlines(keepends=True);return ''.join(lines[:line])+addition+''.join(lines[line:])
+def aggregate_boundary(s):
+ s=s.replace('is_domain_trial, domain_scope, scope_clause, vehicle_snapshot, vehicle_list','is_domain_trial, domain_scope, scope_clause, DOMAIN')
+ s=section(s,'list_vehicles',lambda b:b.replace('    if is_domain_trial(current_user):\n        return await vehicle_list()\n',''))
+ s=section(s,'get_vehicle_scores',lambda b:b.replace('    if is_domain_trial(current_user):\n        return VehicleScoreSnapshot(**await vehicle_snapshot(brand_model, system_version))\n',''))
+ s=section(s,'get_vehicle_task_detail_cases',lambda b:b.replace('scope_clause(ver_clause, ver_params, domain_scope(current_user))','scope_clause(ver_clause, ver_params, DOMAIN if is_domain_trial(current_user) else None)'))
+ return s
+markers = {
+ 'api/auth/deps.py': 'restrict_request(user, req)',
+ 'api/services/trial_policy.py': '"max", "trial")',
+ 'api/services/website_analytics.py': 'scope_clause(ver_clause, ver_params, trial_domain)',
+ 'api/routers/aggregation.py': 'trial_domain=domain_scope(current_user)',
+ 'api/routers/video.py': 'authorize_video(current_user, req.path)',
+}
+present=[text in (root/file).read_text() for file,text in markers.items()]
+if all(present):
+ edit('api/routers/aggregation.py',aggregate_boundary)
+ print('Trial policy refreshed: full aggregates; travel-only questions and video. No accounts changed.')
+ sys.exit(0)
+assert not any(present), 'Partial Trial policy detected: restore the source backup before applying.'
+
 def deps(s):
  needle='        # Self-registered free members may only use identity endpoints.'
  assert needle in s
@@ -45,9 +53,7 @@ def analytics(s):
  return s
 edit('api/services/website_analytics.py',analytics)
 def aggregation(s):
- s='from api.services.trial_domain_access import is_domain_trial, domain_scope, scope_clause, vehicle_snapshot, vehicle_list\n'+s
- s=section(s,'list_vehicles',lambda b:after_doc(b,'    if is_domain_trial(current_user):\n        return await vehicle_list()\n'))
- s=section(s,'get_vehicle_scores',lambda b:after_doc(b,'    if is_domain_trial(current_user):\n        return VehicleScoreSnapshot(**await vehicle_snapshot(brand_model, system_version))\n'))
+ s='from api.services.trial_domain_access import is_domain_trial, domain_scope, scope_clause, DOMAIN\n'+s
  for name in ['get_criteria_by_domain','get_vehicle_task_completion','get_vehicle_acceptance_task_detail','get_metrics_baseline','get_metric_domain_breakdown']:
   s=section(s,name,lambda b:b.replace('system_version=system_version)','system_version=system_version, trial_domain=domain_scope(current_user))',1))
  for name in ['get_vehicle_acceptance_completion','get_vehicle_task_detail_cases']:
@@ -57,7 +63,7 @@ def aggregation(s):
   s=section(s,name,transform)
  # All-scores may enumerate all published vehicles, but each snapshot is scoped above.
  return s
-edit('api/routers/aggregation.py',aggregation)
+edit('api/routers/aggregation.py',lambda s:aggregate_boundary(aggregation(s)))
 def video(s):
  s='from api.services.trial_domain_access import is_domain_trial, DOMAIN, authorize_video\n'+s
  for name in ['get_all_results','get_pk_cases']:

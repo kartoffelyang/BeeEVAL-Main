@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import {
     LayoutDashboard, History, Settings, Database, ChevronLeft, ChevronRight,
-    Library, HardDrive, FlaskConical, Users, MessageSquareText,
+    Library, GitCompareArrows, HardDrive, FlaskConical, Users, MessageSquareText,
     FileText, Network, Home, Shield, LogOut, User as UserIcon, Languages, ChevronDown, Award, ClipboardCheck, Wrench,
 } from 'lucide-react';
 import clsx from 'clsx';
@@ -44,6 +44,7 @@ const Sidebar = () => {
         const all: NavLinkDef[] = [
             { path: '/', label: language === 'zh' ? '查用例' : 'Find cases', icon: Library, roles: ['admin', 'analyst', 'viewer', 'tester'] },
             { path: '/benchmark', label: language === 'zh' ? '标杆分析' : 'Benchmark', icon: Award, roles: ['admin', 'analyst', 'viewer', 'tester'] },
+            { path: '/benchmark?tab=compare', label: language === 'zh' ? '用例对比' : 'Case comparison', icon: GitCompareArrows, roles: ['admin', 'analyst', 'viewer', 'tester'] },
             { path: '/acceptance-testing', label: language === 'zh' ? '验收分析' : 'Acceptance', icon: ClipboardCheck, roles: ['admin', 'analyst', 'viewer', 'tester'] },
         ];
         if (!user) return [];
@@ -69,7 +70,9 @@ const Sidebar = () => {
 
     const renderNavItem = (link: NavLinkDef) => {
         const Icon = link.icon;
-        const isActive = location.pathname === link.path;
+        const target=new URL(link.path,'http://localhost');
+        const comparison=new URLSearchParams(location.search).get('tab')==='compare';
+        const isActive = location.pathname===target.pathname && (target.search ? comparison : link.path==='/benchmark' ? !comparison : true);
         return (
             <Link
                 key={link.path}

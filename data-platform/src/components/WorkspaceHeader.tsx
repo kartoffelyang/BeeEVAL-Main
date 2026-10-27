@@ -22,12 +22,12 @@ const labels: Record<string, [string, string]> = {
 };
 
 export default function WorkspaceHeader() {
-  const { pathname } = useLocation();
+  const { pathname,search } = useLocation();
   const { language } = useLanguage();
   const key = Object.keys(labels)
     .sort((a, b) => b.length - a.length)
     .find((p) => pathname === p || (p !== "/" && pathname.startsWith(p + "/")));
-  const label = labels[key || "/"][language === "zh" ? 0 : 1];
+  const label = pathname==='/benchmark' && new URLSearchParams(search).get('tab')==='compare' ? (language==='zh'?'用例对比':'Case comparison') : labels[key || "/"][language === "zh" ? 0 : 1];
   return (
     <header className="workspace-header">
       <div className="breadcrumb">

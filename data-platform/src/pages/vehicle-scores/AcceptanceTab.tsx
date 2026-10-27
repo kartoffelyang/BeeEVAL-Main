@@ -1,4 +1,3 @@
-import {useTrialAccess} from "../../contexts/TrialContext";
 import React, { useEffect, useRef, useState } from 'react';
 import { ClipboardCheck, Star } from 'lucide-react';
 import clsx from 'clsx';
@@ -59,7 +58,6 @@ interface VehicleSeries {
 }
 
 const AcceptanceTab: React.FC = () => {
-    const {trial}=useTrialAccess();
     const { t } = useTranslation();
     const { td } = useMetricsTranslation();
     const {
@@ -183,7 +181,7 @@ const AcceptanceTab: React.FC = () => {
             <div className="bg-surface-raised p-5 rounded-xl border border-ink/[0.08] shadow-sm">
                 <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2 mb-4">
                     <h3 className="font-bold text-text-primary flex items-center gap-2">
-                        {trial ? td('出行域') : t('acceptance_overall')}
+                        {t('acceptance_overall')}
                     </h3>
                     <VehicleLegend series={buildSeries(null)} />
                 </div>

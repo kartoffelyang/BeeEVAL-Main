@@ -1,4 +1,4 @@
-import {useTrialAccess, TRIAL_DOMAIN} from "../contexts/TrialContext";
+import {useTrialAccess, TRIAL_DOMAIN, TRIAL_DOMAINS} from "../contexts/TrialContext";
 import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import { Swords, Clock, ChevronLeft, ChevronRight, ArrowUp, ArrowDown, ArrowUpDown, SlidersHorizontal } from 'lucide-react';
 import clsx from 'clsx';
@@ -75,7 +75,7 @@ const VehiclePK: React.FC = () => {
     const [compare, setCompare] = useState<{ caseId: string; baseKey: string; compareKey: string } | null>(null);
 
     useEffect(() => {
-        getFilterOptions().then(opts => setDomains(opts.function_domains || [])).catch(() => {});
+        getFilterOptions().then(opts => setDomains(trial ? TRIAL_DOMAINS : opts.function_domains || [])).catch(() => {});
     }, []);
 
     const fetchCases = useCallback(async (pageNum: number) => {
