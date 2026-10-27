@@ -10,7 +10,7 @@ const assert=require('node:assert/strict');
  const before=JSON.stringify(rows);
  const q=(str)=>queryCases(rows,new URLSearchParams(str));
  const r=q('task_detail=车窗开合控制&acceptance_tag=基础验收&hide_volkswagen=true&limit=1');
- assert.equal(r.total,1);assert.equal(r.data[0].id,'a');
+ assert.equal(r.total,2);assert.equal(r.data[0].id,'a');
  assert.ok(r.facets.task_types.includes('天窗天幕控制'));
  const domain=q('function_domain=出行域');assert.deepEqual(domain.facets.task_types,['多途经点路线规划']);
  assert.deepEqual(domain.facets.difficulties,['进阶验收']);

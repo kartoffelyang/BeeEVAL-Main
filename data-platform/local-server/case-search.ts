@@ -198,7 +198,8 @@ export function createCaseSearch(
         throw new Error("invalid_case_response");
       // Large full-content responses can exceed the upstream timeout. Fetch bounded
       // pages with modest concurrency, retaining progress without publishing a partial index.
-      const pageSize = 500;
+      // all-results caps each page at 200, including lightweight index reads.
+      const pageSize = 200;
       scope.set("limit", String(pageSize));
       scope.set("sort_by", "video_name");
       scope.set("sort_order", "asc");

@@ -2286,6 +2286,6 @@ export const saveReportConfig = async (kind: RecipeKind, content: string): Promi
 
 /** Local content-search adapter, backed exclusively by authorized live records. */
 export const getCaseContentSearch = async (params: Parameters<typeof getAllResults>[0], requestOptions?: {signal?:AbortSignal}) => {
-    const response=await api.get('/cases/search',{params:{...params, hide_volkswagen:true},signal:requestOptions?.signal});
+    const response=await api.get('/cases/search',{params,signal:requestOptions?.signal});
     return response.data as PaginatedResponse<any> & {status?:'indexing';scanned?:number;facets?:{task_types:string[];difficulties:string[]}};
 };

@@ -1,14 +1,9 @@
-/** Presentation policy only. Original records and identifiers stay unchanged. */
-export function isHiddenVehicle(model: unknown): boolean {
-  return /^(?:大众|一汽大众|上汽大众|volkswagen|vw(?:[\s._-]|$))/i.test(String(model ?? '').trim());
+/** Brand visibility follows server-side account authorization; no brand is hidden in the UI. */
+export function isHiddenVehicle(_model: unknown): boolean {
+  return false;
 }
 
-export function visibleVehicleData(value: any, field = ''): any {
-  if (Array.isArray(value)) {
-    return value.filter(item => !(item && typeof item === 'object' && isHiddenVehicle(item.brand_model)) && !(field === 'brand_models' && isHiddenVehicle(item))).map(item => visibleVehicleData(item));
-  }
-  if (value && typeof value === 'object') {
-    return Object.fromEntries(Object.entries(value).filter(([key]) => !(field === 'scores' && isHiddenVehicle(key.split('||')[0]))).map(([key, item]) => [key, visibleVehicleData(item, key)]));
-  }
+/** Preserve the authorized API response, including Volkswagen rows, facets and scores. */
+export function visibleVehicleData(value: any): any {
   return value;
 }
