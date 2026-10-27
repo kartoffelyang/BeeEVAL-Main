@@ -6,6 +6,7 @@ import {
   Navigate,
   useLocation,
 } from "react-router-dom";
+import {TrialAccessProvider, TrialNotice} from "./components/TrialAccess";
 import Sidebar from "./components/Sidebar";
 import WorkspaceHeader from "./components/WorkspaceHeader";
 import CaseSearch from "./pages/CaseSearch";
@@ -40,15 +41,15 @@ import { useFocusTracker } from "./hooks/useFocusTracker";
 const AppShell: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   useFocusTracker(); // 全局网页聚焦时长跟踪
   return (
-    <div className="app-shell flex h-[100dvh] bg-surface font-sans text-text-primary">
+    <TrialAccessProvider><div className="app-shell flex h-[100dvh] bg-surface font-sans text-text-primary">
       <Sidebar />
       <main className="flex-1 min-w-0 flex flex-col overflow-hidden relative">
         <WorkspaceHeader />
         <div className="workspace-scroll flex-1 overflow-auto relative">
-          {children}
+          <TrialNotice />{children}
         </div>
       </main>
-    </div>
+    </div></TrialAccessProvider>
   );
 };
 

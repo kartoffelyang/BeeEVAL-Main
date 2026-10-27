@@ -65,6 +65,7 @@ api.interceptors.response.use(
     (err) => {
         const status = err?.response?.status;
         const detail = err?.response?.data?.detail;
+        if(status===403 && detail==='membership_upgrade_required')window.dispatchEvent(new Event('beeeval:upgrade-required'));
         if (status === 401) {
             // session 失效（未登录 / token 过期 / 被吊销）。
             clearAuthToken();

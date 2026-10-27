@@ -1,3 +1,4 @@
+import {useTrialAccess, TRIAL_DOMAIN, TRIAL_DOMAINS} from "../contexts/TrialContext";
 import React, {
   Children,
   isValidElement,
@@ -60,6 +61,7 @@ export default function LightSelect({
   multiple,
   ...props
 }: React.SelectHTMLAttributes<HTMLSelectElement>) {
+  const {trial,guardDomain}=useTrialAccess();
   const { language } = useLanguage();
   const zh = language === "zh";
   const id = useId();
@@ -97,6 +99,7 @@ export default function LightSelect({
   };
   const choose = (o: Option) => {
     if (o.disabled || disabled) return;
+    if(trial && options.some(x=>x.value===TRIAL_DOMAIN) && (o.value==="" || TRIAL_DOMAINS.includes(o.value)) && !guardDomain(o.value)){close(true);return;}
     const el = native.current;
     if (el) {
       el.value = o.value;

@@ -16,7 +16,7 @@ const TrialMoreHint: React.FC<{ className?: string }> = ({ className }) => {
     const { t } = useTranslation();
     const { user } = useAuth();
 
-    if (user?.role !== 'viewer') return null;
+    if (user?.role !== 'viewer' || user.membership_tier) return null;
 
     return (
         <div className={`flex items-center justify-center gap-1.5 py-4 text-xs text-text-muted ${className || ''}`}>

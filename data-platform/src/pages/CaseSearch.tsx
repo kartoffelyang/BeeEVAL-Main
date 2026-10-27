@@ -1,3 +1,4 @@
+import {useTrialAccess, TRIAL_DOMAIN, TRIAL_DOMAINS} from "../contexts/TrialContext";
 import { SCORE_RANGES, scoreBounds } from "../utils/scoreRanges";
 import LightSelect from "../components/LightSelect";
 import {
@@ -38,6 +39,7 @@ function stored(key: string, fallback: any) {
   }
 }
 export default function CaseSearch() {
+  const {trial,guardDomain}=useTrialAccess();
   const { language } = useLanguage();
   const { tv, td, tt } = useMetricsTranslation();
   const c = (zh: string, en: string) => (language === "zh" ? zh : en);
@@ -95,6 +97,12 @@ export default function CaseSearch() {
   const model = params.get("brand_model") || "";
   const version = params.get("system_version") || "";
   const signature = params.toString();
+  useEffect(()=>{
+    if(trial && params.get('function_domain') !== TRIAL_DOMAIN){
+      const p=new URLSearchParams(params);p.set('function_domain',TRIAL_DOMAIN);
+      p.delete('task_detail');p.delete('acceptance_tag');p.delete('page');setParams(p,{replace:true});
+    }
+  },[trial,signature]);
   const page = Math.max(0, Number(params.get("page")) || 0);
   useEffect(() => {
     if (!signature) {
@@ -121,7 +129,7 @@ export default function CaseSearch() {
       .then(setVehicles)
       .catch(() => {});
     getFilterOptions()
-      .then((r) => setDomains(r.function_domains || []))
+      .then((r) => setDomains(trial ? TRIAL_DOMAINS : r.function_domains || []))
       .catch(() => {});
   }, []);
   useEffect(() => {
@@ -139,7 +147,7 @@ export default function CaseSearch() {
           limit: PAGE_SIZE,
           brand_model: model || undefined,
           system_version: version || undefined,
-          function_domain: params.get("function_domain") || undefined,
+          function_domain: trial ? TRIAL_DOMAIN : params.get("function_domain") || undefined,
           case_id: params.get("case_id") || undefined,
           task_detail: params.get("task_detail") || undefined,
           acceptance_tag: params.get("acceptance_tag") || undefined,
@@ -228,6 +236,7 @@ export default function CaseSearch() {
     setDraft(params.get("q") || params.get("case_id") || "");
   }, [signature]);
   const change = (key: string, value: string) => {
+    if(key === "function_domain" && !guardDomain(value)) return;
     const p = new URLSearchParams(params);
     value ? p.set(key, value) : p.delete(key);
     if (key !== "page") p.delete("page");
@@ -401,7 +410,7 @@ export default function CaseSearch() {
         <label>
           {c("功能域", "Domain")}
           <LightSelect
-            value={params.get("function_domain") || ""}
+            value={trial ? TRIAL_DOMAIN : params.get("function_domain") || ""}
             onChange={(e) => change("function_domain", e.target.value)}
           >
             <option value="">{c("全部功能域", "All domains")}</option>

@@ -1,3 +1,4 @@
+import {useTrialAccess, TRIAL_DOMAIN} from "../contexts/TrialContext";
 import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import { Swords, Clock, ChevronLeft, ChevronRight, ArrowUp, ArrowDown, ArrowUpDown, SlidersHorizontal } from 'lucide-react';
 import clsx from 'clsx';
@@ -22,6 +23,7 @@ type SortKey = string; // 'case_id' | 'function_domain' | `score:<brand_model>`
 type SortDir = 'asc' | 'desc';
 
 const VehiclePK: React.FC = () => {
+    const {trial,guardDomain}=useTrialAccess();
     const { t } = useTranslation();
     const { td, tv } = useMetricsTranslation();
     const { user } = useAuth();
@@ -59,7 +61,8 @@ const VehiclePK: React.FC = () => {
     }, [primaryKey, competitorKeys]);
 
     const [domains, setDomains] = useState<string[]>([]);
-    const [domainFilter, setDomainFilter] = useState('');
+    const [domainFilter, setDomainFilter] = useState(trial ? TRIAL_DOMAIN : '');
+    useEffect(()=>{if(trial && domainFilter!==TRIAL_DOMAIN)setDomainFilter(TRIAL_DOMAIN)},[trial,domainFilter]);
     const [cases, setCases] = useState<PKCaseItem[]>([]);
     const [total, setTotal] = useState(0);
     const [page, setPage] = useState(0);
@@ -144,11 +147,11 @@ const VehiclePK: React.FC = () => {
                     <SlidersHorizontal className="w-4 h-4" /> {t('filter_domain')}:
                 </span>
                 <div className="flex flex-wrap gap-2">
-                    <DomainPill active={domainFilter === ''} onClick={() => setDomainFilter('')}>
+                    <DomainPill active={domainFilter === ''} onClick={() => {if(guardDomain('全部功能域'))setDomainFilter('')}}>
                         {t('all_domains')}
                     </DomainPill>
                     {domains.map(d => (
-                        <DomainPill key={d} active={domainFilter === d} onClick={() => setDomainFilter(d)}>
+                        <DomainPill key={d} active={domainFilter === d} onClick={() => {if(guardDomain(d))setDomainFilter(d)}}>
                             {td(d)}
                         </DomainPill>
                     ))}

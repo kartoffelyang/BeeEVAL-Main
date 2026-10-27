@@ -1,3 +1,4 @@
+import {useTrialAccess, TRIAL_DOMAIN} from "../../contexts/TrialContext";
 import React, { useEffect, useMemo, useState } from 'react';
 import { Trophy, Layers, Car, Clock, Film, Star, CheckCircle2 } from 'lucide-react';
 import clsx from 'clsx';
@@ -89,6 +90,7 @@ const DeltaArrow: React.FC<{
 };
 
 const OverviewTab: React.FC = () => {
+    const {trial,guardDomain}=useTrialAccess();
     const { t } = useTranslation();
     const { tm, td } = useMetricsTranslation();
     const {
@@ -107,7 +109,8 @@ const OverviewTab: React.FC = () => {
     const compSnap = compKey ? snapshots[compKey] : null;
 
     // 指标网格：功能域切换（overall = 总体）。
-    const [domainTab, setDomainTab] = useState<string>('overall');
+    const [domainTab, setDomainTab] = useState<string>(trial ? TRIAL_DOMAIN : 'overall');
+    useEffect(()=>{if(trial && domainTab!==TRIAL_DOMAIN)setDomainTab(TRIAL_DOMAIN)},[trial,domainTab]);
     // 指标下钻弹窗：存被点击的指标名（criteria dimension_key）
     const [drillMetric, setDrillMetric] = useState<string | null>(null);
 
@@ -342,9 +345,9 @@ const OverviewTab: React.FC = () => {
 
                 {/* 功能域卡片式切换 */}
                 <div className="flex flex-wrap gap-2 mb-5">
-                    <DomainChip label={t('overview_overall')} active={domainTab === 'overall'} onClick={() => setDomainTab('overall')} />
+                    <DomainChip label={t('overview_overall')} active={domainTab === 'overall'} onClick={() => {if(guardDomain('全部功能域'))setDomainTab('overall')}} />
                     {availableDomains.map(dom => (
-                        <DomainChip key={dom} label={td(dom)} active={domainTab === dom} onClick={() => setDomainTab(dom)} />
+                        <DomainChip key={dom} label={td(dom)} active={domainTab === dom} onClick={() => {if(guardDomain(dom))setDomainTab(dom)}} />
                     ))}
                 </div>
 
