@@ -16,8 +16,8 @@
     },
     "access": "admin",
     "badge": "待上线",
-    "updatedAt": "2026-10-21",
-    "revision": "20261021-full-bank"
+    "updatedAt": "2026-10-27",
+    "revision": "20261027-case-refs"
   },
   "fallback": {
     "title": "当座舱 AI 帮不上忙：从失败话术到任务恢复",
@@ -47,8 +47,8 @@
       ]
     },
     "access": "paid",
-    "updatedAt": "2026-10-21",
-    "revision": "20261021-full-bank"
+    "updatedAt": "2026-10-27",
+    "revision": "20261027-case-refs"
   },
   "zeekr9x": {
     "title": "极氪 9X 座舱 AI 专题报告",
@@ -79,8 +79,8 @@
     },
     "access": "free",
     "badge": "限时免费",
-    "updatedAt": "2026-10-21",
-    "revision": "20261021-full-bank"
+    "updatedAt": "2026-10-27",
+    "revision": "20261027-case-refs"
   },
   "l9livis": {
     "title": "理想 L9 Livis 座舱 AI 单车专题报告",
@@ -111,8 +111,8 @@
     },
     "access": "free",
     "badge": "限时免费",
-    "updatedAt": "2026-10-21",
-    "revision": "20261021-full-bank"
+    "updatedAt": "2026-10-27",
+    "revision": "20261027-case-refs"
   },
   "travel": {
     "title": "蔚来出行 AI 专项对标与改进建议",
@@ -142,8 +142,8 @@
       ]
     },
     "access": "paid",
-    "updatedAt": "2026-10-21",
-    "revision": "20261021-full-bank"
+    "updatedAt": "2026-10-27",
+    "revision": "20261027-case-refs"
   },
   "multi-stop": {
     "title": "多点行程规划：品牌对标与产品启示",
@@ -173,8 +173,8 @@
       ]
     },
     "access": "paid",
-    "updatedAt": "2026-10-21",
-    "revision": "20261021-full-bank"
+    "updatedAt": "2026-10-27",
+    "revision": "20261027-case-refs"
   },
   "i8-livis": {
     "title": "理想 i8 → L9 Livis 座舱 AI 能力变化报告",
@@ -205,7 +205,7 @@
     },
     "access": "free",
     "badge": "限时免费",
-    "updatedAt": "2026-10-21",
-    "revision": "20261021-full-bank"
+    "updatedAt": "2026-10-27",
+    "revision": "20261027-case-refs"
   }
 }

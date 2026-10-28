@@ -1,6 +1,7 @@
 """Self-service membership on the existing BeeEVAL identity store. No parallel users DB."""
 from __future__ import annotations
-import hashlib,hmac,secrets,os,re,asyncio,inspect
+import inspect
+import hashlib,hmac,secrets,os,re,asyncio
 from datetime import datetime,timezone
 from fastapi import APIRouter,Depends,HTTPException,Request
 from pydantic import BaseModel,Field
@@ -35,7 +36,7 @@ class ProfileRequest(BaseModel):
  username:str=Field(min_length=3,max_length=64)
  display_name:str=Field(default='',max_length=40)
 @router.get('/registration-options')
-def options():return {'email':get_smtp_config().configured,'phone':bool(os.getenv('SMS_VERIFICATION_URL')and os.getenv('SMS_VERIFICATION_TOKEN'))}
+def options():return {'wechat':bool(os.getenv('BEEEVAL_WECHAT_APPID') and os.getenv('BEEEVAL_WECHAT_APP_SECRET')),'email':get_smtp_config().configured,'phone':bool(os.getenv('SMS_VERIFICATION_URL')and os.getenv('SMS_VERIFICATION_TOKEN'))}
 @router.post('/register-code')
 async def code(req:CodeRequest,request:Request):
  target=recipient(req.channel,req.recipient);available=options()
