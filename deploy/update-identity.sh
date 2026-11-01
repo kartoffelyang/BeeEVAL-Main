@@ -21,7 +21,7 @@ docker cp beeeval-api:/app/api/routers/member_accounts.py "$backup/member_accoun
 cp "$base/api/main.py" "$backup/main.py"
 cp "$base/integrations/evaluation/member_accounts.py" "$base/api/routers/member_accounts.py"
 python3 "$base/integrations/evaluation/apply_password_recovery.py" "$base"
-python3 -m py_compile "$base/api/main.py" "$base/api/routers/member_accounts.py" "$base/api/routers/password_recovery.py"
+docker run --rm --entrypoint python -v "$base:/source:ro" "$old_image" -c "from pathlib import Path;[compile(p.read_text(),str(p),'exec') for p in [Path('/source/api/main.py'),Path('/source/api/routers/member_accounts.py'),Path('/source/api/routers/password_recovery.py')]]"
 # Extend the running image without rebuilding evaluation or ML dependencies.
 docker image tag "$(docker inspect beeeval-api --format '{{.Image}}')" "beeeval-api:account-base-$revision"
 printf 'FROM beeeval-api:account-base-%s\nCOPY api/main.py /app/api/main.py\nCOPY api/routers/member_accounts.py /app/api/routers/member_accounts.py\nCOPY api/routers/password_recovery.py /app/api/routers/password_recovery.py\n' "$revision" > "$base/Dockerfile"
