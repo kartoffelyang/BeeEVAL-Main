@@ -14,22 +14,22 @@
       "section": "judgment"
     },
     "en": {
-      "title": "Enterprises should treat the ability to continue fulfilling a need after failure as a product capability",
+      "title": "Recovery is a product capability, not just a better apology.",
       "paragraphs": [
-        "The sample already includes phrasing guidance, manual instructions, UI handoffs, similar-feature alternatives, network retries and capability-boundary explanations. Yet the same fallback method can either help users continue or leave them repeating themselves, following incorrect entry points or drifting away from the goal.",
-        "Executive recommendation: fix loops, misleading feedback and incorrect handoffs before expanding open-ended Q&A coverage.",
-        "Prioritize genuine recovery paths for frequent needs: correct entry points, specific controls, retained constraints and service continuity. Stronger models can add capabilities, but do not automatically complete UI and service workflows.",
-        "Misunderstanding, missing knowledge, unavailable integration, temporary faults, insufficient conditions and prohibited actions require different owners and handling paths. A uniform “I am still learning” response hides the actual problem.",
-        "When conditions or permissions are missing, explain boundaries and provide permitted alternatives. Intent understanding and execution authorization must be assessed separately; appropriate refusals should not be forced into automatic completion.",
-        "Whether the page is correct, parameters are retained, users can find the action and the task ultimately succeeds all require subsequent evidence. “Opened” in a response only proves that the system said so."
+        "The test records show several ways of handling failure: rephrasing guidance, manual instructions, interface handoffs, alternative features, retries and explanations of system limits. The same approach can help a user continue, or leave them repeating a request, following the wrong link or losing the original goal.",
+        "Our recommendation: fix loops, misleading feedback and incorrect handoffs before expanding open-ended question answering.",
+        "Focus first on recovery for frequent tasks: the right destination in the interface, specific controls, preserved constraints and a service that can pick up where the user left off. A stronger model does not, by itself, repair a broken workflow.",
+        "A misunderstood request, missing knowledge, an unavailable integration, a temporary fault and an action that should not be taken are different problems. Each needs an appropriate owner and response. A generic “I’m still learning” hides the cause.",
+        "Where conditions or permissions prevent execution, explain the limit and offer an allowed alternative. Understanding a request and having permission to carry it out are separate questions. A justified refusal is not a failure to automate.",
+        "A statement such as “I’ve opened it” is evidence of what the assistant said. It does not establish that the correct page opened, parameters were retained or the user could complete the task. Those outcomes need to be checked."
       ],
       "table": [],
       "section": "judgment",
       "outline": [
-        "Actual records support behavioral analysis; final recovery still requires follow-up testing",
-        "Effective fallback changes the path according to the cause of failure",
-        "Eight findings point to the same issue: recovery paths need design and verification",
-        "Other products expand the mechanism framework; they cannot replace cockpit testing"
+        "What the records show, and what still needs follow-up testing",
+        "Match the recovery path to the cause of failure",
+        "Eight findings on designing and verifying recovery",
+        "What other products can teach us, and why in-vehicle testing still matters"
       ]
     }
   },
@@ -48,10 +48,10 @@
       "section": "judgment"
     },
     "en": {
-      "title": "Everyday tasks have a solid delivery foundation; dynamic information and generation retain clear limits.",
+      "title": "Everyday assistance is strong. Live information and generation expose the limits.",
       "paragraphs": [
-        "L9 Livis excels more as an ownership assistant and family-content service than as an equally mature solution for every AI task.",
-        "Many everyday needs can be fulfilled, but retrieval, correct adjustment, and generation need separate acceptance checks.",
+        "The L9 Livis is strongest as an assistant for vehicle ownership and family content. Its capabilities are less consistent across the full range of AI tasks.",
+        "Many everyday requests work well. Retrieving information, making the correct adjustment and generating content should still be assessed as distinct outcomes.",
         "Of 889 records for version 9.0.2, 741 succeeded, 148 failed, and 0 had unknown outcomes. Cached overall score: 4.12/5; mean case-level total: 4.19/5. Completion and ratings use different aggregation methods and cannot be converted into each other.",
         "Vehicle knowledge succeeded 164/171; multi-task infotainment execution 9/10; condition-specific media search 20/20. These show how the assistant reduces manual lookup, menu switching, and content-search work.",
         "Control target correction succeeded 3/8; live traffic 5/10; transport ticket queries 2/6; theme/character image generation 0/24. These concern final intent, external data, and supported capabilities respectively—not simply an insufficiently intelligent model.",
@@ -60,10 +60,10 @@
       "table": [],
       "section": "judgment",
       "outline": [
-        "Six domains diverge: knowledge is most stable; creation and control lower full-set performance.",
-        "Scenario results: ownership guidance and compound operations are strong; corrections and dynamic information are weaker.",
-        "Benchmarking supports everyday-task strengths; the full capability scope needs a separate view.",
-        "Strengths reflect real family-ownership work: operating, finding, and understanding."
+        "Why vehicle knowledge leads, while creation and control reduce full-set performance",
+        "Where everyday guidance and combined actions work, and where corrections break down",
+        "How common-task benchmarks differ from full-capability coverage",
+        "The ownership tasks behind the strengths: operate, find and understand"
       ]
     }
   },
@@ -104,10 +104,10 @@
       "section": "s1"
     },
     "en": {
-      "title": "ZEEKR is the primary learning reference; Galaxy is an essential execution benchmark",
+      "title": "Study ZEEKR first. Use Galaxy to examine execution.",
       "paragraphs": [
-        "If one primary reference must be chosen, choose ZEEKR 9X. To understand multi-stop product mechanisms fully, examine ZEEKR, Galaxy and Livis together. Findings concern tested versions, not brand-wide rankings.",
-        "Preserve a user's single request as an itinerary that can be edited, clarified and executed, rather than restarting a single-place search every turn."
+        "If the team needs one starting point, use ZEEKR 9X. For a fuller understanding of multi-stop planning, study ZEEKR, Galaxy and Livis together. These findings apply to the tested versions, not to every product from each brand.",
+        "Treat the user’s request as one itinerary that can be clarified, edited and executed. Do not restart a single-destination search with every follow-up."
       ],
       "table": [
         [
@@ -138,10 +138,10 @@
       ],
       "section": "s1",
       "outline": [
-        "Why choose ZEEKR as the primary benchmark when both reach 100% completion?",
-        "Four task types in multi-stop planning: stop count alone does not measure difficulty",
-        "Six cases turn leadership comparisons into mechanisms we can learn",
-        "Reusable task mechanisms matter more than super-thinking branding"
+        "Why ZEEKR is a useful starting point when two systems reach 100% completion",
+        "Four planning task types: why stop count is not enough",
+        "What six cases reveal about the mechanisms behind performance",
+        "Reusable planning patterns beyond product branding"
       ]
     }
   },
@@ -160,10 +160,10 @@
       "section": "verdict"
     },
     "en": {
-      "title": "Overall performance improves at the Livis stage; feature removal and small-sample test variation must be separated.",
+      "title": "Performance improves, but feature choices and sample variation need their own explanation.",
       "paragraphs": [
-        "Gains center on travel orchestration, knowledge answers, and some compound tasks. Removing image generation is a distinct product trade-off.",
-        "The upgrade brings progress and reduced scope; assess overall performance, feature trade-offs, and test variation separately.",
+        "The clearest gains are in travel planning, knowledge answers and some combined tasks. The removal of image generation is a separate product decision.",
+        "Assess three things independently: overall progress, changes in feature scope and variation caused by the test sample.",
         "Keeping the latest record for each question yields 77.2% → 83.4% overall. Fixing i8 weights across common scenarios and acceptance levels yields 77.1% → 82.9%; the improvement direction survives composition adjustment.",
         "Multi-destination routing improves from 5/9 → 11/12; multi-task infotainment execution from 6/9 → 9/10. These small-sample signals need interpretation alongside broader task-family and overall results.",
         "The image-generation family changes from 17/18 → 0/24, with scenario means 4.14 → 1.70. This is reduced experience scope following feature removal—not a new model drawing worse.",
@@ -172,10 +172,10 @@
       "table": [],
       "section": "verdict",
       "outline": [
-        "Overall progress cannot replace local review: creation and control move in different directions.",
-        "Task orchestration and knowledge services are the main enhancements; Agents did not first appear with Livis.",
-        "Small-sample percentage differences are test variation, not regression conclusions.",
-        "Removing image generation reduces feature scope; it does not establish worse model drawing ability."
+        "Why overall progress does not settle every domain-level question",
+        "Where task handling and knowledge services improve",
+        "Why small-sample differences do not establish regression",
+        "What removing image generation changes about product scope"
       ]
     }
   },
@@ -194,10 +194,10 @@
       "section": "judgment"
     },
     "en": {
-      "title": "Knowledge and travel are established strengths; vehicle-control execution remains the priority.",
+      "title": "Strong on knowledge and travel. Vehicle control is the clearest priority.",
       "paragraphs": [
-        "Research finding for the tested version: the next improvement in cockpit AI should connect target objects, constraints, and actual action outcomes.",
-        "It can already complete many complex information tasks, but converting a natural request into the correct vehicle action still has gaps.",
+        "For the tested version, the next step is to connect the requested object, the user’s constraints and the action the vehicle actually carries out.",
+        "The system can complete many demanding information tasks. It is less reliable at turning a natural-language request into the correct vehicle action.",
         "Of 855 case-level records, 712 succeeded and 143 failed: an 83.3% completion rate. The platform-cached overall score is 4.33/5; the mean case-level total score is 4.34/5. These use different aggregation methods, and neither substitutes for the task success rate.",
         "Multi-destination routing succeeded in 10/10 cases; vehicle technology and principle explanations in 35/35; constrained and social-media copywriting in 22/22. These are starting points for regression tests and experience design; small samples cannot establish performance across every similar task.",
         "Vehicle control succeeded in 109/169 cases (64.5%); its 60 failures represent 42.0% of all failures. Target correction achieved 2/7, continuous-dialogue control 3/7, and ambiguous control understanding 4/12. Verify the target object and final intent first.",
@@ -206,10 +206,10 @@
       "table": [],
       "section": "judgment",
       "outline": [
-        "Across six domains, vehicle control is the clearest performance gap.",
-        "Scenario results: routing and vehicle knowledge are strong; target correction and charging-site filtering are weaker.",
-        "Stricter benchmarking still supports an overall advantage, but vehicle control needs separate scrutiny.",
-        "Product strengths should be expressed through demonstrated task chains."
+        "Why vehicle control is the largest gap across six domains",
+        "Strong routing and knowledge, weaker target corrections and charging filters",
+        "What a stricter common-question comparison does and does not establish",
+        "Turn demonstrated task strengths into product priorities"
       ]
     }
   },
@@ -250,10 +250,10 @@
       "section": "s1"
     },
     "en": {
-      "title": "Move from answering questions to completing travel tasks",
+      "title": "A travel assistant needs to finish the task.",
       "paragraphs": [
-        "In the tested ET5, the central issue is task-chain reliability. Even after users state a clear goal, the system asks them to choose or explain again, and sometimes turns an information query into navigation.",
-        "A travel assistant creates value by reducing the interaction and cognitive effort needed to achieve the same goal. State the task once, retain it across turns, execute correctly and recover from failure: these should be shared product requirements."
+        "In the tested ET5, reliability breaks down across the steps of a task. Even with a clear goal, users may be asked to choose or explain again. In some cases, an information request becomes a navigation action.",
+        "The value of a travel assistant is the effort it saves. State the goal once, retain it across turns, execute correctly and recover when something goes wrong: these should be shared product requirements."
       ],
       "table": [
         [
@@ -284,10 +284,10 @@
       ],
       "section": "s1",
       "outline": [
-        "ET5 trails this benchmark group, with gaps already evident in basic tasks",
-        "The largest gaps: multiple destinations, corrections, colloquial needs and destination chaining",
-        "Low scores point to three capability layers: understanding goals, maintaining state and connecting reliable services",
-        "Select benchmarks by task: each competitor offers specific strengths"
+        "Where ET5 falls behind the tested benchmark group",
+        "The gaps in multiple stops, corrections, everyday requests and destination sequences",
+        "Three priorities: understand the goal, preserve state and connect reliable services",
+        "Choose a different benchmark for each task"
       ]
     }
   }

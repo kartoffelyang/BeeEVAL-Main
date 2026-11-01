@@ -37,7 +37,46 @@
         "name": "图像生成质量",
         "value": 4.03
       }
-    ]
+    ],
+    "en": {
+      "title": "BeeEVAL Data: Look Beyond the Score",
+      "summary": "Compare vehicles and software versions, explore domain scores and task completion, then review the video behind each result. Understand both what the AI achieved and how it got there.",
+      "points": [
+        [
+          "Compare vehicles",
+          "See how tested versions differ, from the overall score to individual domains."
+        ],
+        [
+          "Investigate the gaps",
+          "Explore metrics and tasks to find where complex requests, follow-up conversations or service execution break down."
+        ],
+        [
+          "Review the evidence",
+          "Watch the test video alongside its evaluation to understand the result in context."
+        ]
+      ],
+      "access": "The full platform includes vehicle comparisons, detailed metrics and scenario results, test videos and their evaluation records.",
+      "sampleLabel": "A sample of the metrics",
+      "note": "Anonymous vehicle A · Existing research snapshot · Scores out of 5",
+      "samples": [
+        {
+          "name": "Complex instruction recognition",
+          "value": 4.48
+        },
+        {
+          "name": "Contextual memory",
+          "value": 4.38
+        },
+        {
+          "name": "Emotional responsiveness",
+          "value": 4.05
+        },
+        {
+          "name": "Image generation quality",
+          "value": 4.03
+        }
+      ]
+    }
   },
   "scenes": {
     "title": "AI与车，共同打开新的场景。",
@@ -79,6 +118,47 @@
         "summary": "不同席位表达冷热、日晒和声音诉求，AI整理分歧并提出可确认的共同舒适方案。例如前排冷、后排热，询问可接受范围后分区调节。",
         "image": "/scenes/images/top-006-v1.webp"
       }
-    ]
+    ],
+    "en": {
+      "title": "BeeScene: From User Needs to Product Ideas",
+      "summary": "Explore how AI could help in specific in-car situations. Connect user needs, vehicle conditions and interaction design to guide product research and prototype validation.",
+      "points": [
+        [
+          "Start with the user",
+          "Understand who needs help, in what situation, and what a useful outcome would look like."
+        ],
+        [
+          "Explore the evidence",
+          "Review public applications, relevant patents and operating conditions to understand the opportunity and its limits."
+        ],
+        [
+          "Make the interaction testable",
+          "Examine triggers, clarification, confirmation, execution and feedback, including failure recovery and user control."
+        ]
+      ],
+      "access": "The full library includes scenario definitions, research references, industry applications, relevant patents and detailed interaction flows.",
+      "sampleLabel": "Explore a few scenario concepts",
+      "note": "These are research concepts. Production suitability and user value still need to be validated.",
+      "samples": [
+        {
+          "id": "TOP-003",
+          "name": "Ask About the World Outside",
+          "summary": "Let passengers ask follow-up questions about a building or landmark they just passed. The concept uses recent visual context to identify the subject and support further questions.",
+          "image": "/scenes/images/top-003-v1.webp"
+        },
+        {
+          "id": "TOP-005",
+          "name": "Vehicle Monitoring That Explains What Happened",
+          "summary": "Turn agreed exterior events into an evidence-backed summary, helping the owner decide what needs attention. For example, show key clips when someone repeatedly approaches a door.",
+          "image": "/scenes/images/top-005-v1.webp"
+        },
+        {
+          "id": "TOP-006",
+          "name": "Finding Comfort Across Seats",
+          "summary": "Bring together passengers’ requests about temperature, sunlight and sound. Clarify acceptable ranges before proposing changes across cabin zones.",
+          "image": "/scenes/images/top-006-v1.webp"
+        }
+      ]
+    }
   }
 }

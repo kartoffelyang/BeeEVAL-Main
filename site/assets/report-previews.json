@@ -9,8 +9,8 @@
     "outline": [],
     "scope": "数据截至2026-10-07；按各受测版本全量记录统计，专项采用对应领域或场景的全部记录。",
     "en": {
-      "title": "2026 Cockpit AI Industry Whitepaper",
-      "summary": "This report is being prepared and will be available after publication.",
+      "title": "The 2026 Cockpit AI Outlook",
+      "summary": "In preparation. The full report and preview will be available when it is published.",
       "category": "Annual research",
       "findings": []
     },
@@ -37,13 +37,13 @@
     ],
     "scope": "数据截至2026-10-07；按各受测版本全量记录统计，专项采用对应领域或场景的全部记录。",
     "en": {
-      "title": "When Cockpit AI Falls Short: From Failure Responses to Task Recovery",
-      "summary": "30 real test records examining failure responses, handover guidance and task recovery.",
+      "title": "When Cockpit AI Fails: Helping the User Recover",
+      "summary": "What should a voice assistant do when it cannot finish a task? We examine 30 real test records to distinguish an explanation from a useful next step.",
       "category": "Failure analysis",
       "findings": [
-        "Failure responses should help users continue a task, rather than merely explain that it cannot be done.",
-        "The report distinguishes capability explanations, manual guidance, interface handoff and recovery paths.",
-        "Existing records support behavioral analysis; verified recovery and eventual completion require further testing."
+        "A good failure response helps the user move forward. Simply saying why a request failed is rarely enough.",
+        "The study separates four responses: explaining a limitation, guiding manual action, handing off to an interface and offering a recovery path.",
+        "These records show how systems respond to failure. Further testing is needed to establish whether the proposed recovery actually leads to task completion."
       ]
     },
     "access": "paid",
@@ -68,13 +68,13 @@
     ],
     "scope": "数据截至2026-10-07；按各受测版本全量记录统计，专项采用对应领域或场景的全部记录。",
     "en": {
-      "title": "ZEEKR 9X Cockpit AI Study",
-      "summary": "855 BeeEVAL records covering six-domain performance, scenarios, industry benchmarks and improvement priorities.",
+      "title": "ZEEKR 9X: A Closer Look at Cockpit AI",
+      "summary": "A review of 855 BeeEVAL records, comparing six domains, real task performance and industry benchmarks to identify where ZEEKR should focus next.",
       "category": "Vehicle study",
       "findings": [
-        "Knowledge and travel are relative strengths, while reliable vehicle control remains an improvement priority.",
-        "Route planning and vehicle knowledge are stronger; correcting control targets and filtering charging conditions show gaps.",
-        "Domain profiles, industry samples and real cases identify product strengths and improvement priorities."
+        "Vehicle knowledge and travel assistance are relative strengths. Dependable vehicle control remains an important area for improvement.",
+        "The system performs better on route planning and vehicle questions than on corrected control requests or charging searches with specific constraints.",
+        "Domain scores, industry comparisons and individual test cases together show where the product leads and which gaps deserve attention first."
       ]
     },
     "access": "free",
@@ -100,13 +100,13 @@
     ],
     "scope": "数据截至2026-10-07；按各受测版本全量记录统计，专项采用对应领域或场景的全部记录。",
     "en": {
-      "title": "Li Auto L9 Livis Cockpit AI Study",
-      "summary": "889 BeeEVAL records examining everyday task completion, six-domain performance, live information and generative capabilities.",
+      "title": "Li Auto L9 Livis: A Closer Look at Cockpit AI",
+      "summary": "How well does the L9 Livis handle everyday requests? 889 BeeEVAL records reveal its strengths across six domains, along with the limits of live information and content generation.",
       "category": "Vehicle study",
       "findings": [
-        "Common vehicle tasks have a strong delivery foundation, while dynamic information and generation retain clear limits.",
-        "Vehicle knowledge, combined operations and usage guidance are strengths; corrections and dynamic services need further work.",
-        "Beyond the overall score, domain and scenario analysis separates everyday strengths from the full capability scope."
+        "The system handles many everyday tasks well. Requests involving live information or generated content expose clearer limits.",
+        "Vehicle knowledge, combined actions and usage guidance stand out. Correcting a request and completing tasks through live services remain areas to improve.",
+        "The headline score tells only part of the story. Domain and scenario results show which strengths hold up in everyday use and where they stop."
       ]
     },
     "access": "free",
@@ -132,13 +132,13 @@
     ],
     "scope": "数据截至2026-10-07；按各受测版本全量记录统计，专项采用对应领域或场景的全部记录。",
     "en": {
-      "title": "NIO Mobility AI: Benchmarking and Improvement",
-      "summary": "Destination, routing and charging tasks reveal experience gaps in NIO ET5.",
+      "title": "NIO ET5: Where Travel Assistance Falls Short",
+      "summary": "From finding a destination to planning a route and charging along the way, we examine where the NIO ET5 travel experience breaks down and what stronger systems do differently.",
       "category": "Benchmark study",
       "findings": [
-        "Travel experience depends on moving from answering questions to completing tasks.",
-        "ET5 gaps concentrate in multiple destinations, condition changes, conversational requests and destination sequences.",
-        "Task-specific benchmarks turn understanding, task state and service integration into concrete improvement directions."
+        "Travel assistance must complete the journey-related task, not just answer the question.",
+        "The ET5 struggles particularly with multiple stops, changing conditions, conversational requests and the order of destinations.",
+        "Task-level benchmarks point to specific improvements in request understanding, task state and connected services."
       ]
     },
     "access": "paid",
@@ -163,13 +163,13 @@
     ],
     "scope": "数据截至2026-10-07；按各受测版本全量记录统计，专项采用对应领域或场景的全部记录。",
     "en": {
-      "title": "Multi-stop Trip Planning: Brand Benchmarks and Product Insights",
-      "summary": "Compare multi-stop planning across brands through cases, execution gaps and transferable product improvements.",
+      "title": "Multi-stop Route Planning: What the Best Systems Get Right",
+      "summary": "Compare how brands plan and execute trips with multiple stops. Real cases reveal what preserves the route, respects constraints and keeps a task moving.",
       "category": "Benchmark study",
       "findings": [
-        "Zeekr is a priority benchmark, while Galaxy execution performance also deserves close study.",
-        "Planning difficulty comes from order, constraints and task continuity, not simply the number of stops.",
-        "Representative cases reveal reusable planning and execution mechanisms beyond brand rankings."
+        "ZEEKR is a useful benchmark for deeper study. Galaxy also warrants attention for its execution performance.",
+        "The hard part is more than counting stops: a system must preserve order, respect constraints and maintain the task across a conversation.",
+        "Representative cases reveal planning and execution patterns that product teams can learn from, beyond the brand rankings."
       ]
     },
     "access": "paid",
@@ -194,13 +194,13 @@
     ],
     "scope": "数据截至2026-10-07；按各受测版本全量记录统计，专项采用对应领域或场景的全部记录。",
     "en": {
-      "title": "Li Auto i8 → L9 Livis: Cockpit AI Capability Evolution",
-      "summary": "Compare i8 and L9 Livis across vehicles and collection periods. Distinguish capability gains, feature removal and small-sample variation to assess product trade-offs and persistent gaps.",
+      "title": "From Li Auto i8 to L9 Livis: What Changed?",
+      "summary": "A comparison across two vehicles and collection periods. We separate stronger capabilities, removed features and small-sample variation to understand the product choices behind the results.",
       "category": "Capability evolution",
       "findings": [
-        "Overall performance improves in the Livis stage, while local changes require separate review.",
-        "Multi-destination and combined task organization improve; image generation removal is a product-scope choice.",
-        "Small-sample fluctuations do not establish regression; persistent gaps and explicit removals require separate validation."
+        "Aggregate performance is stronger in the Livis sample. Individual changes still need to be examined on their own terms.",
+        "Multi-stop planning and combined task handling improve. The removal of image generation reflects a change in product scope.",
+        "A small-sample dip does not establish a regression. Persistent gaps and explicitly removed features need separate interpretation and validation."
       ]
     },
     "access": "free",

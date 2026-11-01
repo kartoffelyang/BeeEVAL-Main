@@ -1,7 +1,6 @@
 """Self-service membership on the existing BeeEVAL identity store. No parallel users DB."""
 from __future__ import annotations
-import inspect
-import hashlib,hmac,secrets,os,re,asyncio
+import hashlib,hmac,secrets,os,re,asyncio,inspect
 from datetime import datetime,timezone
 from fastapi import APIRouter,Depends,HTTPException,Request
 from pydantic import BaseModel,Field
@@ -36,7 +35,7 @@ class ProfileRequest(BaseModel):
  username:str=Field(min_length=3,max_length=64)
  display_name:str=Field(default='',max_length=40)
 @router.get('/registration-options')
-def options():return {'wechat':bool(os.getenv('BEEEVAL_WECHAT_APPID') and os.getenv('BEEEVAL_WECHAT_APP_SECRET')),'email':get_smtp_config().configured,'phone':bool(os.getenv('SMS_VERIFICATION_URL')and os.getenv('SMS_VERIFICATION_TOKEN'))}
+def options():return {'email':get_smtp_config().configured,'phone':bool(os.getenv('SMS_VERIFICATION_URL')and os.getenv('SMS_VERIFICATION_TOKEN')),'wechat':bool(os.getenv('BEEEVAL_WECHAT_APPID') and os.getenv('BEEEVAL_WECHAT_APP_SECRET'))}
 @router.post('/register-code')
 async def code(req:CodeRequest,request:Request):
  target=recipient(req.channel,req.recipient);available=options()
@@ -48,9 +47,9 @@ async def code(req:CodeRequest,request:Request):
  if not rows:raise HTTPException(429,detail='请等待60秒后重新获取验证码')
  try:
   if req.channel=='email':
-   args=(target,'BeeEVAL 注册验证码',f'您的注册验证码为 {otp}，5分钟内有效。请勿向他人泄露。若非您本人操作，请忽略此邮件。')
-   if inspect.iscoroutinefunction(send_email):await send_email(*args)
-   else:await asyncio.to_thread(send_email,*args)
+   kwargs=dict(to_addr=target,subject='BeeEVAL 注册验证码',plain_body=f'您的注册验证码为 {otp}，5分钟内有效。请勿向他人泄露。若非您本人操作，请忽略此邮件。')
+   if inspect.iscoroutinefunction(send_email):await send_email(**kwargs)
+   else:await asyncio.to_thread(send_email,**kwargs)
   else:
    import httpx
    url=os.environ['SMS_VERIFICATION_URL']

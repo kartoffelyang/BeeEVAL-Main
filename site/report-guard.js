@@ -14,3 +14,5 @@ const mark=document.createElement('div');mark.className='bee-reading-watermark';
 function watermark(name){mark.replaceChildren(...Array.from({length:9},()=>{const span=document.createElement('span');span.textContent=`BeeEVAL · ${name} · ${new Date().toISOString().slice(0,10)}`;return span}))}
 watermark('Online reading');
 fetch('/api/session',{credentials:'same-origin',cache:'no-store'}).then(r=>{if(!r.ok)throw Error();return r.json()}).then(({user})=>{if(!user){location.replace('/preview.html?path='+encodeURIComponent(location.pathname));return}watermark(user.username)}).catch(()=>{notice.hidden=false;notice.textContent=en?'Unable to verify your session. Please refresh.':'登录状态暂时无法验证，请刷新页面。'});
+
+{const miniNav=document.createElement('script');miniNav.src='/mini-report-nav.js';miniNav.defer=true;document.head.append(miniNav);}

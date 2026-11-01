@@ -5,7 +5,7 @@ import {createMiniReportBridge} from './mini-report-session.mjs';
 const upstream=process.env.BEEEVAL_AUTH_ORIGIN||'https://open.beeeval.com';
 const cookieName='beeeval_session';
 const trusted=new Set(['https://www.beeeval.com','https://beeeval.com','https://open.beeeval.com']);
-const cookie=value=>`${cookieName}=${value}; Domain=.beeeval.com; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=${value?604800:0}`;
+const cookie=(value,remember=true)=>`${cookieName}=${value}; Domain=.beeeval.com; Path=/; HttpOnly; Secure; SameSite=Lax${!value?'; Max-Age=0':remember?'; Max-Age=604800':''}`;
 function token(req){if((req.headers.cookie||'').split(';').some(s=>s.trim()==='beeeval_signed_out=1'))return undefined;return (req.headers.cookie||'').split(';').map(s=>s.trim()).find(s=>s.startsWith(cookieName+'='))?.slice(cookieName.length+1)}
 export {capabilities} from './permissions.mjs';
 import {capabilities,reportAccess,loadCatalog} from './permissions.mjs';
@@ -27,7 +27,7 @@ http.createServer(async(req,res)=>{
   }
   if(['/api/mini/scenes','/api/mini/preview-case','/api/mini/preview-vehicle'].includes(route))return await miniContent(req,route,url,send);
   if(route==='/api/registration-options'){const response=await remote('registration-options');return send(response.status,await response.json())}
-  if(route==='/api/profile'||route==='/api/register'||route==='/api/register-code'||route==='/api/change-password'){
+  if(['/api/profile','/api/register','/api/register-code','/api/change-password','/api/password-reset-code','/api/password-reset'].includes(route)){
    if(!trusted.has(req.headers.origin)&&req.method!=='GET')return send(403,{error:'请求来源不匹配'});
    if(!['GET','POST'].includes(req.method))return send(405,{error:'请求方式不支持'});
    if(route!='/api/profile'&&req.method!=='POST')return send(405,{error:'请求方式不支持'});
@@ -35,7 +35,8 @@ http.createServer(async(req,res)=>{
    let body='';for await(const chunk of req){body+=chunk;if(Buffer.byteLength(body)>4096)return send(413,{error:'内容过长'})}
    const value=token(req),path=route.split('/').at(-1),headers={'Content-Type':'application/json'};if(value)headers.Authorization='Bearer '+value;
    const response=await remote(path,{method:req.method,headers,...(req.method==='POST'?{body}:{})});const result=await response.json();
-   if(path==='register'&&response.ok){res.setHeader('Set-Cookie',[cookie(result.access_token),'beeeval_signed_out=; Domain=.beeeval.com; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=0']);return send(200,{user:{...result.user,capabilities:capabilities(result.user)}})}
+   if(path==='register'&&response.ok){res.setHeader('Set-Cookie',[cookie(result.access_token,false),'beeeval_signed_out=; Domain=.beeeval.com; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=0']);return send(200,{user:{...result.user,capabilities:capabilities(result.user)}})}
+   if(path==='password-reset'&&response.ok)res.setHeader('Set-Cookie',cookie(''));
    if(!response.ok)return send(response.status,{error:result.detail||'账号操作失败'});return send(200,result);
   }
   if(req.method==='POST'){
@@ -62,8 +63,8 @@ http.createServer(async(req,res)=>{
    const {username,password}=credentials;if(typeof username!=='string'||typeof password!=='string'||username.length>64||password.length>200)return send(400,{error:'请输入用户名和密码'});
    const response=await remote('login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({username,password})});
    const result=await response.json();if(!response.ok)return send(response.status,{error:result.detail==='account_expired'?'账号已到期':result.detail==='account_disabled'?'账号已停用':'用户名或密码不正确'});
-   if(result.user.must_reset_pwd)return send(403,{error:'请先在 BeeEVAL 平台完成账号密码初始化'});
-   res.setHeader('Set-Cookie',[cookie(result.access_token),'beeeval_signed_out=; Domain=.beeeval.com; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=0']);return send(200,{user:{...result.user,capabilities:capabilities(result.user)}});
+   if(result.user.must_reset_pwd)return send(403,{error:'该账号需要更新密码，请通过“忘记密码”完成更新，或联系账号支持。'});
+   res.setHeader('Set-Cookie',[cookie(result.access_token,credentials.remember_me===true),'beeeval_signed_out=; Domain=.beeeval.com; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=0']);return send(200,{user:{...result.user,capabilities:capabilities(result.user)}});
   }
   const value=token(req);let user=null;
   if(value){const response=await remote('me',{headers:{Authorization:'Bearer '+value}});if(response.ok)user=await response.json();else if(response.status>=500)return send(503,{error:'账号服务暂时不可用'})}

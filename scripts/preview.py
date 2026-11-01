@@ -4,7 +4,7 @@ from http.cookies import SimpleCookie
 from pathlib import Path
 from urllib.parse import urlsplit,quote,unquote
 import posixpath,json,secrets,time,sqlite3,hashlib,hmac,re,os,threading
-BASE=Path(__file__).resolve().parents[1];ROOT=str(BASE/'dist');PRIVATE=Path(os.environ.get('PREVIEW_STATE_DIR',str(BASE/'.local')));PRIVATE.mkdir(exist_ok=True)
+BASE=Path(__file__).resolve().parents[1];ROOT=os.environ.get('PREVIEW_ROOT',str(BASE/'dist'));PRIVATE=Path(os.environ.get('PREVIEW_STATE_DIR',str(BASE/'.local')));PRIVATE.mkdir(exist_ok=True)
 DB=PRIVATE/'preview-members.sqlite';SESSIONS={};ATTEMPTS={};LOCK=threading.Lock()
 USER={'id':'local-admin','username':'admin','display_name':'admin','role':'admin','membership_tier':'admin','capabilities':{'reports':True,'freeReports':True,'scenarios':True,'benchmark':True,'level':'admin'}}
 def conn():
