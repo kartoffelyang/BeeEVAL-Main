@@ -37,7 +37,7 @@ export default function WorkspaceHeader() {
         <i aria-hidden="true">/</i>
         <span>{label}</span>
       </div>
-      <span className="workspace-label">EVALUATION EVIDENCE</span>
+      <a className="workspace-home-return" href="/"><span aria-hidden="true">←</span>{language === "zh" ? "返回首页" : "Back to home"}</a>
     </header>
   );
 }

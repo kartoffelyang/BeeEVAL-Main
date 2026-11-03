@@ -29,9 +29,9 @@ function apply(){
  document.querySelectorAll('.language-current').forEach(el=>el.textContent=language==='en'?'English':'中文');
  document.querySelectorAll('.language-trigger').forEach(el=>el.setAttribute('aria-label',language==='en'?'Change language':'切换语言'));
  document.querySelectorAll('.header .member-entry').forEach(el=>el.textContent=language==='en'?'Log in':'登录');
- const titles={'/':'BeeEVAL | Evidence for better automotive AI','/index.html':'BeeEVAL | Evidence for better automotive AI','/reports.html':'Research & insights | BeeEVAL','/membership.html':'Plans & services | BeeEVAL','/login.html':'Your BeeEVAL account','/account.html':'My account | BeeEVAL'};
+ const titles={'/rankings.html':'Chip rankings | BeeEVAL','/':'BeeEVAL | Evidence for better automotive AI','/index.html':'BeeEVAL | Evidence for better automotive AI','/reports.html':'Research & insights | BeeEVAL','/membership.html':'Plans & services | BeeEVAL','/login.html':'Your BeeEVAL account','/account.html':'My account | BeeEVAL'};
  if(!attributes.has(document))attributes.set(document,{title:document.title});
- const chineseTitles={'/membership.html':'会员与服务 · BeeEVAL','/login.html':'登录与注册 · BeeEVAL','/account.html':'会员中心 · BeeEVAL','/reports.html':'洞察报告 · BeeEVAL'};
+ const chineseTitles={'/rankings.html':'榜单 · BeeEVAL','/membership.html':'会员与服务 · BeeEVAL','/login.html':'登录与注册 · BeeEVAL','/account.html':'会员中心 · BeeEVAL','/reports.html':'洞察报告 · BeeEVAL'};
  if(titles[location.pathname])document.title=language==='en'?titles[location.pathname]:(chineseTitles[location.pathname]||attributes.get(document).title);
  observer.observe(document.body,{childList:true,subtree:true,characterData:true});
 }

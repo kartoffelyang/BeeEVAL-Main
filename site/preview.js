@@ -17,7 +17,7 @@ try{
  if(reportMode&&record.access==='admin'&&!allowed()){
  root.innerHTML=`<section class="public-intro"><p class="eyebrow">BEEEVAL / COMING SOON</p><h1>${escape(record.title)}</h1><span class="report-free-badge">${english?'Coming soon':'待上线'}</span><p>${english?'This report is being prepared. Reading and previews will open after publication.':'报告正在准备中，正式上线后开放阅读与预览。'}</p><a class="button" href="/reports.html">${english?'Browse other reports →':'浏览其他报告 →'}</a></section>`;root.setAttribute('aria-busy','false');mountAccountMenu(user);return;
  }
- const back=document.querySelector('#preview-back');if(!reportMode){back.href='/';back.textContent='返回公司首页 ←'}
+ const back=document.querySelector('#preview-back');if(!reportMode){back.hidden=true}
  const points=reportMode?record.findings:record.points;const findings=points.map((item,i)=>`<li><span class="index">0${i+1}</span><div>${Array.isArray(item)?`<h3>${escape(item[0])}</h3><p>${escape(item[1])}</p>`:`<p>${escape(item)}</p>`}</div></li>`).join('');
  let sample='';if(!reportMode){sample=`<section class="preview-sample"><h2>${escape(record.sampleLabel)}</h2>${product==='platform'?record.samples.map(m=>`<div class="preview-meter"><div><span>${escape(m.name)}</span><strong>${Number(m.value).toFixed(2)}</strong></div><div class="track"><span style="width:${Number(m.value)/5*100}%"></span></div></div>`).join(''):`<div class="concept-list">${record.samples.map(s=>`<article class="concept-item"><img src="${escape(s.image)}" alt="${escape(s.name)}" loading="lazy"><div><h3>${escape(s.name)}</h3><p>${escape(s.summary)}</p></div></article>`).join('')}</div>`}<p class="sample-note">${escape(record.note)}</p></section>`}
  const reading=editorial?.[english?'en':'zh'];
