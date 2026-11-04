@@ -23,7 +23,7 @@ http.createServer(async(req,res)=>{
    if(url.search)return send(403,{error:'首页预览不支持搜索或翻页，请升级会员'});
    const value=token(req);if(!value)return send(401,{error:'请先登录'});
    const response=await remote('mini-home',{headers:{Authorization:'Bearer '+value}});
-   const result=await response.json();return send(response.status,response.ok?result:{error:typeof result.detail==='string'?result.detail:'首页暂时不可用'});
+   const result=await response.json();if(response.ok){for(const key of ['vehicles','records'])if(Array.isArray(result[key]))result[key]=result[key].filter(row=>!/^理想\s*i8$/i.test(row.brand_model||row.name||''));}return send(response.status,response.ok?result:{error:typeof result.detail==='string'?result.detail:'首页暂时不可用'});
   }
   if(['/api/mini/scenes','/api/mini/preview-case','/api/mini/preview-vehicle'].includes(route))return await miniContent(req,route,url,send);
   if(route==='/api/registration-options'){const response=await remote('registration-options');return send(response.status,await response.json())}
