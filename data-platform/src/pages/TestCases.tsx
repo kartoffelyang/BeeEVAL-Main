@@ -33,29 +33,30 @@ const PAGE_SIZE = 32;
 
 // 功能域 → 抽象封面配色（无真实截图时用，按域区分让卡片有辨识度、不空白）。
 // 每个域一套渐变 + 主色 + 功能域标签，配合卡片上的播放按钮营造"视频"观感。
-const DOMAIN_COVER: Record<string, { grad: string; icon: string }> = {
-    '车控域': { grad: 'linear-gradient(135deg,#eff3e7 0%,#d9e3cb 100%)', icon: '车控' },
-    '出行域': { grad: 'linear-gradient(135deg,#eff3e7 0%,#d9e3cb 100%)', icon: '出行' },
-    '车书域': { grad: 'linear-gradient(135deg,#eff3e7 0%,#d9e3cb 100%)', icon: '车书' },
-    '娱乐域': { grad: 'linear-gradient(135deg,#eff3e7 0%,#d9e3cb 100%)', icon: '娱乐' },
-    '闲聊域': { grad: 'linear-gradient(135deg,#eff3e7 0%,#d9e3cb 100%)', icon: '闲聊' },
-    '创作域': { grad: 'linear-gradient(135deg,#eff3e7 0%,#d9e3cb 100%)', icon: '创作' },
+const DOMAIN_COVER: Record<string, { grad: string; icon: string; iconEn: string }> = {
+    '车控域': { grad: 'linear-gradient(135deg,#eff3e7 0%,#d9e3cb 100%)', icon: '车控', iconEn: 'CONTROL' },
+    '出行域': { grad: 'linear-gradient(135deg,#eff3e7 0%,#d9e3cb 100%)', icon: '出行', iconEn: 'TRAVEL' },
+    '车书域': { grad: 'linear-gradient(135deg,#eff3e7 0%,#d9e3cb 100%)', icon: '车书', iconEn: 'MANUAL' },
+    '娱乐域': { grad: 'linear-gradient(135deg,#eff3e7 0%,#d9e3cb 100%)', icon: '娱乐', iconEn: 'MEDIA' },
+    '闲聊域': { grad: 'linear-gradient(135deg,#eff3e7 0%,#d9e3cb 100%)', icon: '闲聊', iconEn: 'CHAT' },
+    '创作域': { grad: 'linear-gradient(135deg,#eff3e7 0%,#d9e3cb 100%)', icon: '创作', iconEn: 'CREATE' },
 };
-const DEFAULT_COVER = { grad: 'linear-gradient(135deg,#eff3e7 0%,#d9e3cb 100%)', icon: '评测' };
+const DEFAULT_COVER = { grad: 'linear-gradient(135deg,#eff3e7 0%,#d9e3cb 100%)', icon: '评测', iconEn: 'TEST' };
 const coverFor = (domain?: string) => (domain && DOMAIN_COVER[domain]) || DEFAULT_COVER;
 
 // 批次下拉标签：分析时间 + 重分析标注 + 条数
 // 条数用 test_case_count（本页实际显示数：已排除 failed/invalid 与待审核），与列表 total 一致。
-const fmtBatchLabel = (b: AnalysisBatch) => {
+const fmtBatchLabel = (b: AnalysisBatch, english: boolean) => {
     let timeStr = b.created_at;
     try { timeStr = format(new Date(b.created_at), 'MM-dd HH:mm'); } catch { /* 保底原值 */ }
-    const reAnalyzed = b.folder_path === 'mimo-reanalyze' ? '重分析 · ' : '';
-    return `${reAnalyzed}${timeStr} · ${b.test_case_count}条`;
+    const reAnalyzed = b.folder_path === 'mimo-reanalyze' ? (english ? 'Reanalysis · ' : '重分析 · ') : '';
+    return `${reAnalyzed}${timeStr} · ${b.test_case_count}${english ? ' records' : '条'}`;
 };
 
 const TestCases: React.FC<TestCasesProps> = ({ embedded = false, lockedModel, lockedVersion, hideBatchFilter = false, modelVersionOptions, selectedModelVersion, onModelVersionChange }) => {
     const {trial,guardEvidence}=useTrialAccess();
-    const { t } = useTranslation();
+    const { t, i18n } = useTranslation();
+    const english = i18n.language.startsWith('en');
     const { tv, td } = useMetricsTranslation();
     const { user } = useAuth();
     // 删除入口只对 admin / analyst 开放；viewer 永远看不到 trash 按钮，避免误操作。
@@ -266,7 +267,7 @@ const TestCases: React.FC<TestCasesProps> = ({ embedded = false, lockedModel, lo
 
     const modelOptions = [{ value: 'all', label: t('all_models') }, ...models.map(m => ({ value: m, label: tv(m) }))];
     const domainOptions = [{ value: 'all', label: t('all_domains') }, ...domains.map(d => ({ value: d, label: td(d) }))];
-    const batchOptions = [{ value: '', label: t('batch_all') }, ...batches.map(b => ({ value: b.id, label: fmtBatchLabel(b) }))];
+    const batchOptions = [{ value: '', label: t('batch_all') }, ...batches.map(b => ({ value: b.id, label: fmtBatchLabel(b, english) }))];
 
     return (
         <div className={clsx(
@@ -447,7 +448,7 @@ const TestCases: React.FC<TestCasesProps> = ({ embedded = false, lockedModel, lo
                                     >
                                         {/* 模糊的封面区 */}
                                         <div className="relative aspect-video overflow-hidden blur-sm opacity-50" style={{ background: cover.grad }} aria-hidden>
-                                            <span className="absolute -right-3 -bottom-4 text-[88px] opacity-[0.12] leading-none">{cover.icon}</span>
+                                            <span className="absolute -right-3 -bottom-4 text-[88px] opacity-[0.12] leading-none">{english ? cover.iconEn : cover.icon}</span>
                                         </div>
                                         {/* 模糊的信息区骨架 */}
                                         <div className="p-4 flex flex-col gap-2.5 flex-1 blur-sm opacity-50" aria-hidden>
@@ -481,8 +482,8 @@ const TestCases: React.FC<TestCasesProps> = ({ embedded = false, lockedModel, lo
                                     {/* 视频缩略区：视频首帧（懒加载，失败回退到按功能域配色的抽象封面）+ 播放按钮 + 角标 */}
                                     <div className="relative aspect-video overflow-hidden" style={{ background: cover.grad }}>
                                         {/* 装饰性功能域文字水印（首帧未出/失败时可见，作为兜底底纹） */}
-                                        <span className="absolute -right-3 -bottom-4 text-[88px] opacity-[0.12] select-none pointer-events-none leading-none">
-                                            {cover.icon}
+                                        <span aria-hidden="true" className={`absolute -right-3 -bottom-4 ${english ? 'text-[52px]' : 'text-[88px]'} opacity-[0.12] select-none pointer-events-none leading-none`}>
+                                            {english ? cover.iconEn : cover.icon}
                                         </span>
                                         {/* 视频首帧：懒加载，进视口才向后端请求（后端 ffmpeg 抽帧 + 缓存）。
                                             加载失败（非 mp4 / NAS 不可达）则隐藏，露出下层渐变兜底。 */}
@@ -528,7 +529,7 @@ const TestCases: React.FC<TestCasesProps> = ({ embedded = false, lockedModel, lo
                                                 {result.brand_model ? tv(result.brand_model) : getTestCaseName(result.video_name)}
                                             </h3>
                                             {result.case_id && (
-                                                <span className="shrink-0 px-1.5 py-0.5 rounded-md text-[11px] font-mono bg-primary/[0.12] text-primary border border-primary/20" title={`用例 ID: ${result.case_id}`}>
+                                                <span className="shrink-0 px-1.5 py-0.5 rounded-md text-[11px] font-mono bg-primary/[0.12] text-primary border border-primary/20" title={`${english ? 'Case ID' : '用例 ID'}: ${result.case_id}`}>
                                                     #{result.case_id}
                                                 </span>
                                             )}
@@ -539,7 +540,7 @@ const TestCases: React.FC<TestCasesProps> = ({ embedded = false, lockedModel, lo
                                             )}
                                         </div>
                                         {/* 用例问题预览 */}
-                                        <p className="text-xs text-text-muted leading-relaxed line-clamp-2 min-h-[2rem]" title={result.metadata?.user_question}>
+                                        <p className="text-xs text-text-muted leading-relaxed line-clamp-2 min-h-[2rem]" title={english ? result.metadata?.user_question_en : result.metadata?.user_question}>
                                             <TranslatedText text={result.metadata?.user_question || 'N/A'} preTranslated={result.metadata?.user_question_en} />
                                         </p>
                                         {/* 查同组 */}
