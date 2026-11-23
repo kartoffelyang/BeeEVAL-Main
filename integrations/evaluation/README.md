@@ -67,3 +67,56 @@ Frontend regressions: `node preview/tests/benchmark-loading-runtime.cjs` checks
 cached inventory rendering, one-request metric ranking with acceptance deferred,
 and lightweight video cards with full evidence loaded on click. Compare original
 and patched live read outputs before switching the API image.
+
+## Persistent benchmark snapshots
+
+`benchmark_snapshots.sql` creates two derived tables: a transactional publication
+revision and JSON response snapshots. `apply_benchmark_snapshots.py` installs the
+cache only on vehicle inventory, stored scores, bulk rankings, acceptance and
+the five shared aggregate analytics reads. It removes the older 20-second cache
+from those paths; metadata lookup caches are unchanged. No AI evaluation or
+score recalculation runs during preparation.
+
+All users/processes with the same effective aggregate scope share a snapshot,
+including explicit Trial (which can see all aggregate domains). Legacy viewer
+brand filtering is a separate scope. Authentication, active/expiry checks and
+the existing per-model guard still run for every request. Questions, raw cases,
+PK evidence and temporary video URLs are never placed in this shared cache.
+
+Changes to published results, their metric scores, publication membership,
+stored vehicle scores or the case pool invalidate the snapshots in the same
+transaction. Unpublished draft writes do not trigger rebuilds. A hit checks the
+current revision, so invalid data is never served while waiting for preparation.
+Cold builds coalesce across processes; revision changes during a build prevent
+publishing a mixed response. A database cache error falls back to the original
+read and its original access filters. A cache hit performs no source aggregation.
+
+An API startup thread prepares the finite vehicle/version/domain/core-metric
+matrix in the background, checks for changes every 15 seconds and elects one
+preparer with a PostgreSQL session lock. Each snapshot commits individually.
+Snapshots survive API restarts. Code/config inputs have a deployment fingerprint;
+restart workers after changing config/taxonomy files. Old fingerprints are
+cleaned after seven days on a successful new preparation. The worker never
+creates accounts, signs videos, republishes data or invokes an AI/scoring job.
+
+Release order: validate the installer against a copy of current runtime source;
+commit/push Git; back up the original source/image; apply the additive SQL;
+build a layer over the current image with the patched five Python files; verify
+health **inside** the API container (port 8004 is not host-published); switch only
+the API service and verify warm/hot output equality. Keep the prior image for
+rollback. Rollback code can leave the derived tables/triggers in place safely.
+
+Tests run in the API Python environment: `tests/benchmark-snapshots.py` covers
+durability, scope and live guards, model restoration, concurrency, revision races
+and cache failure; `tests/benchmark-snapshot-triggers.py` tests real PostgreSQL
+invalidation in a rolled-back isolated schema; `tests/benchmark-snapshot-live.py`
+compares real source outputs against cold/hot snapshots and verifies zero source
+queries on hits, with all temporary cache writes rolled back. No real evaluation,
+score, publication or account is modified by these verification scripts.
+
+2026-11-23 candidate verification: all 15 stored vehicle/version score outputs
+matched the source, and the warm matrix held 395 responses. Median hot backend
+reads (five calls, no source-table queries) were: inventory 0.39 ms versus 415.76
+ms source read; bulk scores 1.67 versus 8.49 ms; criteria 0.95 versus 44.39 ms;
+scenario completion 1.08 versus 8.32 ms; metrics 0.64 versus 22.45 ms. These are
+API-side timings, not complete browser/network/video load times.

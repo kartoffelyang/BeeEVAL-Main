@@ -49,7 +49,6 @@ def cached_read(ttl=20, max_entries=128):
     return decorate
 
 
-@cached_read(ttl=20)
 def analytics_read(name, principal, **kwargs):
     """Run the existing async analytics body off-loop, with its exact scope intact."""
     from api.services import website_analytics
