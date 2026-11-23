@@ -3,7 +3,7 @@ import { ArrowUpDown, ArrowUp, ArrowDown } from "lucide-react";
 import clsx from "clsx";
 import { useComparison, vehicleKey } from "./ComparisonContext";
 import {
-  getVehicleAggregatedScores,
+  getAllVehicleScores,
   getVehicleAcceptanceCompletion,
 } from "../../api";
 import { useTranslation } from "react-i18next";
@@ -230,86 +230,49 @@ const RankingTab: React.FC = () => {
   const [metricRows, setMetricRows] = useState<RankRow[]>([]);
   // 验收梯度排行榜：{grade -> RankRow[]}。
   const [gradeRows, setGradeRows] = useState<Record<string, RankRow[]>>({});
-  const [loading, setLoading] = useState(true);
+  const [metricLoading, setMetricLoading] = useState(true);
+  const [gradeLoading, setGradeLoading] = useState(false);
+  const [gradeSignature, setGradeSignature] = useState('');
+  const inventorySignature = JSON.stringify(vehicles.filter(v => v.has_cache).map(v => [vehicleKey(v), v.last_computed_at, v.video_count]));
+  useEffect(() => {
+    let cancelled = false;
+    const allowed = new Set(vehicles.filter(v => v.has_cache).map(vehicleKey));
+    if (!allowed.size) { setMetricRows([]); setMetricLoading(false); return; }
+    setMetricLoading(true);
+    // One authorized summary request. Do not wait for the other ranking mode.
+    getAllVehicleScores().then(snapshots => {
+      if (cancelled) return;
+      setMetricRows(snapshots.filter(v => allowed.has(vehicleKey(v))).map(snap => ({
+        key: vehicleKey(snap), brand_model: snap.brand_model, system_version: snap.system_version,
+        overall: snap.overall_score,
+        domainValues: Object.fromEntries(snap.function_domain_scores.map(d => [d.dimension_key, d.avg_score])),
+      })));
+    }).catch(() => { if (!cancelled) setMetricRows([]); })
+      .finally(() => { if (!cancelled) setMetricLoading(false); });
+    return () => { cancelled = true; };
+  }, [inventorySignature]);
 
   useEffect(() => {
-    const cached = vehicles.filter((v) => v.has_cache);
-    if (cached.length === 0) {
-      setMetricRows([]);
-      setGradeRows({});
-      setLoading(false);
-      return;
-    }
+    if (view !== 'acceptance' || gradeSignature === inventorySignature) return;
     let cancelled = false;
-    setLoading(true);
-
-    (async () => {
-      const mRows: RankRow[] = [];
-      const gRows: Record<string, RankRow[]> = {
-        基础验收: [],
-        中等验收: [],
-        进阶验收: [],
-      };
-
-      await Promise.all(
-        cached.map(async (v) => {
-          const key = vehicleKey(v);
-          // 指标均分快照
-          try {
-            const snap = await getVehicleAggregatedScores(
-              v.brand_model,
-              v.system_version,
-            );
-            const domainValues: Record<string, number | null> = {};
-            snap.function_domain_scores.forEach((d) => {
-              domainValues[d.dimension_key] = d.avg_score;
-            });
-            mRows.push({
-              key,
-              brand_model: v.brand_model,
-              system_version: v.system_version,
-              overall: snap.overall_score,
-              domainValues,
-            });
-          } catch {
-            /* skip */
-          }
-          // 验收梯度完成率
-          try {
-            const acc = await getVehicleAcceptanceCompletion(
-              v.brand_model,
-              v.system_version,
-            );
-            for (const grade of GRADES_ORDER) {
-              const { overall, domains } = gradeDomainValues(
-                acc.by_domain,
-                grade,
-              );
-              gRows[grade].push({
-                key,
-                brand_model: v.brand_model,
-                system_version: v.system_version,
-                overall,
-                domainValues: domains,
-              });
-            }
-          } catch {
-            /* skip */
-          }
-        }),
-      );
-
-      if (!cancelled) {
-        setMetricRows(mRows);
-        setGradeRows(gRows);
-        setLoading(false);
-      }
-    })();
-
-    return () => {
-      cancelled = true;
-    };
-  }, [vehicles]);
+    const cached = vehicles.filter(v => v.has_cache);
+    setGradeLoading(true);
+    const rows: Record<string, RankRow[]> = {基础验收: [], 中等验收: [], 进阶验收: []};
+    Promise.all(cached.map(async v => {
+      try {
+        const acc = await getVehicleAcceptanceCompletion(v.brand_model, v.system_version);
+        for (const grade of GRADES_ORDER) {
+          const {overall, domains} = gradeDomainValues(acc.by_domain, grade);
+          rows[grade].push({key: vehicleKey(v), brand_model: v.brand_model,
+            system_version: v.system_version, overall, domainValues: domains});
+        }
+      } catch { /* Preserve the existing per-model failure isolation. */ }
+    })).then(() => {
+      if (!cancelled) { setGradeRows(rows); setGradeSignature(inventorySignature); setGradeLoading(false); }
+    });
+    return () => { cancelled = true; };
+  }, [view, inventorySignature, gradeSignature]);
+  const loading = view === 'metric' ? metricLoading : gradeLoading || gradeSignature !== inventorySignature;
 
   // 各榜实际出现的功能域（保持规范顺序 + 兜底非规范域）。
   const metricDomains = useMemo(() => {

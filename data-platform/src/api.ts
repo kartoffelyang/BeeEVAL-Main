@@ -196,6 +196,8 @@ export const getAllResults = async (params?: {
     claude_corrected?: boolean;
     /** true 时把「待审核」记录排到最前；数据库页用 */
     review_first?: boolean;
+    /** Lightweight media cards; full evidence is fetched separately on click. */
+    index_only?: boolean;
 }, requestOptions?: {signal?: AbortSignal}): Promise<PaginatedResponse<any>> => {
     const response = await api.get(API_ENDPOINTS.GET_ALL_RESULTS, { params, signal:requestOptions?.signal });
     return response.data;

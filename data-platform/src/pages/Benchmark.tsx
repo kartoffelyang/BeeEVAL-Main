@@ -240,9 +240,9 @@ function BenchmarkInner() {
         )}
       />
       {navigation}
-      {loading ? (
+      {loading && vehicles.length === 0 ? (
         <PlatformSkeleton />
-      ) : error ? (
+      ) : error && vehicles.length === 0 ? (
         <PlatformEmpty
           error
           title={c("车型数据暂时无法读取", "Unable to load model data")}

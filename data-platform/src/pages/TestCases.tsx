@@ -1,5 +1,5 @@
 import {useTrialAccess,TRIAL_DOMAIN,TRIAL_DOMAINS} from "../contexts/TrialContext";
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { deleteResult, deleteResultsBatch, getAllResults, getFilterOptions, getBatches, AnalysisBatch } from '../api';
 import { Loader2, Filter, Star, Info, ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight, LayoutGrid, List, GitBranch, Trash2, X, AlertTriangle, PlayCircle, Lock, ArrowUp, ArrowDown, ArrowUpDown } from 'lucide-react';
@@ -64,6 +64,8 @@ const TestCases: React.FC<TestCasesProps> = ({ embedded = false, lockedModel, lo
     const isAdmin = user?.role === 'admin';
     const showBatchFilter = isAdmin && !hideBatchFilter;
 
+    const requestRef = useRef<AbortController | null>(null);
+    useEffect(() => () => requestRef.current?.abort(), []);
     const [results, setResults] = useState<any[]>([]);
     const [total, setTotal] = useState(0);
     const [page, setPage] = useState(0);
@@ -88,6 +90,20 @@ const TestCases: React.FC<TestCasesProps> = ({ embedded = false, lockedModel, lo
     const [jumpInput, setJumpInput] = useState<string>('');
 
     const [selectedResult, setSelectedResult] = useState<any | null>(null);
+    const [pendingResult, setPendingResult] = useState<string | null>(null);
+    const [detailError, setDetailError] = useState(false);
+    const openResult = async (result: any) => {
+        if (pendingResult) return;
+        if (!result._index_only) { setSelectedResult(result); return; }
+        setPendingResult(String(result.id)); setDetailError(false);
+        try {
+            const full = await getAllResults({result_id: String(result.id), limit: 1, exclude_review: true});
+            const row = full.data.find(item => String(item.id) === String(result.id));
+            if (!row) throw new Error('missing_evidence');
+            setSelectedResult(row);
+        } catch { setDetailError(true); }
+        finally { setPendingResult(null); }
+    };
     const [models, setModels] = useState<string[]>([]);
     const [domains, setDomains] = useState<string[]>([]);
 
@@ -126,6 +142,8 @@ const TestCases: React.FC<TestCasesProps> = ({ embedded = false, lockedModel, lo
     }, [lockedModel]);
 
     const fetchData = useCallback(async (pageNum: number) => {
+        requestRef.current?.abort();
+        const controller = new AbortController(); requestRef.current = controller;
         setLoading(true);
         setDataError(false);
         try {
@@ -150,16 +168,19 @@ const TestCases: React.FC<TestCasesProps> = ({ embedded = false, lockedModel, lo
                 params.sort_by = 'case_id';
                 params.sort_order = caseSort === 'id_asc' ? 'asc' : 'desc';
             }
-            const res = await getAllResults(params);
+            if (embedded) params.index_only = true;
+            const res = await getAllResults(params, {signal: controller.signal});
+            if (controller.signal.aborted) return;
             setResults(res.data);
             setTotal(res.total);
         } catch (error) {
+            if (controller.signal.aborted) return;
             console.error("Failed to load results", error);
             setDataError(true);
         } finally {
-            setLoading(false);
+            if (requestRef.current === controller) setLoading(false);
         }
-    }, [lockedVersion, selectedModel, selectedDomain, selectedCase, groupCaseId, scoreMin, scoreMax, batchFilter, caseSort]);
+    }, [embedded, lockedVersion, selectedModel, selectedDomain, selectedCase, groupCaseId, scoreMin, scoreMax, batchFilter, caseSort]);
 
     useEffect(() => {
         setPage(0);
@@ -401,6 +422,8 @@ const TestCases: React.FC<TestCasesProps> = ({ embedded = false, lockedModel, lo
 
             {/* Content Grid */}
             <div className="flex-1 overflow-y-auto pr-2 pb-4">
+                {pendingResult && <p role="status" className="pf-note">{t('loading')}…</p>}
+                {detailError && <p role="alert" className="pf-note text-rose-700">{t('load_failed')}</p>}
                 {loading ? (
                     <PlatformSkeleton/>
                 ) : dataError ? <PlatformEmpty error title={t('request_failed_network')} action={<PlatformAction secondary onClick={()=>fetchData(page)}>{t('rg_refresh')}</PlatformAction>}/> : filteredResults.length === 0 ? (
@@ -453,7 +476,7 @@ const TestCases: React.FC<TestCasesProps> = ({ embedded = false, lockedModel, lo
                                 <div
                                     key={result.id}
                                     className="bg-surface-raised rounded-2xl border border-ink/[0.08] overflow-hidden hover:border-primary/40 hover:-translate-y-0.5 transition-all group cursor-pointer flex flex-col"
-                                    onClick={() => setSelectedResult(result)}
+                                    onClick={() => void openResult(result)}
                                 >
                                     {/* 视频缩略区：视频首帧（懒加载，失败回退到按功能域配色的抽象封面）+ 播放按钮 + 角标 */}
                                     <div className="relative aspect-video overflow-hidden" style={{ background: cover.grad }}>
@@ -539,7 +562,7 @@ const TestCases: React.FC<TestCasesProps> = ({ embedded = false, lockedModel, lo
                             <div
                                 key={result.id}
                                 className="bg-surface-raised rounded-xl shadow-sm border border-ink/[0.08] overflow-hidden hover:shadow-md transition-shadow group cursor-pointer"
-                                onClick={() => setSelectedResult(result)}
+                                onClick={() => void openResult(result)}
                             >
                                 {/* Card Header */}
                                 <div className="p-4 border-b border-ink/[0.08] bg-surface flex justify-between items-start">
@@ -664,7 +687,7 @@ const TestCases: React.FC<TestCasesProps> = ({ embedded = false, lockedModel, lo
                                     return (
                                         <tr
                                             key={result.id}
-                                            onClick={() => setSelectedResult(result)}
+                                            onClick={() => void openResult(result)}
                                             className="border-b border-ink/[0.04] hover:bg-ink/[0.03] cursor-pointer transition-colors"
                                         >
                                             <td className="px-4 py-2.5 text-text-muted text-xs">{page * PAGE_SIZE + idx + 1}</td>

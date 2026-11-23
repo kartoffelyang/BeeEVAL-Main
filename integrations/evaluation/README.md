@@ -51,3 +51,19 @@ evidence and legacy viewer redaction. Aggregate read caches last 20 seconds,
 are bounded and include the resolved principal; authentication is never cached.
 Synchronous database work runs outside the API event loop so one expensive read
 cannot block signing or streaming. No write, scoring or evaluation job is patched.
+
+## Full benchmark loading
+
+Apply `benchmark_read_model.sql` after `case_search_projection.sql`. The maintained
+small metadata view preserves the original source columns and scalar JSON types.
+Run `apply_benchmark_performance.py` against the current runtime source: only
+vehicle inventory, acceptance summaries, shared read analytics and PK case lists
+use the view. All original publication filters, model/version identity, score
+formulas, Trial checks, full evidence, signing and write handlers stay in place.
+The synchronization trigger must be the latest migration; do not reapply an
+older projection migration after this one without rerunning this migration.
+
+Frontend regressions: `node preview/tests/benchmark-loading-runtime.cjs` checks
+cached inventory rendering, one-request metric ranking with acceptance deferred,
+and lightweight video cards with full evidence loaded on click. Compare original
+and patched live read outputs before switching the API image.
