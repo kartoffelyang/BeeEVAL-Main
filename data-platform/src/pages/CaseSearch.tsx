@@ -23,6 +23,7 @@ import { useLanguage } from "../contexts/LanguageContext";
 import { useMetricsTranslation } from "../hooks/useMetricsTranslation";
 import ResultDetailModal from "../components/ResultDetailModal";
 import VideoPlayerModal from "../components/VideoPlayerModal";
+import TranslatedText from "../components/TranslatedText";
 import {
   PlatformHeader,
   PlatformEmpty,
@@ -590,10 +591,10 @@ export default function CaseSearch() {
                   {c("用例", "CASE")} {id}
                 </span>
                 <h3>
-                  {records[0].case_definition ||
+                  <TranslatedText text={records[0].case_definition ||
                     records[0].metadata?.user_question ||
                     records[0].user_question ||
-                    records[0].video_name}
+                    records[0].video_name} />
                 </h3>
                 <span>
                   {records[0].function_domain

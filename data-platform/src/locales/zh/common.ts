@@ -1,4 +1,6 @@
 const common = {
+  'english_translation_pending': '正在翻译…',
+  'english_translation_unavailable': '英文翻译暂不可用',
   // Buttons & Actions
   'edit': '编辑',
   'save_changes': '保存修改',

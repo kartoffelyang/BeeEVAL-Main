@@ -17,6 +17,7 @@ import {
     type CoreMetricBaseline,
 } from '../../api';
 import { useMetricsTranslation } from '../../hooks/useMetricsTranslation';
+import { formatMetricValue } from '../../utils/formatMetricValue';
 
 // 6 个规范功能域，与后端 STANDARD_FUNCTION_DOMAINS 一致。
 const STANDARD_FUNCTION_DOMAINS = ['车控域', '出行域', '车书域', '娱乐域', '闲聊域', '创作域'];
@@ -91,7 +92,7 @@ const DeltaArrow: React.FC<{
 
 const OverviewTab: React.FC = () => {
     const {restricted:trial,guardDomain}=useTrialAccess();
-    const { t } = useTranslation();
+    const { t, i18n } = useTranslation();
     const { tm, td } = useMetricsTranslation();
     const {
         primaryKey,
@@ -304,7 +305,7 @@ const OverviewTab: React.FC = () => {
                                         label={tm(m.name)}
                                         primary={p}
                                         comp={hasComp ? c : undefined}
-                                        fmt={v => fmtSpecial(m.kind, v)}
+                                        fmt={v => formatMetricValue(m.kind, v, i18n.language)}
                                         eps={m.kind === 'latency' ? 50 : 0.3} big={m.kind === 'latency' ? 300 : 2} digits={0}
                                         lowerBetter={lowerBetter} valueColor="#4f6247"
                                     />
@@ -359,7 +360,7 @@ const OverviewTab: React.FC = () => {
                         {grouped.map(g => (
                             <div key={g.sub}>
                                 <div className="text-xs font-bold text-text-muted uppercase tracking-wide mb-1.5 border-b border-ink/[0.08] pb-1">
-                                    {g.sub}
+                                    {tm(g.sub)}
                                 </div>
                                 <div className="divide-y divide-ink/[0.04]">
                                     {g.metrics.map(m => (
@@ -524,14 +525,16 @@ const DomainChip: React.FC<{ label: string; active: boolean; onClick: () => void
 
 // ── 指标行：指标名 + 本品数字（左侧箭头）+ 竞品数字。数字用颜色表达高低。──
 // onDrill 存在时整行可点，下钻到「该指标各功能域细分」。
-const MetricRow: React.FC<{ name: string; primary: number; comp?: number | null; onDrill?: () => void }> = ({ name, primary, comp, onDrill }) => (
+const MetricRow: React.FC<{ name: string; primary: number; comp?: number | null; onDrill?: () => void }> = ({ name, primary, comp, onDrill }) => {
+    const { t } = useTranslation();
+    return (
     <div
         className={clsx(
             'flex items-center gap-2 py-1.5 rounded-md',
             onDrill && 'cursor-pointer hover:bg-ink/[0.04] -mx-1.5 px-1.5 transition-colors group',
         )}
         onClick={onDrill}
-        title={onDrill ? `${name} · 查看各功能域细分` : name}
+        title={onDrill ? `${name} · ${t('metric_baseline_drill')}` : name}
     >
         <span className={clsx('text-sm truncate flex-1', onDrill ? 'text-text-secondary group-hover:text-text-primary' : 'text-text-secondary')}>{name}</span>
         {comp !== undefined && <DeltaArrow primary={primary} other={comp ?? null} />}
@@ -544,30 +547,27 @@ const MetricRow: React.FC<{ name: string; primary: number; comp?: number | null;
             </span>
         )}
     </div>
-);
-
-// ── 特殊指标数值格式化（按 kind）。──
-const fmtSpecial = (kind: string, val: number | null): string => {
-    if (val == null) return '—';
-    if (kind === 'percent') return `${(val * 100).toFixed(0)}%`;
-    if (kind === 'latency') return `${val.toFixed(0)} ms`;
-    if (kind === 'speed') return `${val.toFixed(1)} 字/秒`;
-    return val.toFixed(2);
+    );
 };
 
+// ── 特殊指标数值格式化（按 kind）。──
 // ── 特殊指标差异箭头：本品 vs 竞品，只显示方向。lowerBetter 时翻转好坏配色。──
 const SpecialDelta: React.FC<{ primary: number | null; other: number | null; lowerBetter?: boolean }> = ({ primary, other, lowerBetter }) => {
+    const { i18n } = useTranslation();
+    const english = i18n.language.startsWith('en');
     if (primary == null || other == null || other === 0) return null;
     const diff = primary - other;
     const rel = Math.abs(diff) / Math.abs(other); // 相对差
-    if (rel < 0.03) return <span className="text-text-muted text-sm" title="持平">≈</span>;
+    if (rel < 0.03) return <span className="text-text-muted text-sm" title={english ? 'Comparable' : '持平'}>≈</span>;
     const primaryBetter = lowerBetter ? diff < 0 : diff > 0;
     const big = rel >= 0.2;
     const color = primaryBetter ? (big ? '#36715a' : '#52795f') : (big ? '#b34840' : '#a17b35');
     // 箭头方向按数值大小（不按好坏）：本品数值更大 = ▲
     const up = diff > 0;
     return (
-        <span className="text-base font-bold" style={{ color }} title={`本品 ${up ? '高于' : '低于'} 竞品 ${(rel * 100).toFixed(0)}%`}>
+        <span className="text-base font-bold" style={{ color }} title={english
+            ? `Primary is ${(rel * 100).toFixed(0)}% ${up ? 'higher' : 'lower'} than the comparison model`
+            : `本品 ${up ? '高于' : '低于'} 竞品 ${(rel * 100).toFixed(0)}%`}>
             {up ? '▲' : '▼'}
         </span>
     );

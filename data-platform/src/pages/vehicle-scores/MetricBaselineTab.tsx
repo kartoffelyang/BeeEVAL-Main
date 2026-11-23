@@ -4,6 +4,7 @@ import clsx from 'clsx';
 import { useComparison, parseVehicleKey } from './ComparisonContext';
 import { useTranslation } from 'react-i18next';
 import { useMetricsTranslation } from '../../hooks/useMetricsTranslation';
+import { formatMetricValue } from '../../utils/formatMetricValue';
 import {
     getVehicleMetricsBaseline,
     getMetricDomainBreakdown,
@@ -149,7 +150,7 @@ const MetricBaselineTab: React.FC = () => {
                 <div className="flex items-center gap-2">
                     <BarChart3 className="w-5 h-5 text-secondary" />
                     <h2 className="text-lg font-bold text-text-primary">{t('metric_baseline_title')}</h2>
-                    <span className="text-[10px] px-2 py-0.5 rounded bg-purple-100 text-purple-700 border border-purple-200">AI核心指标</span>
+                    <span className="text-[10px] px-2 py-0.5 rounded bg-purple-100 text-purple-700 border border-purple-200">{t('metric_baseline_title')}</span>
                 </div>
                 <VehicleLegend series={series} />
             </div>
@@ -162,7 +163,7 @@ const MetricBaselineTab: React.FC = () => {
                         <div className="flex items-center justify-between mb-4">
                             <h3 className="font-bold text-text-primary flex items-center gap-2">
                                 <span className="text-secondary text-sm font-mono">{group.subcategory.split('-')[0]}</span>
-                                {group.subcategory.split('-').slice(1).join('-')}
+                                {tm(group.subcategory).split('-').slice(1).join('-')}
                             </h3>
                             <VehicleLegend series={series} />
                         </div>
@@ -270,17 +271,9 @@ const ScoreMetricBar: React.FC<{ code: string; name: string; series: Series[]; o
 };
 
 // 特殊指标数值格式化（按 kind）。
-const fmtSpecial = (kind: string, val: number | null): string => {
-    if (val == null) return '—';
-    if (kind === 'percent') return `${(val * 100).toFixed(0)}%`;
-    if (kind === 'latency') return `${val.toFixed(0)} ms`;
-    if (kind === 'speed') return `${val.toFixed(1)} 字/秒`;
-    return String(val);
-};
-
 // 特殊指标卡片：指标名 + 每台车数值（量纲不同，仅列数值，不画统一柱）。点击标题下钻。
 const SpecialMetricCard: React.FC<{ code: string; name: string; kind: string; series: Series[]; onOpen: () => void }> = ({ code, name, kind, series, onOpen }) => {
-    const { t } = useTranslation();
+    const { t, i18n } = useTranslation();
     return (
         <div className="rounded-lg border border-ink/[0.08] p-4 hover:border-ink/[0.2] transition-colors">
             <button onClick={onOpen} className="flex items-center gap-2 mb-3 group/metric cursor-pointer w-full" title={t('metric_baseline_drill')}>
@@ -298,7 +291,7 @@ const SpecialMetricCard: React.FC<{ code: string; name: string; kind: string; se
                                 {v.label}
                             </span>
                             <span className="text-sm font-bold tabular-nums text-text-primary shrink-0">
-                                {fmtSpecial(kind, m?.value ?? null)}
+                                {formatMetricValue(kind, m?.value ?? null, i18n.language)}
                             </span>
                         </div>
                     );
@@ -316,7 +309,7 @@ const MetricDomainModal: React.FC<{
     series: Series[];
     onClose: () => void;
 }> = ({ metricCode, metricName, kind, series, onClose }) => {
-    const { t } = useTranslation();
+    const { t, i18n } = useTranslation();
     const { td } = useMetricsTranslation();
     const [dataByVehicle, setDataByVehicle] = useState<Record<string, MetricDomainBreakdown>>({});
     const [loading, setLoading] = useState(true);
@@ -370,7 +363,7 @@ const MetricDomainModal: React.FC<{
         if (v == null) return '—';
         if (kind === 'percent') return `${(v * 100).toFixed(0)}%`;
         if (kind === 'latency') return `${v.toFixed(0)} ms`;
-        if (kind === 'speed') return `${v.toFixed(1)} 字/秒`;
+        if (kind === 'speed') return formatMetricValue(kind, v, i18n.language);
         return v.toFixed(2);
     };
 

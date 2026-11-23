@@ -2,6 +2,7 @@ import {handleContact} from './contact.mjs';
 import http from 'node:http';
 import {createMiniContent} from './mini-content.mjs';
 import {createMiniReportBridge} from './mini-report-session.mjs';
+import {loadBenchmarkPreview} from './benchmark-preview.mjs';
 const upstream=process.env.BEEEVAL_AUTH_ORIGIN||'https://open.beeeval.com';
 const cookieName='beeeval_session';
 const trusted=new Set(['https://www.beeeval.com','https://beeeval.com','https://open.beeeval.com']);
@@ -17,6 +18,10 @@ http.createServer(async(req,res)=>{
  const send=(status,data)=>{res.writeHead(status,{'Content-Type':'application/json','Cache-Control':'no-store'});res.end(JSON.stringify(data))};
  try{
   const url=new URL(req.url,'http://localhost'),route=url.pathname;
+  if(route==='/api/benchmark-preview'){
+   if(req.method!=='GET')return send(405,{error:'Method not allowed'});
+   try{return send(200,await loadBenchmarkPreview(upstream))}catch{return send(503,{error:'Benchmark preview temporarily unavailable'})}
+  }
   if(route==='/api/contact')return await handleContact(req,res);
   if(route==='/api/mini/home'){
    if(req.method!=='GET')return send(405,{error:'请使用 GET 请求'});

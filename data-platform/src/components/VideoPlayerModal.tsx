@@ -1,10 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Loader2, X, Lock } from 'lucide-react';
-import { preloadNasVideo, signVideo, type VideoQuality } from '../api';
+import { Loader2, X, Lock, Play, Pause } from 'lucide-react';
+import { signVideo, type VideoQuality } from '../api';
 import { SERVER_URL } from '../config';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from '../contexts/AuthContext';
-import { isDomainTrial } from '../contexts/TrialContext';
+import { useBufferedPlayback } from '../hooks/useBufferedPlayback';
 
 interface Props {
     open: boolean;
@@ -35,11 +35,11 @@ const PHASE_KEYS: Record<LoadPhase, string> = {
  *
  * 性能：
  * - NAS 默认 proxy，体积约为 4K 原片的 1/10~1/20，跨公网首开快很多
- * - preload="auto" 让浏览器立刻开始拉
+ * - preload="auto" 提前缓冲；只有用户点击才开始播放
  * - 分阶段加载提示（请求/元数据/缓冲/就绪），让用户感知到进度
  */
 const VideoPlayerModal: React.FC<Props> = ({ open, videoPath, title, onClose, allowTrial = false }) => {
-    const { t } = useTranslation();
+    const { t, i18n } = useTranslation();
     const { user } = useAuth();
     const videoRef = useRef<HTMLVideoElement>(null);
     const [phase, setPhase] = useState<LoadPhase>('idle');
@@ -50,6 +50,8 @@ const VideoPlayerModal: React.FC<Props> = ({ open, videoPath, title, onClose, al
 
     // 签名 URL：每次打开都重新签，避免拿到过期 token
     const [signedUrl, setSignedUrl] = useState<string | null>(null);
+    const playback = useBufferedPlayback(videoRef, open ? signedUrl : null);
+    const requestGeneration = useRef(0);
     // NAS：默认代理流；用户可切换原片
     const [quality, setQuality] = useState<Exclude<VideoQuality, 'auto'>>('proxy');
     const [proxyReady, setProxyReady] = useState(false);
@@ -78,6 +80,7 @@ const VideoPlayerModal: React.FC<Props> = ({ open, videoPath, title, onClose, al
     // 核心效果：打开时 → 调 sign 拿带 token 的 URL；关闭时 → 暂停并清状态
     useEffect(() => {
         let cancelled = false;
+        const generation = ++requestGeneration.current;
         if (open && videoPath) {
             setPhase('signing');
             setErrorMsg(null);
@@ -94,7 +97,7 @@ const VideoPlayerModal: React.FC<Props> = ({ open, videoPath, title, onClose, al
             const signQuality: VideoQuality = source === 'nas' ? quality : 'auto';
             signVideo(decodedPath, source, signQuality)
                 .then((res) => {
-                    if (cancelled) return;
+                    if (cancelled || generation !== requestGeneration.current) return;
                     // 后端返回的是相对 URL，前端按 SERVER_URL 拼绝对（或保持相对）
                     const absolute = res.url.startsWith('http')
                         ? res.url
@@ -107,11 +110,10 @@ const VideoPlayerModal: React.FC<Props> = ({ open, videoPath, title, onClose, al
                 .catch((err) => {
                     if (cancelled) return;
                     setPhase('error');
-                    const detail = err?.response?.data?.detail;
-                    setErrorMsg(typeof detail === 'string' ? detail : t('sign_failed'));
+                    setErrorMsg(err?.response?.status === 403 ? t('video_access_denied') : t('sign_failed'));
                 });
-        } else if (!open && videoRef.current) {
-            videoRef.current.pause();
+        } else {
+            videoRef.current?.pause();
             setPhase('idle');
             setSignedUrl(null);
         }
@@ -153,7 +155,14 @@ const VideoPlayerModal: React.FC<Props> = ({ open, videoPath, title, onClose, al
     }
 
     const elapsedSec = phase === 'ready' || phase === 'idle' ? 0 : Math.floor((Date.now() - openAt) / 1000);
-    const showOverlay = phase !== 'ready' && phase !== 'idle';
+    const showOverlay = (phase !== 'ready' && phase !== 'idle') || playback.waiting;
+    let displayTitle = title || videoPath;
+    try { displayTitle = decodeURIComponent(displayTitle); } catch { /* Keep readable filename. */ }
+    displayTitle = displayTitle.replace(/\\/g, '/').split('/').pop()?.split(/[?#]/)[0] || t('video_evidence');
+    if (i18n.language.startsWith('en') && /[一-鿿]/.test(displayTitle)) {
+        const caseId = displayTitle.match(/^\d+/)?.[0];
+        displayTitle = t('video_evidence') + (caseId ? ` · ${caseId}` : '');
+    }
     const isNas = Boolean(videoPath && (videoPath.startsWith('/') || videoPath.startsWith('%2F') || videoPath.startsWith('%2f')));
 
     return (
@@ -167,7 +176,7 @@ const VideoPlayerModal: React.FC<Props> = ({ open, videoPath, title, onClose, al
             >
                 <div className="flex items-center justify-between px-5 py-3 border-b border-ink/15 bg-surface-overlay gap-3">
                     <div className="text-text-primary font-medium truncate pr-2 min-w-0">
-                        {title || videoPath}
+                        {displayTitle}
                     </div>
                     <div className="flex items-center gap-2 shrink-0">
                         {isNas && (
@@ -197,12 +206,10 @@ const VideoPlayerModal: React.FC<Props> = ({ open, videoPath, title, onClose, al
                         </button>
                     </div>
                 </div>
-                <div className="flex-1 flex items-center justify-center bg-black overflow-hidden relative">
+                <div className="flex-1 flex items-center justify-center bg-black overflow-hidden relative min-h-[240px]">
                     <video
                         ref={videoRef}
                         controls
-                        autoPlay
-                        muted
                         preload="auto"
                         playsInline
                         src={signedUrl || undefined}
@@ -212,20 +219,8 @@ const VideoPlayerModal: React.FC<Props> = ({ open, videoPath, title, onClose, al
                         onWaiting={() => setPhase('buffering')}
                         onCanPlay={() => {
                             setPhase('ready');
-                            const v = videoRef.current;
-                            if (v) {
-                                v.play().then(() => { v.muted = false; }).catch(() => {});
-                            }
                         }}
                         onPlaying={() => setPhase('ready')}
-                        onLoadedData={() => {
-                            // Trial playback is signed, but cache administration is not a Trial permission.
-                            if (!isDomainTrial(user) && videoPath && videoPath.startsWith('/')) {
-                                let dp = videoPath;
-                                try { dp = decodeURIComponent(videoPath); } catch { /* ignore */ }
-                                preloadNasVideo(dp);
-                            }
-                        }}
                         onError={(e) => {
                             const v = e.currentTarget as HTMLVideoElement;
                             const code = v.error?.code;
@@ -240,6 +235,7 @@ const VideoPlayerModal: React.FC<Props> = ({ open, videoPath, title, onClose, al
                             // network/decode/src：自动重签一次（处理 token 过期或 proxy 瞬时不可用）
                             if (!resignOnceRef.current && videoPath && (code === 2 || code === 3 || code === 4)) {
                                 resignOnceRef.current = true;
+                                const generation = requestGeneration.current;
                                 setPhase('signing');
                                 setErrorMsg(null);
                                 let decodedPath = videoPath;
@@ -248,6 +244,7 @@ const VideoPlayerModal: React.FC<Props> = ({ open, videoPath, title, onClose, al
                                 const signQuality: VideoQuality = source === 'nas' ? quality : 'auto';
                                 signVideo(decodedPath, source, signQuality)
                                     .then((res) => {
+                                        if (generation !== requestGeneration.current) return;
                                         const absolute = res.url.startsWith('http')
                                             ? res.url
                                             : `${SERVER_URL}${res.url}`;
@@ -257,9 +254,9 @@ const VideoPlayerModal: React.FC<Props> = ({ open, videoPath, title, onClose, al
                                         setPhase('requesting');
                                     })
                                     .catch((err) => {
+                                        if (generation !== requestGeneration.current) return;
                                         setPhase('error');
-                                        const detail = err?.response?.data?.detail;
-                                        setErrorMsg(typeof detail === 'string' ? detail : msg);
+                                        setErrorMsg(err?.response?.status === 403 ? t('video_access_denied') : msg);
                                     });
                                 return;
                             }
@@ -281,7 +278,7 @@ const VideoPlayerModal: React.FC<Props> = ({ open, videoPath, title, onClose, al
                                 <>
                                     <Loader2 className="w-8 h-8 text-white/80 animate-spin mb-2" />
                                     <div className="text-white/90 text-sm font-medium">
-                                        {t(PHASE_KEYS[phase])}
+                                        {playback.waiting ? t('buffering_for_smooth_playback') : t(PHASE_KEYS[phase])}
                                     </div>
                                     <div className="text-white/50 text-xs mt-1 font-mono">
                                         {elapsedSec > 2 ? t('waited_seconds', { seconds: elapsedSec }) : ''}
@@ -290,9 +287,18 @@ const VideoPlayerModal: React.FC<Props> = ({ open, videoPath, title, onClose, al
                             )}
                         </div>
                     )}
-                </div>
-                <div className="px-5 py-2 text-xs text-slate-700 font-mono break-all bg-surface-overlay border-t border-ink/15">
-                    {videoPath}
+                    {signedUrl && phase !== 'error' && (!playback.requested || playback.waiting) && (
+                        <div className="absolute inset-x-0 bottom-14 flex flex-col items-center gap-2 pointer-events-none">
+                            <button type="button" onClick={playback.requested ? playback.pause : playback.play}
+                                className="pointer-events-auto inline-flex items-center gap-2 rounded-full bg-white px-5 py-2.5 text-sm font-medium text-slate-900 shadow-lg">
+                                {playback.requested ? <Pause size={16} /> : <Play size={16} />}
+                                {t(playback.requested ? 'cancel_pending_playback' : 'play_video')}
+                            </button>
+                            <span className="text-xs text-white/80 rounded bg-black/70 px-2 py-1">
+                                {t('video_buffer_progress', { seconds: Math.floor(playback.ahead), target: Math.ceil(playback.target) })}
+                            </span>
+                        </div>
+                    )}
                 </div>
             </div>
         </div>

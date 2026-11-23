@@ -9,7 +9,7 @@ const React=require('react'),{renderToStaticMarkup}=require('react-dom/server');
  b.onLoad({filter:/\/config\.ts$/},()=>({loader:'ts',contents:`export const SERVER_URL='';export const getScreenshotUrl=()=>'';export const getVideoPosterUrl=()=>'';`}));
  b.onLoad({filter:/\/api\.ts$/},()=>({loader:'ts',contents:`export const preloadNasVideo=()=>{};export const signVideo=async()=>({url:'/stream'});`}));
  b.onResolve({filter:/^react-i18next$/},()=>({path:'i18n',namespace:'fixture'}));
- b.onLoad({filter:/.*/,namespace:'fixture'},()=>({loader:'ts',contents:`export const useTranslation=()=>({t:k=>k});`}));
+ b.onLoad({filter:/.*/,namespace:'fixture'},()=>({loader:'ts',contents:`export const useTranslation=()=>({t:k=>k,i18n:{language:'zh'}});`}));
  }}]});
  const {ResultDetailContent,Video}=require(out);
  const detail=domain=>renderToStaticMarkup(React.createElement(ResultDetailContent,{result:{function_domain:domain,video_name:'trial.mp4',metadata:{path:'/trial.mp4'},evaluation_scores:[]},onPlayVideo:()=>{}}));

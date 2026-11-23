@@ -1,4 +1,10 @@
 const videoPlayer = {
+  'video_evidence': '测试视频',
+  'play_video': '播放视频',
+  'cancel_pending_playback': '取消等待播放',
+  'buffering_for_smooth_playback': '正在增加缓冲，减少播放卡顿…',
+  'video_buffer_progress': '已缓冲 {{seconds}} 秒 · 播放前准备 {{target}} 秒',
+  'video_access_denied': '当前账号无权查看此视频',
   'generating_link': '正在生成播放链接...',
   'requesting_video': '正在请求视频...',
   'received_preparing': '已收到视频信息，准备解码...',

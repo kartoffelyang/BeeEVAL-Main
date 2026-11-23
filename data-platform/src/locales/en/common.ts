@@ -1,4 +1,6 @@
 const common = {
+  'english_translation_pending': 'Translating…',
+  'english_translation_unavailable': 'English translation unavailable',
   // Buttons & Actions
   'edit': 'Edit',
   'save_changes': 'Save Changes',

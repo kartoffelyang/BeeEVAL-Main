@@ -1,9 +1,9 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import { useLanguage } from '../contexts/LanguageContext';
 import { translateText } from '../api';
 
 const isChinese = (text: string): boolean =>
-  /[一-鿿]/.test(text) && text.length > 2;
+  /[一-鿿]/.test(text);
 
 const memoryCache = new Map<string, string>();
 const pendingRequests = new Map<string, Promise<string>>();
@@ -44,15 +44,15 @@ function getTranslation(text: string, targetLang: string): Promise<string> {
   const promise = acquireSlot()
     .then(() => translateText(text, targetLang))
     .then(res => {
+      if (!res.translated?.trim() || (isChinese(text) && res.translated.trim() === text.trim())) {
+        throw new Error('Translation unavailable');
+      }
       memoryCache.set(cacheKey, res.translated);
-      pendingRequests.delete(cacheKey);
-      releaseSlot();
       return res.translated;
     })
-    .catch(() => {
+    .finally(() => {
       pendingRequests.delete(cacheKey);
       releaseSlot();
-      return text;
     });
 
   pendingRequests.set(cacheKey, promise);
@@ -60,42 +60,32 @@ function getTranslation(text: string, targetLang: string): Promise<string> {
 }
 
 export function useTranslatedContent(text: string | undefined | null, preTranslated?: string | undefined | null): { content: string; loading: boolean } {
-  const { language } = useLanguage();
-  const [translated, setTranslated] = useState<string | null>(null);
-  const [loading, setLoading] = useState(false);
-  const mountedRef = useRef(true);
+  const { language, t } = useLanguage();
+  const [result, setResult] = useState<{source: string; value: string | null; failed: boolean}>({source:'',value:null,failed:false});
 
   const original = text || '';
-  const hasPreTranslation = language === 'en' && !!preTranslated && preTranslated.trim().length > 0;
+  const hasPreTranslation = language === 'en' && !!preTranslated?.trim() && !isChinese(preTranslated);
   const needsTranslation = language === 'en' && !!original && isChinese(original) && !hasPreTranslation;
 
   useEffect(() => {
-    mountedRef.current = true;
-    return () => { mountedRef.current = false; };
-  }, []);
-
-  useEffect(() => {
+    let cancelled = false;
     if (!needsTranslation) {
-      setTranslated(null);
-      setLoading(false);
       return;
     }
 
     const cacheKey = `en:${original}`;
     const cached = memoryCache.get(cacheKey);
     if (cached) {
-      setTranslated(cached);
-      setLoading(false);
+      setResult({source:original,value:cached,failed:false});
       return;
     }
 
-    setLoading(true);
     getTranslation(original, 'en').then(result => {
-      if (mountedRef.current) {
-        setTranslated(result);
-        setLoading(false);
-      }
+      if (!cancelled) setResult({source:original,value:result,failed:false});
+    }).catch(() => {
+      if (!cancelled) setResult({source:original,value:null,failed:true});
     });
+    return () => { cancelled = true; };
   }, [original, needsTranslation]);
 
   if (hasPreTranslation) {
@@ -106,5 +96,8 @@ export function useTranslatedContent(text: string | undefined | null, preTransla
     return { content: original, loading: false };
   }
 
-  return { content: translated || original, loading };
+  const current = result.source === original ? result : null;
+  if (current?.value) return {content:current.value,loading:false};
+  if (current?.failed) return {content:t('english_translation_unavailable'),loading:false};
+  return {content:t('english_translation_pending'),loading:true};
 }

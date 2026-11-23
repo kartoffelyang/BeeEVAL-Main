@@ -1,4 +1,10 @@
 const videoPlayer = {
+  'video_evidence': 'Test video',
+  'play_video': 'Play video',
+  'cancel_pending_playback': 'Cancel playback',
+  'buffering_for_smooth_playback': 'Building a larger buffer for smoother playback…',
+  'video_buffer_progress': '{{seconds}}s buffered · {{target}}s playback buffer',
+  'video_access_denied': 'Your account does not have access to this video',
   'generating_link': 'Generating playback link...',
   'requesting_video': 'Requesting video...',
   'received_preparing': 'Received video info, preparing to decode...',

@@ -803,5 +803,8 @@
   "现有会员": "Member",
   "Trial · 试用会员": "Trial",
   "榜单": "Rankings",
-  "返回首页": "Back to home"
+  "返回首页": "Back to home",
+  "选择受测车型": "Select a tested model",
+  "已发布评测样本": "Published test samples",
+  "正在读取已发布评分…": "Loading published scores…"
 }

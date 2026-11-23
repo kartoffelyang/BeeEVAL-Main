@@ -120,3 +120,38 @@ reads (five calls, no source-table queries) were: inventory 0.39 ms versus 415.7
 ms source read; bulk scores 1.67 versus 8.49 ms; criteria 0.95 versus 44.39 ms;
 scenario completion 1.08 versus 8.32 ms; metrics 0.64 versus 22.45 ms. These are
 API-side timings, not complete browser/network/video load times.
+
+## Live homepage preview and media experience
+
+`apply_website_preview.py` adds `/api/public/benchmark-preview`, a finite published
+aggregate projection for the existing seven public homepage models. It excludes
+i8 and all private models; no query parameter selects another model. It returns
+only scores/counts, anonymous metric samples and task-category statistics, never
+questions, evidence IDs, account data or video paths. It uses revision-aware
+snapshots, and preserves the existing scoring formulas and exact software version.
+The Main broker exposes it at `/api/benchmark-preview` without forwarding user
+credentials. All four homepage charts share one response; an unavailable live
+service falls back to the archived sample with an explicit historical label.
+
+The installer also allows Trial members to translate text already available to
+them through `POST /api/translate`. It does not allow `/api/translate/backfill` or
+grant any other-domain evidence or video access. Model/category/task labels have
+a bundled English fallback; translated case titles discard late responses after
+navigation. Source-language text is not shown as an English loading placeholder.
+
+Video playback starts on a user request. The shared player collects six seconds
+of contiguous playable data before starting; after a stall it increases the
+buffer target (up to 20 seconds, clipped at the remaining duration). Manual pause
+and close cancel continuation. It does not download the original in the
+background after the first frame. NAS Browser uses the same player. Storage paths
+are removed from visible titles, errors and the old footer. Video signing and
+all server-side evidence authorizations remain in place.
+
+Public manufacturer photos are served as small local WebP assets; the dedicated
+nginx location applies only to `/data/vehicles/`. The data app, screenshots,
+questions, video signing and streams retain their existing access checks.
+
+Checks: `node tests/homepage-live.mjs`; `tests/website-preview.py` in the API
+environment; `node preview/tests/media-language-runtime.cjs` and
+`node preview/tests/vehicle-photos.cjs` in `data-platform`, plus its existing
+benchmark-loading, Trial evidence/comparison checks and TypeScript build.

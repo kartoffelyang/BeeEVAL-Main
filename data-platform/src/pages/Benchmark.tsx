@@ -22,18 +22,19 @@ import {
 } from "../components/platform/PlatformUI";
 
 function ModelImage({ name }: { name: string }) {
+  const { tv } = useMetricsTranslation();
   const [ext, setExt] = useState(0);
-  const extensions = ["png", "webp", "jpg", "jpeg"];
+  const extensions = ["webp", "png", "jpg", "jpeg"];
   useEffect(() => setExt(0), [name]);
   return ext < extensions.length ? (
     <img
       src={`${import.meta.env.BASE_URL}vehicles/${encodeURIComponent(name)}.${extensions[ext]}`}
-      alt={name}
+      alt={tv(name)}
       onError={() => setExt((i) => i + 1)}
       loading="lazy"
     />
   ) : (
-    <span className="pf-subtle">{name}</span>
+    <span className="pf-subtle">{tv(name)}</span>
   );
 }
 function BenchmarkInner() {

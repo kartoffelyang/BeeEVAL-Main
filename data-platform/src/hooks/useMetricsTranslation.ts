@@ -1,22 +1,34 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useLanguage } from '../contexts/LanguageContext';
 import { getMetricsMap, getDomainsMap, getTaskDetailMap, getBrandMap } from '../api';
+import bundled from '../locales/en/evaluationLabels.json';
+import { getSubCategoryEnName } from '../pages/vehicle-scores/metricsHierarchy';
 
-let metricsCache: Record<string, string> | null = null;
-let domainsCache: Record<string, string> | null = null;
-let tasksCache: Record<string, string> | null = null;
-let brandsCache: Record<string, string> | null = null;
+const modelNames: Record<string, string> = {
+  '蔚来': 'NIO', '理想': 'Li Auto', '极氪': 'ZEEKR',
+  '小鹏': 'XPENG', '魏牌': 'WEY', '小鹏GX': 'XPENG GX',
+  '小米Yu7': 'Xiaomi YU7', '小米YU7': 'Xiaomi YU7', '小米澎程N90': 'Xiaomi SkyNomad N90',
+  '大众与众08': 'Volkswagen ID. UNYX 08', '魏牌二代蓝山': 'WEY Lanshan II',
+  '魏牌 V9X': 'WEY V9X', '理想L9 Livis': 'Li Auto L9 Livis', '理想i8': 'Li Auto i8',
+  '长安启源Q06': 'Changan Qiyuan Q06', '大众ID.ERA 9X': 'Volkswagen ID. ERA 9X',
+};
+let metricsCache: Record<string, string> = bundled.metrics;
+let domainsCache: Record<string, string> = bundled.domains;
+let tasksCache: Record<string, string> = bundled.tasks;
+let brandsCache: Record<string, string> = { ...bundled.brands, ...modelNames };
+let loaded = false;
 let fetchPromise: Promise<void> | null = null;
 
 function ensureLoaded(): Promise<void> {
-  if (metricsCache && domainsCache && tasksCache && brandsCache) return Promise.resolve();
+  if (loaded) return Promise.resolve();
   if (fetchPromise) return fetchPromise;
   fetchPromise = Promise.all([getMetricsMap(), getDomainsMap(), getTaskDetailMap(), getBrandMap()])
     .then(([m, d, tk, b]) => {
-      metricsCache = m;
-      domainsCache = d;
-      tasksCache = tk;
-      brandsCache = b;
+      metricsCache = { ...metricsCache, ...m };
+      domainsCache = { ...domainsCache, ...d };
+      tasksCache = { ...tasksCache, ...tk };
+      brandsCache = { ...brandsCache, ...b, ...modelNames };
+      loaded = true;
     })
     .catch(() => {
       metricsCache = metricsCache || {};
@@ -51,9 +63,7 @@ function translateBrandModel(brandModel: string, map: Record<string, string>): s
 
 export function useMetricsTranslation() {
   const { language } = useLanguage();
-  const [ready, setReady] = useState(
-    !!metricsCache && !!domainsCache && !!tasksCache && !!brandsCache,
-  );
+  const [ready, setReady] = useState(loaded);
 
   useEffect(() => {
     if (!ready) {
@@ -64,7 +74,7 @@ export function useMetricsTranslation() {
   // 指标名 中→英
   const tm = useCallback((name: string): string => {
     if (language === 'zh' || !metricsCache) return name;
-    return metricsCache[name] || name;
+    return metricsCache[name] || (name === '其它' ? 'Other metrics' : getSubCategoryEnName(name));
   }, [language, ready]);
 
   // 功能域 中→英

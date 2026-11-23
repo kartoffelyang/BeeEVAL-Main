@@ -3,6 +3,7 @@ import { X, Loader2 } from 'lucide-react';
 import { useComparison, parseVehicleKey } from './ComparisonContext';
 import { getMetricDomainBreakdown, getMetricsRegistry, type MetricDomainBreakdown, type MetricRegistryItem } from '../../api';
 import { useMetricsTranslation } from '../../hooks/useMetricsTranslation';
+import { useTranslation } from 'react-i18next';
 
 // 6 个规范功能域，固定顺序（与 OverviewTab 一致）
 const STANDARD_DOMAINS = ['车控域', '出行域', '车书域', '娱乐域', '闲聊域', '创作域'];
@@ -25,6 +26,7 @@ interface Props {
  * - 每个域一组柱子；顶部额外给出「平均分」（各域有效值的算术平均）
  */
 const MetricDomainModal: React.FC<Props> = ({ metricName, onClose }) => {
+    const { t } = useTranslation();
     const { tm, td } = useMetricsTranslation();
     const { allSelectedKeys, getColor, getVehicleLabel } = useComparison();
     const keys = allSelectedKeys();
@@ -87,7 +89,7 @@ const MetricDomainModal: React.FC<Props> = ({ metricName, onClose }) => {
                     <div className="flex items-baseline gap-2.5 min-w-0">
                         {metricCode && <span className="text-xs font-mono text-text-muted shrink-0">{metricCode}</span>}
                         <h2 className="text-lg font-bold text-text-primary truncate">{tm(metricName)}</h2>
-                        <span className="text-sm text-text-muted shrink-0">· 各功能域细分</span>
+                        <span className="text-sm text-text-muted shrink-0">· {t('metric_baseline_by_domain')}</span>
                     </div>
                     <button onClick={onClose} className="p-1.5 rounded-lg hover:bg-ink/[0.05] text-text-muted hover:text-text-primary shrink-0">
                         <X className="w-5 h-5" />
@@ -108,7 +110,7 @@ const MetricDomainModal: React.FC<Props> = ({ metricName, onClose }) => {
                 <div className="flex-1 overflow-y-auto p-6 scrollbar-thin scrollbar-thumb-ink/10">
                     {loading ? (
                         <div className="flex items-center justify-center h-48 text-text-muted gap-2">
-                            <Loader2 className="w-5 h-5 animate-spin" /> 加载中...
+                            <Loader2 className="w-5 h-5 animate-spin" /> {t('loading')}
                         </div>
                     ) : (
                         <>
@@ -121,7 +123,7 @@ const MetricDomainModal: React.FC<Props> = ({ metricName, onClose }) => {
                                             <span className="w-2.5 h-2.5 rounded-full shrink-0" style={{ background: c.color }} />
                                             <div className="min-w-0 flex-1">
                                                 <div className="text-xs text-text-muted truncate">{c.label}</div>
-                                                <div className="text-[11px] text-text-muted">平均分</div>
+                                                <div className="text-[11px] text-text-muted">{t('avg_score')}</div>
                                             </div>
                                             <span className="text-2xl font-black tabular-nums" style={{ color: avg != null ? scoreHsl(avg) : '#64748b' }}>
                                                 {avg != null ? avg.toFixed(2) : '—'}
@@ -156,7 +158,7 @@ const MetricDomainModal: React.FC<Props> = ({ metricName, onClose }) => {
                                                         key={c.key}
                                                         className="w-7 rounded-t-md transition-all"
                                                         style={{ height: `${h}%`, background: c.color, opacity: v != null ? 1 : 0.15 }}
-                                                        title={v != null ? v.toFixed(2) : '无数据'}
+                                                        title={v != null ? v.toFixed(2) : t('no_data')}
                                                     />
                                                 );
                                             })}

@@ -7,43 +7,13 @@ import {
     mimoAnalyze, MimoVideoItem,
 } from '../api';
 import { useLanguage } from '../contexts/LanguageContext';
-import { useTranslation } from 'react-i18next';
-import { useSignedVideoUrl } from '../hooks/useSignedVideoUrl';
+import VideoPlayerModal from '../components/VideoPlayerModal';
 import {
     Loader2, FolderOpen, Film, ArrowLeft, Search, CheckSquare, Square,
     Play, HardDrive, ChevronRight, RefreshCw, Wifi, WifiOff, X,
     FileVideo, ArrowUpDown, Zap, AlertTriangle,
 } from 'lucide-react';
 import clsx from 'clsx';
-
-// 弹窗内部用的小组件：把 NAS path 签名后塞进 <video src>
-const NasVideoPreview: React.FC<{ path: string }> = ({ path }) => {
-    const { t } = useTranslation();
-    const { url, loading, error } = useSignedVideoUrl(path, 'nas');
-    if (loading) {
-        return (
-            <div className="w-full aspect-video bg-surface-overlay rounded-xl flex items-center justify-center text-text-primary/70 text-sm gap-2">
-                <Loader2 className="w-5 h-5 animate-spin" />
-                {t('generating_link')}
-            </div>
-        );
-    }
-    if (error) {
-        return (
-            <div className="w-full aspect-video bg-surface-overlay rounded-xl flex items-center justify-center text-red-700 text-sm">
-                {t('link_failed', { error })}
-            </div>
-        );
-    }
-    return (
-        <video
-            src={url ?? undefined}
-            controls
-            autoPlay
-            className="w-full rounded-xl shadow-2xl shadow-ink/40"
-        />
-    );
-};
 
 const formatSize = (bytes: number | null) => {
     if (!bytes) return '-';
@@ -443,17 +413,7 @@ const NASBrowser = () => {
             </div>
 
             {/* Video Preview Modal */}
-            {previewVideo && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm" onClick={() => setPreviewVideo(null)}>
-                    <div className="relative w-full max-w-4xl mx-4" onClick={e => e.stopPropagation()}>
-                        <button onClick={() => setPreviewVideo(null)} className="absolute -top-12 right-0 text-white/70 hover:text-white transition-colors">
-                            <X className="w-8 h-8" />
-                        </button>
-                        <NasVideoPreview path={previewVideo} />
-                        <div className="mt-3 text-center text-text-primary/60 text-sm font-mono truncate">{previewVideo.split('/').pop()}</div>
-                    </div>
-                </div>
-            )}
+            <VideoPlayerModal open={Boolean(previewVideo)} videoPath={previewVideo} onClose={() => setPreviewVideo(null)} />
 
             {/* MiMo 分析弹窗 */}
             {showMimoModal && (
