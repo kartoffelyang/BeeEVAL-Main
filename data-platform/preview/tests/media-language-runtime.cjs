@@ -4,12 +4,16 @@ const dom=new JSDOM('<div id="root"></div>',{url:'http://localhost/data/benchmar
 Object.assign(global,{window:dom.window,document:dom.window.document,HTMLElement:dom.window.HTMLElement,
   HTMLMediaElement:dom.window.HTMLMediaElement,Event:dom.window.Event,IS_REACT_ACT_ENVIRONMENT:true});
 const React=require('react'),{act}=React,{createRoot}=require('react-dom/client');
-let plays=0,pauses=0,translations=[];
+let plays=0,pauses=0,translations=[],signs=0,now=Date.now(),timerId=0;
+const timers=new Map(),systemNow=Date.now;
+Date.now=()=>now;
+window.setInterval=(fn,delay)=>{const id=++timerId;timers.set(id,{fn,delay});return id};
+window.clearInterval=id=>timers.delete(id);
 HTMLMediaElement.prototype.play=function(){plays++;this._paused=false;this.dispatchEvent(new Event('play'));return Promise.resolve()};
 HTMLMediaElement.prototype.pause=function(){if(!this._paused){pauses++;this._paused=true;this.dispatchEvent(new Event('pause'))}};
 Object.defineProperty(HTMLMediaElement.prototype,'paused',{get(){return this._paused!==false}});
 global.__lang='en';
-global.__mediaApi={signVideo:async()=>({url:'/signed-video',quality:'proxy',proxy_ready:true}),
+global.__mediaApi={signVideo:async()=>({url:'/signed-video?attempt='+(++signs),quality:'proxy',proxy_ready:true}),
   getMetricsMap:async()=>({}),getDomainsMap:async()=>({}),getTaskDetailMap:async()=>({}),getBrandMap:async()=>({}),
   translateText:text=>new Promise(resolve=>translations.push({text,resolve}))};
 (async()=>{
@@ -37,8 +41,8 @@ global.__mediaApi={signVideo:async()=>({url:'/signed-video',quality:'proxy',prox
  const source='/volume1/private/testing/1001-理想i8-基础能力.mp4';
  await render(React.createElement(Video,{open:true,videoPath:source,onClose:()=>{}}));
  let video=document.querySelector('video');assert.ok(video);
- let ahead=2,position=0;
- Object.defineProperties(video,{duration:{get:()=>60},currentTime:{get:()=>position,set:v=>position=v},readyState:{get:()=>3},
+ let ahead=0,position=0,ready=0;
+ Object.defineProperties(video,{duration:{get:()=>60},currentTime:{get:()=>position,set:v=>position=v},readyState:{get:()=>ready},
   buffered:{get:()=>({length:1,start:()=>0,end:()=>position+ahead})}});
  const fire=event=>act(async()=>video.dispatchEvent(new Event(event)));
  await fire('canplay');await fire('loadeddata');
@@ -49,19 +53,37 @@ global.__mediaApi={signVideo:async()=>({url:'/signed-video',quality:'proxy',prox
  assert.ok([...document.querySelectorAll('[title]')].every(n=>!n.title.includes('/volume1')));
  const playButton=()=>[...document.querySelectorAll('button')].find(b=>b.textContent==='Play video');
  await act(async()=>playButton().click());
- assert.ok(video.paused,'Insufficient contiguous buffer must hold playback');
- ahead=4;await fire('progress');assert.equal(plays,1);
- ahead=9;await fire('progress');assert.equal(plays,2);assert.equal(video.paused,false);
+ assert.equal(video.paused,false,'Zero-buffer startup must not pause the native fetch request');
+ await fire('waiting');assert.equal(video.paused,false,'Initial waiting must keep the media fetch active');
+ ready=3;ahead=9;await fire('progress');await fire('playing');assert.equal(plays,1);
  await act(async()=>video.pause());
- await fire('canplay');await fire('progress');assert.equal(plays,2,'Manual pause must survive canplay/progress');
+ await fire('canplay');await fire('progress');assert.equal(plays,1,'Manual pause must survive canplay/progress');
  await act(async()=>playButton().click());
- ahead=0;await fire('waiting');assert.ok(video.paused);
- const before=plays;ahead=3;await fire('progress');assert.equal(plays,before);
- ahead=12;await fire('progress');assert.equal(plays,before+1,'Stall recovery must wait for larger buffer');
+ await fire('playing');ahead=0;ready=2;await fire('waiting');assert.ok(video.paused);
+ const before=plays;ahead=1;await fire('progress');assert.equal(plays,before);
+ ahead=6;await fire('progress');assert.equal(plays,before+1,'Stall recovery uses a larger buffer');
+ await fire('playing');ahead=0;await fire('waiting');const held=plays;
+ now+=4500;await fire('progress');assert.equal(plays,held+1,'A stalled paused preload must release its hold after four seconds');
  const disjoint={buffered:{length:2,start:i=>i?30:0,end:i=>i?55:5},currentTime:10,duration:60,playbackRate:1,readyState:3};
  assert.equal(videoBuffer(disjoint,6).ready,false,'A distant downloaded range cannot satisfy current playback');
  await render(React.createElement(Video,{open:false,videoPath:source,onClose:()=>{}}));
  assert.equal(document.querySelector('video'),null);assert.ok(video.paused);
+ // A zero-byte request can hang without emitting error: retry one fresh URL,
+ // preserve requested playback, then expose a manual retry instead of spinning.
+ await render(React.createElement(Video,{open:true,videoPath:'/volume1/hanging/3128.mp4',onClose:()=>{}}));
+ video=document.querySelector('video');ahead=0;position=0;ready=0;
+ Object.defineProperties(video,{duration:{get:()=>60},currentTime:{get:()=>position},readyState:{get:()=>ready},buffered:{get:()=>({length:0})}});
+ await act(async()=>playButton().click());const baseline=signs;
+ const tick=async ms=>{now+=ms;await act(async()=>{for(const [id,timer] of [...timers])if(timers.has(id))timer.fn()})};
+ await tick(6000);await fire('progress');await tick(6000);
+ assert.equal(signs,baseline,'Real byte progress before metadata must not restart the download');
+ await tick(6001);assert.equal(signs,baseline+1,'No media progress must re-sign once');
+ assert.equal(video.paused,false,'Retry must resume only the playback already requested by the user');
+ await tick(12001);assert.match(document.body.textContent,/connection stalled/);
+ const reload=[...document.querySelectorAll('button')].find(b=>b.textContent==='Reload video');assert.ok(reload);
+ await tick(12001);assert.equal(signs,baseline+1,'Automatic retry must be bounded');
+ await act(async()=>reload.click());assert.equal(signs,baseline+2);
+ await render(React.createElement(Video,{open:false,videoPath:source,onClose:()=>{}}));
  await render(React.createElement(Labels));
  assert.ok(!/[一-鿿]/.test(document.body.textContent));assert.match(document.body.textContent,/XPENG GX/);assert.match(document.body.textContent,/HONGQI EH7/);assert.match(document.body.textContent,/Lynk & Co 900/);assert.match(document.body.textContent,/Xiaomi N90/);assert.match(document.body.textContent,/24.6 chars\/s/);
  await render(React.createElement(Content,{text:'全部窗户开一半'}));
@@ -72,5 +94,6 @@ global.__mediaApi={signVideo:async()=>({url:'/signed-video',quality:'proxy',prox
  await act(async()=>translations.find(t=>t.text==='请导航到上海南站').resolve({translated:'Navigate to Shanghai South Railway Station.'}));
  assert.match(document.body.textContent,/Shanghai South/);
  await act(async()=>root.unmount());
- console.log('PASS: no autoplay or visible NAS path; explicit play, larger-buffer stall recovery, manual pause and close respected; contiguous range guard; English models/categories/units; no Chinese flash or stale translation overwrite');
+ Date.now=systemNow;
+ console.log('PASS: no autoplay or visible NAS path; zero-buffer startup never paused; bounded stall hold; one fresh-URL retry, explicit retry after timeout; manual pause/close; English labels and translation races');
 })().catch(e=>{console.error(e);process.exit(1)});

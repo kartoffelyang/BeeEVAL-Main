@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Loader2, X, Lock, Play, Pause } from 'lucide-react';
+import { Loader2, X, Lock, Play, Pause, RefreshCw } from 'lucide-react';
 import { signVideo, type VideoQuality } from '../api';
 import { SERVER_URL } from '../config';
 import { useTranslation } from 'react-i18next';
@@ -58,6 +58,13 @@ const VideoPlayerModal: React.FC<Props> = ({ open, videoPath, title, onClose, al
     const [resolvedQuality, setResolvedQuality] = useState<'proxy' | 'original' | string>('proxy');
     // 播放出错时自动重签一次（token 过期 / proxy 瞬时 503）
     const resignOnceRef = useRef(false);
+    const [loadAttempt, setLoadAttempt] = useState(0);
+    const stallRetriedRef = useRef(false);
+    const resumeOnLoadRef = useRef(false);
+    const playbackRef = useRef(playback);
+    playbackRef.current = playback;
+    const phaseRef = useRef(phase);
+    phaseRef.current = phase;
 
     useEffect(() => {
         const handleEsc = (e: KeyboardEvent) => {
@@ -74,6 +81,8 @@ const VideoPlayerModal: React.FC<Props> = ({ open, videoPath, title, onClose, al
         if (open && videoPath) {
             setQuality('proxy');
             resignOnceRef.current = false;
+            stallRetriedRef.current = false;
+            resumeOnLoadRef.current = false;
         }
     }, [open, videoPath]);
 
@@ -120,7 +129,54 @@ const VideoPlayerModal: React.FC<Props> = ({ open, videoPath, title, onClose, al
         return () => {
             cancelled = true;
         };
-    }, [open, videoPath, quality, t]);
+    }, [open, videoPath, quality, loadAttempt, t]);
+
+    useEffect(() => {
+        if (open && signedUrl && resumeOnLoadRef.current) {
+            resumeOnLoadRef.current = false;
+            playbackRef.current.play();
+        }
+    }, [open, signedUrl]);
+
+    // A media request can hang without raising a native error. Retry once after
+    // 12 seconds without media progress, then show an explicit retry action.
+    useEffect(() => {
+        const video = videoRef.current;
+        if (!open || !signedUrl || !video) return;
+        let lastProgressAt = Date.now(), lastTime = video.currentTime, lastEnd = 0, lastReady = video.readyState;
+        // Bytes may arrive before an MP4 exposes a buffered time range.
+        const onNetworkProgress = () => { lastProgressAt = Date.now(); };
+        video.addEventListener('progress', onNetworkProgress);
+        const timer = window.setInterval(() => {
+            const end = video.buffered.length ? video.buffered.end(video.buffered.length - 1) : 0;
+            const now = Date.now();
+            if (end !== lastEnd || video.currentTime !== lastTime || video.readyState > lastReady) {
+                lastProgressAt = now;
+            }
+            lastEnd = end;
+            lastTime = video.currentTime;
+            lastReady = video.readyState;
+            if (!playbackRef.current.requested || video.ended || phaseRef.current === 'error') {
+                lastProgressAt = now;
+                return;
+            }
+            if (now - lastProgressAt < 12000) return;
+            lastProgressAt = now;
+            if (!stallRetriedRef.current) {
+                stallRetriedRef.current = true;
+                resumeOnLoadRef.current = true;
+                setLoadAttempt(n => n + 1);
+            } else {
+                playbackRef.current.pause();
+                setPhase('error');
+                setErrorMsg(t('video_connection_stalled'));
+            }
+        }, 1000);
+        return () => {
+            window.clearInterval(timer);
+            video.removeEventListener('progress', onNetworkProgress);
+        };
+    }, [open, signedUrl, t]);
 
     // 「已等待 Xs」每秒更新一次，仅在还没就绪时跑
     useEffect(() => {
@@ -155,6 +211,7 @@ const VideoPlayerModal: React.FC<Props> = ({ open, videoPath, title, onClose, al
     }
 
     const elapsedSec = phase === 'ready' || phase === 'idle' ? 0 : Math.floor((Date.now() - openAt) / 1000);
+    const awaitingClick = Boolean(signedUrl && !playback.requested && phase !== 'error');
     const showOverlay = (phase !== 'ready' && phase !== 'idle') || playback.waiting;
     let displayTitle = title || videoPath;
     try { displayTitle = decodeURIComponent(displayTitle); } catch { /* Keep readable filename. */ }
@@ -276,16 +333,26 @@ const VideoPlayerModal: React.FC<Props> = ({ open, videoPath, title, onClose, al
                                 </div>
                             ) : (
                                 <>
-                                    <Loader2 className="w-8 h-8 text-white/80 animate-spin mb-2" />
+                                    {!awaitingClick && <Loader2 className="w-8 h-8 text-white/80 animate-spin mb-2" />}
                                     <div className="text-white/90 text-sm font-medium">
-                                        {playback.waiting ? t('buffering_for_smooth_playback') : t(PHASE_KEYS[phase])}
+                                        {awaitingClick ? t('video_click_to_start') : playback.waiting ? t('buffering_for_smooth_playback') : t(PHASE_KEYS[phase])}
                                     </div>
                                     <div className="text-white/50 text-xs mt-1 font-mono">
-                                        {elapsedSec > 2 ? t('waited_seconds', { seconds: elapsedSec }) : ''}
+                                        {!awaitingClick && elapsedSec > 2 ? t('waited_seconds', { seconds: elapsedSec }) : ''}
                                     </div>
                                 </>
                             )}
                         </div>
+                    )}
+                    {phase === 'error' && (
+                        <button type="button" onClick={() => {
+                            stallRetriedRef.current = false;
+                            resignOnceRef.current = false;
+                            resumeOnLoadRef.current = true;
+                            setLoadAttempt(n => n + 1);
+                        }} className="absolute bottom-6 inline-flex items-center gap-2 rounded-full bg-white px-5 py-2.5 text-sm font-medium text-slate-900 shadow-lg">
+                            <RefreshCw size={16} />{t('reload_video')}
+                        </button>
                     )}
                     {signedUrl && phase !== 'error' && (!playback.requested || playback.waiting) && (
                         <div className="absolute inset-x-0 bottom-14 flex flex-col items-center gap-2 pointer-events-none">
