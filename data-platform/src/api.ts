@@ -2300,3 +2300,9 @@ export const getCaseContentSearch = async (params: Parameters<typeof getAllResul
     const response=await api.get('/cases/search',{params,signal:requestOptions?.signal});
     return response.data as PaginatedResponse<any> & {status?:'indexing';scanned?:number;facets?:{task_types:string[];difficulties:string[]}};
 };
+
+/** Load filter vocabulary after the visible page; a facet scan must not block rows. */
+export const getCaseSearchFacets = async (params: Parameters<typeof getAllResults>[0], signal?: AbortSignal) => {
+    const response = await api.get('/cases/search', {params: {...params, facets_only: true}, signal});
+    return response.data.facets as {task_types: string[]; difficulties: string[]};
+};

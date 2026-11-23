@@ -13,6 +13,7 @@ import { useSearchParams } from "react-router-dom";
 import { Search, ArrowRight, RotateCcw } from "lucide-react";
 import {
   getCaseContentSearch,
+  getCaseSearchFacets,
   getAllResults,
   getFilterOptions,
   listVehiclesForAggregation,
@@ -60,6 +61,7 @@ export default function CaseSearch() {
   const [error, setError] = useState("");
   const [retry, setRetry] = useState(0);
   const [ready, setReady] = useState(false);
+  const [facetScope, setFacetScope] = useState<string | null>(null);
   const savedQuery = stored(STORE, {});
   const initialScroll = useRef<number | null>(
     (!params.toString() || savedQuery.query === params.toString()) &&
@@ -176,10 +178,10 @@ export default function CaseSearch() {
           setSearchWarning(r.warning || "");
           setLoading(false);
           if (!cancelled) {
-            setTaskTypes(r.facets?.task_types || []);
-            setDifficulties(r.facets?.difficulties || []);
             setRows(r.data);
             setTotal(r.total);
+            setFacetScope(JSON.stringify({brand_model: model || undefined, system_version: version || undefined,
+              function_domain: trial ? TRIAL_DOMAIN : params.get('function_domain') || undefined, exclude_review: true}));
           }
         })
         .catch((e) => {
@@ -214,6 +216,19 @@ export default function CaseSearch() {
       clearTimeout(timer);
     };
   }, [signature, retry, ready]);
+  useEffect(() => {
+    if (!facetScope) return;
+    const controller = new AbortController();
+    setTaskTypes([]);
+    setDifficulties([]);
+    getCaseSearchFacets(JSON.parse(facetScope), controller.signal).then((facets) => {
+      if (!controller.signal.aborted) {
+        setTaskTypes(facets.task_types || []);
+        setDifficulties(facets.difficulties || []);
+      }
+    }).catch(() => {});
+    return () => controller.abort();
+  }, [facetScope]);
   useLayoutEffect(() => {
     if (!loading && initialScroll.current !== null) {
       const scroll = initialScroll.current;

@@ -2,6 +2,8 @@ const {createServer}=require('node:http'),{spawn}=require('node:child_process'),
 (async()=>{
 const upstream=createServer((req,res)=>{
  if(req.url==='/api/auth/me'){res.writeHead(401,{'content-type':'application/json'});res.end('{"detail":"unauthorized"}');}
+ else if(req.url==='/api/video/case-search?limit=30'){assert.equal(req.headers.authorization,'Bearer mock-session');res.writeHead(200,{'content-type':'application/json'});res.end('{"data":[],"total":0,"offset":0,"limit":30}');}
+ else if(req.url.startsWith('/api/video/all-results')){assert.fail('Normal page reads must not warm a full-bank index');}
  else if(req.url==='/api/video/stream'){assert.equal(req.headers.range,'bytes=0-3');res.writeHead(206,{'Content-Type':'video/mp4','Content-Range':'bytes 0-3/8'});res.end('test');}
  else if(req.url==='/api/admin/users'){assert.equal(req.method,'POST');assert.equal(req.headers.authorization,'Bearer mock-only');assert.equal(req.headers.origin,'https://www.beeeval.com');assert.equal(req.headers.referer,'https://www.beeeval.com/light/');let s='';req.on('data',c=>s+=c);req.on('end',()=>{assert.equal(s,'{}');res.writeHead(403);res.end('{}');});}
  else {res.writeHead(404);res.end();}
@@ -14,6 +16,8 @@ const base=`http://127.0.0.1:${port}`;
 let r=await fetch(base+'/api/video/stream',{headers:{Range:'bytes=0-3'}});assert.equal(r.status,206);assert.equal(r.headers.get('content-range'),'bytes 0-3/8');assert.equal(await r.text(),'test');
 r=await fetch(base+'/api/admin/users',{method:'POST',headers:{Authorization:'Bearer mock-only','Content-Type':'application/json',Origin:'https://www.beeeval.com',Referer:'https://www.beeeval.com/light/'},body:'{}'});assert.equal(r.status,403);
 r=await fetch(base+'/api/cases/search');assert.equal(r.status,401);
+r=await fetch(base+'/api/cases/search?limit=30',{headers:{Cookie:'beeeval_session=mock-session'}});assert.equal(r.status,200);assert.deepEqual((await r.json()).data,[]);
+r=await fetch(base+'/api/cases/search?limit=30',{headers:{Cookie:'beeeval_session=mock-session; beeeval_signed_out=1'}});assert.equal(r.status,401);
 r=await fetch(base+'/api/cases/search',{method:'POST',body:'{}'});assert.equal(r.status,405);
 r=await fetch(base+'/not-a-proxy');assert.equal(r.status,404);
 console.log('PASS: production proxy Range/206, streaming bytes, authenticated method/body forwarding, search authentication and route isolation.');

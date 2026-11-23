@@ -1,4 +1,3 @@
-import { createHash } from "node:crypto";
 import { createServer } from "node:http";
 import { Readable } from "node:stream";
 import { pipeline } from "node:stream/promises";
@@ -24,7 +23,6 @@ const search = createCaseSearch(upstream, (r) => {
   );
 });
 let verified = false;
-const warmed = new Map<string, number>();
 const server = createServer(async (req, res) => {
   try {
     const url = new URL(req.url || "/", "http://localhost");
@@ -39,7 +37,16 @@ const server = createServer(async (req, res) => {
       res.end();
       return;
     }
-    if (await search(req, res)) return;
+    // The upstream now queries a single live page. Never warm a per-account
+    // full-bank index on login, metadata reads or video browsing.
+    if (url.pathname === "/api/cases/search") {
+      if (!authorization) {
+        res.writeHead(401, { "Content-Type": "application/json" });
+        res.end(JSON.stringify({ detail: "unauthorized" }));
+        return;
+      }
+      url.pathname = "/api/video/case-search";
+    }
     if (
       !url.pathname.startsWith("/api/") &&
       !url.pathname.startsWith("/screenshots/")
@@ -64,6 +71,7 @@ const server = createServer(async (req, res) => {
       const value = req.headers[name];
       if (typeof value === "string") headers.set(name, value);
     }
+    if (authorization) headers.set("authorization", authorization);
     const method = req.method || "GET";
     const init: any = {
       method,
@@ -75,6 +83,7 @@ const server = createServer(async (req, res) => {
       init.body = req;
       init.duplex = "half";
     }
+    const started = Date.now();
     const response = await fetch(upstream + url.pathname + url.search, init);
     console.log(
       JSON.stringify({
@@ -83,6 +92,7 @@ const server = createServer(async (req, res) => {
         method,
         status: response.status,
         range: !!req.headers.range,
+        header_ms: Date.now() - started,
       }),
     );
     if (
@@ -109,31 +119,6 @@ const server = createServer(async (req, res) => {
     }
     const cookies = response.headers.getSetCookie();
     if (cookies.length) res.setHeader("set-cookie", cookies);
-    if (
-      response.ok &&
-      typeof authorization === "string" &&
-      [
-        "/api/auth/me",
-        "/api/aggregation/vehicles",
-        "/api/video/all-results",
-      ].includes(url.pathname)
-    ) {
-      const key = createHash("sha256")
-        .update(authorization)
-        .digest("hex");
-      if ((warmed.get(key) || 0) < Date.now()) {
-        if (warmed.size >= 50) warmed.delete(warmed.keys().next().value!);
-        warmed.set(key, Date.now() + 15 * 60_000);
-        void search(
-          {
-            url: "/api/cases/search?exclude_review=true",
-            method: "GET",
-            headers: { authorization },
-          } as any,
-          { setHeader() {}, set statusCode(v: number) {}, end() {} } as any,
-        );
-      }
-    }
     if (method === "HEAD" || !response.body) res.end();
     else await pipeline(Readable.fromWeb(response.body as any), res);
   } catch {

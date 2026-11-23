@@ -28,6 +28,8 @@ const { createRoot } = require(resolve("react-dom/client"));
 const { Simulate } = require(resolve("react-dom/test-utils"));
 const { MemoryRouter } = require(resolve("react-router-dom"));
 const requests = [];
+const facetRequests = [];
+global.__facetAPI = () => new Promise(resolve => facetRequests.push(resolve));
 global.__caseAPI = (params, options) =>
   new Promise((resolve, reject) =>
     requests.push({ params, options, resolve, reject }),
@@ -63,7 +65,7 @@ const result = (id, text) => ({
           b.onLoad({ filter: /\/api\.ts$/ }, () => ({
             loader: "ts",
             contents:
-              "export const getAllResults=(p,o)=>globalThis.__caseAPI(p,o);export const getCaseContentSearch=getAllResults;export const getFilterOptions=()=>Promise.resolve({function_domains:[]});export const listVehiclesForAggregation=()=>Promise.resolve([]);export const getMetricsMap=()=>Promise.resolve({});export const getDomainsMap=()=>Promise.resolve({});export const getTaskDetailMap=()=>Promise.resolve({});export const getBrandMap=()=>Promise.resolve({});",
+              "export const getAllResults=(p,o)=>globalThis.__caseAPI(p,o);export const getCaseContentSearch=getAllResults;export const getCaseSearchFacets=()=>globalThis.__facetAPI();export const getFilterOptions=()=>Promise.resolve({function_domains:[]});export const listVehiclesForAggregation=()=>Promise.resolve([]);export const getMetricsMap=()=>Promise.resolve({});export const getDomainsMap=()=>Promise.resolve({});export const getTaskDetailMap=()=>Promise.resolve({});export const getBrandMap=()=>Promise.resolve({});",
           }));
           b.onLoad({ filter: /LanguageContext\.tsx$/ }, () => ({
             loader: "ts",
@@ -99,6 +101,9 @@ const result = (id, text) => ({
   );
   await act(async () => requests.at(-1).resolve(result("1", "打开天窗")));
   assert.ok(document.querySelector(".case-group"));
+  assert.ok(facetRequests.length, "Facets load separately after visible rows");
+  assert.ok(!document.querySelector(".case-result-heading").textContent.includes("正在查找"));
+  await act(async () => facetRequests.at(-1)(result("1", "打开天窗").facets));
   if (process.env.BEEEVAL_PREVIEW_HTML) {
     const fs = require("node:fs");
     const css = fs.readdirSync("dist/assets").find(name => name.endsWith(".css"));

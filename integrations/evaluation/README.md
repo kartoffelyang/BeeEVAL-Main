@@ -24,3 +24,25 @@ The website account home is `/account.html`, with separate overview, access, pro
 Before releasing the new recovery UI, back up the account database, apply `password_recovery.sql`, and run `apply_password_recovery.py` against the active API source. Deploy its router together with `member_accounts.py` (the SMTP sender uses keyword-only arguments) and the Main broker. Recovery proofs are separate from registration codes, expire in five minutes and allow at most five attempts. A reset consumes the proof and increments `password_version` atomically to invalidate old sessions. Existing accounts are not changed during deployment.
 
 Run `python3 tests/password-recovery.py`, `python3 tests/account-journey.py`, `node tests/identity-return.mjs` and `node tests/unified-auth.mjs`. Local OTP demos do not send production mail.
+
+## Read performance integration
+
+`apply_read_performance.py <current-api-source>` installs `paged_case_search.py`
+and `read_performance.py` while patching only named read handlers. Apply to a
+copy of the current runtime source and compile/test it before building an image.
+Keep the existing image available for rollback. The website gateway must be
+updated after the API exposes `/api/video/case-search`.
+
+Run `performance_indexes.sql` with autocommit: the three partial indexes use
+`CREATE INDEX CONCURRENTLY` and do not rewrite evaluation records or scores.
+They accelerate valid case counts, domain pagination and Trial video checks.
+Failed concurrent builds must be checked for invalid indexes before retrying.
+
+Case counts and each page use one SQL/MVCC snapshot; no full-bank per-account
+download, automatic warming, snapshot-count retry loop or canonical-question
+enrichment crawl is needed. Taxonomy facets load separately after the rows.
+All queries retain publication and live account scope, with travel-only Trial
+evidence and legacy viewer redaction. Aggregate read caches last 20 seconds,
+are bounded and include the resolved principal; authentication is never cached.
+Synchronous database work runs outside the API event loop so one expensive read
+cannot block signing or streaming. No write, scoring or evaluation job is patched.
