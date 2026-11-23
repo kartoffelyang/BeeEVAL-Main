@@ -70,7 +70,7 @@ def facets(user, filters):
     if legacy:
         where.append('vr.case_id = ANY(%s)')
         values.append(list(TRIAL_VISIBLE_CASE_IDS))
-    rows = supabase.raw_sql("SELECT DISTINCT vr.case_id, vr.metadata->>'task_detail' AS task_detail, vr.metadata->>'acceptance_tag' AS acceptance_tag FROM video_results vr WHERE " + ' AND '.join(where), values).data
+    rows = supabase.raw_sql("SELECT DISTINCT vr.case_id, cs.task_detail, cs.acceptance_tag FROM video_results vr LEFT JOIN video_case_search_text cs ON cs.result_id=vr.id WHERE " + ' AND '.join(where), values).data
     tags = [classification(row) for row in rows]
     return {out: sorted({tag[key] for tag in tags}) for out, key in [('task_types', 'task_detail'), ('difficulties', 'acceptance_tag')]}
 
@@ -98,24 +98,24 @@ def case_search(
     for key, value in [('task_detail', task_detail), ('acceptance_tag', acceptance_tag)]:
         if value:
             tag_map = {cid: tag.get(key) for cid, tag in tags.items() if tag.get(key)}
-            where.append("COALESCE(NULLIF(vr.metadata->>%s, ''), %s::jsonb->>vr.case_id, '未分类') = %s")
-            values.extend([key, json.dumps(tag_map, ensure_ascii=False), value])
+            where.append("COALESCE(NULLIF(cs." + key + ", ''), %s::jsonb->>vr.case_id, '未分类') = %s")
+            values.extend([json.dumps(tag_map, ensure_ascii=False), value])
     for bound, comparator in [(min_score, '>='), (max_score, '<' if max_score_exclusive else '<=')]:
         if bound is not None:
             where.append("CASE WHEN vr.metadata->>'response_quality_score' ~ '^[0-9]+([.][0-9]+)?$' THEN (vr.metadata->>'response_quality_score')::numeric END " + comparator + ' %s')
             values.append(bound)
     terms = [normalize(term) for term in (search or '').split() if normalize(term)]
-    search_join = ''
+    search_join = ' LEFT JOIN video_case_search_text cs ON cs.result_id=vr.id' if terms or task_detail or acceptance_tag else ''
     if legacy and (terms or task_detail or acceptance_tag or min_score is not None or max_score is not None):
         where.append('vr.case_id = ANY(%s)')
         values.append(list(TRIAL_VISIBLE_CASE_IDS))
     if terms:
         # Flatten only the same case-content fields used by the former JS index.
         # Canonical questions are looked up from the server's authoritative taxonomy.
-        search_join = ' LEFT JOIN video_case_search_text cs ON cs.result_id=vr.id'
-        # Missing projection rows safely fall back to the exact same function;
-        # normal requests read compact text instead of repeatedly decompressing JSON.
-        text = 'COALESCE(cs.content, beeeval_case_search_text(vr.case_id,vr.video_name,vr.transcript,vr.metadata))'
+        # The synchronous trigger and pre-release backfill guarantee a projection
+        # for every visible source row in the same transaction/snapshot. Keeping
+        # metadata out of the predicate permits an index-only eligibility scan.
+        text = 'cs.content'
         for term in terms:
             official_ids = [cid for cid, tag in tags.items() if term in normalize(tag.get('content'))]
             # POSITION treats %, _ and backslashes as literal content, not SQL wildcards.
