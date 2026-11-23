@@ -105,14 +105,17 @@ def case_search(
             where.append("CASE WHEN vr.metadata->>'response_quality_score' ~ '^[0-9]+([.][0-9]+)?$' THEN (vr.metadata->>'response_quality_score')::numeric END " + comparator + ' %s')
             values.append(bound)
     terms = [normalize(term) for term in (search or '').split() if normalize(term)]
+    search_join = ''
     if legacy and (terms or task_detail or acceptance_tag or min_score is not None or max_score is not None):
         where.append('vr.case_id = ANY(%s)')
         values.append(list(TRIAL_VISIBLE_CASE_IDS))
     if terms:
         # Flatten only the same case-content fields used by the former JS index.
         # Canonical questions are looked up from the server's authoritative taxonomy.
-        fields = ','.join("vr.metadata->'" + key + "'" for key in FIELDS)
-        text = "LOWER(REGEXP_REPLACE(normalize(CONCAT_WS(' ',vr.case_id,vr.video_name,vr.transcript,(jsonb_path_query_array(jsonb_build_array(" + fields + "), '$.** ? (@.type() == \"string\" || @.type() == \"number\")'))::text),NFKC), '[[:punct:][:space:]]', '', 'g'))"
+        search_join = ' LEFT JOIN video_case_search_text cs ON cs.result_id=vr.id'
+        # Missing projection rows safely fall back to the exact same function;
+        # normal requests read compact text instead of repeatedly decompressing JSON.
+        text = 'COALESCE(cs.content, beeeval_case_search_text(vr.case_id,vr.video_name,vr.transcript,vr.metadata))'
         for term in terms:
             official_ids = [cid for cid, tag in tags.items() if term in normalize(tag.get('content'))]
             # POSITION treats %, _ and backslashes as literal content, not SQL wildcards.
@@ -126,7 +129,7 @@ def case_search(
     # jobs are publishing/updating records. No fragile 70-page index rebuild.
     sql = f"""WITH filtered AS NOT MATERIALIZED (SELECT vr.id, vr.case_id, vr.video_name,
         vr.brand_model, vr.system_version, vr.function_domain, vr.created_at, vr.metadata
-        FROM video_results vr {clause}), page AS MATERIALIZED (
+        FROM video_results vr{search_join} {clause}), page AS MATERIALIZED (
         SELECT * FROM filtered vr ORDER BY vr.{field} {direction} NULLS LAST, vr.id DESC LIMIT %s OFFSET %s), cards AS (
         SELECT vr.id,vr.case_id,vr.video_name,vr.brand_model,vr.system_version,vr.function_domain,vr.created_at,
         jsonb_strip_nulls(jsonb_build_object({columns})) AS metadata, TRUE AS _index_only

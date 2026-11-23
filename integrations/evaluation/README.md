@@ -37,6 +37,11 @@ Run `performance_indexes.sql` with autocommit: the three partial indexes use
 `CREATE INDEX CONCURRENTLY` and do not rewrite evaluation records or scores.
 They accelerate valid case counts, domain pagination and Trial video checks.
 Failed concurrent builds must be checked for invalid indexes before retrying.
+Then apply `case_search_projection.sql`: it builds compact normalized case text
+and keeps it in sync on source insert/update/delete. Install the trigger before
+the conflict-safe initial backfill. This is a derived search table, never an
+independent permission source; reads still check current publication and account
+scope. Keep it when rolling back application code, so updates remain synchronized.
 
 Case counts and each page use one SQL/MVCC snapshot; no full-bank per-account
 download, automatic warming, snapshot-count retry loop or canonical-question
