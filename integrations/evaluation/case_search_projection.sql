@@ -15,9 +15,20 @@ RETURNS text LANGUAGE sql IMMUTABLE PARALLEL SAFE AS $function$
 $function$;
 
 CREATE TABLE IF NOT EXISTS public.video_case_search_text (
-  result_id uuid PRIMARY KEY,
+  result_id text PRIMARY KEY,
   content text NOT NULL
 );
+
+-- The source ID is text (some installations also store UUID-looking IDs as
+-- text). Preserve it verbatim, including identifiers that are not UUIDs.
+DO $block$
+BEGIN
+  IF EXISTS (SELECT 1 FROM information_schema.columns WHERE table_schema='public'
+      AND table_name='video_case_search_text' AND column_name='result_id' AND data_type='uuid') THEN
+    ALTER TABLE public.video_case_search_text ALTER COLUMN result_id TYPE text USING result_id::text;
+  END IF;
+END
+$block$;
 
 CREATE OR REPLACE FUNCTION public.beeeval_sync_case_search_text()
 RETURNS trigger LANGUAGE plpgsql AS $function$
