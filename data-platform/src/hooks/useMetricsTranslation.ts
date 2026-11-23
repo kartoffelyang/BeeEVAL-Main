@@ -6,8 +6,8 @@ import { getSubCategoryEnName } from '../pages/vehicle-scores/metricsHierarchy';
 
 const modelNames: Record<string, string> = {
   '蔚来': 'NIO', '理想': 'Li Auto', '极氪': 'ZEEKR',
-  '小鹏': 'XPENG', '魏牌': 'WEY', '小鹏GX': 'XPENG GX',
-  '小米Yu7': 'Xiaomi YU7', '小米YU7': 'Xiaomi YU7', '小米澎程N90': 'Xiaomi SkyNomad N90',
+  '小鹏': 'XPENG', '魏牌': 'WEY', '红旗': 'HONGQI', '领克': 'Lynk & Co', '小鹏GX': 'XPENG GX',
+  '小米Yu7': 'Xiaomi YU7', '小米YU7': 'Xiaomi YU7', '小米澎程N90': 'Xiaomi N90',
   '大众与众08': 'Volkswagen ID. UNYX 08', '魏牌二代蓝山': 'WEY Lanshan II',
   '魏牌 V9X': 'WEY V9X', '理想L9 Livis': 'Li Auto L9 Livis', '理想i8': 'Li Auto i8',
   '长安启源Q06': 'Changan Qiyuan Q06', '大众ID.ERA 9X': 'Volkswagen ID. ERA 9X',

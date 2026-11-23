@@ -53,7 +53,7 @@ const VehicleSelector: React.FC<{ maxCompetitors?: number }> = ({
           <Star className="w-3.5 h-3.5" />
           <span>{getVehicleLabel(primaryKey)}</span>
           <button
-            aria-label={`移除 ${getVehicleLabel(primaryKey)}`}
+            aria-label={`${language === "zh" ? "移除" : "Remove"} ${getVehicleLabel(primaryKey)}`}
             onClick={() => handleRemove(primaryKey)}
             className="ml-1 hover:opacity-70"
           >
@@ -71,7 +71,7 @@ const VehicleSelector: React.FC<{ maxCompetitors?: number }> = ({
         >
           <span>{getVehicleLabel(key)}</span>
           <button
-            aria-label={`移除 ${getVehicleLabel(key)}`}
+            aria-label={`${language === "zh" ? "移除" : "Remove"} ${getVehicleLabel(key)}`}
             onClick={() => handleRemove(key)}
             className="ml-1 hover:opacity-70"
           >

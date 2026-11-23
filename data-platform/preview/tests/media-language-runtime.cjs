@@ -21,7 +21,7 @@ global.__mediaApi={signVideo:async()=>({url:'/signed-video',quality:'proxy',prox
  export {default as Content} from './src/components/TranslatedText';
  export {videoBuffer} from './src/hooks/useBufferedPlayback';
  export {default as en} from './src/locales/en';
- export const Labels=()=>{const {tm,tv,td}=useMetricsTranslation();return <div>{tv('小鹏GX')} / {tv('小米澎程N90')} / {tv('魏牌二代蓝山')} / {tv('大众与众08')} / {tm('C2-知识推理')} / {tm('A1-执行质量')} / {td('出行域')} / {formatMetricValue('speed',24.6,'en')}</div>};`},
+ export const Labels=()=>{const {tm,tv,td}=useMetricsTranslation();return <div>{tv('小鹏GX')} / {tv('小米澎程N90')} / {tv('魏牌二代蓝山')} / {tv('大众与众08')} / {tv('红旗EH7')} / {tv('领克900')} / {tm('C2-知识推理')} / {tm('A1-执行质量')} / {td('出行域')} / {formatMetricValue('speed',24.6,'en')}</div>};`},
   outfile:output,bundle:true,platform:'node',format:'cjs',external:['react','react-dom','react-dom/client'],plugins:[{name:'fixtures',setup(b){
    b.onLoad({filter:/\/api\.ts$/},()=>({loader:'ts',contents:Object.keys(global.__mediaApi).map(k=>`export const ${k}=(...a)=>globalThis.__mediaApi.${k}(...a);`).join('\n')}));
    b.onLoad({filter:/AuthContext\.tsx$/},()=>({loader:'ts',contents:`export const useAuth=()=>({user:{role:'viewer',membership_tier:'trial'}});`}));
@@ -63,7 +63,7 @@ global.__mediaApi={signVideo:async()=>({url:'/signed-video',quality:'proxy',prox
  await render(React.createElement(Video,{open:false,videoPath:source,onClose:()=>{}}));
  assert.equal(document.querySelector('video'),null);assert.ok(video.paused);
  await render(React.createElement(Labels));
- assert.ok(!/[一-鿿]/.test(document.body.textContent));assert.match(document.body.textContent,/XPENG GX/);assert.match(document.body.textContent,/24.6 chars\/s/);
+ assert.ok(!/[一-鿿]/.test(document.body.textContent));assert.match(document.body.textContent,/XPENG GX/);assert.match(document.body.textContent,/HONGQI EH7/);assert.match(document.body.textContent,/Lynk & Co 900/);assert.match(document.body.textContent,/Xiaomi N90/);assert.match(document.body.textContent,/24.6 chars\/s/);
  await render(React.createElement(Content,{text:'全部窗户开一半'}));
  assert.ok(!/[一-鿿]/.test(document.body.textContent));
  await render(React.createElement(Content,{text:'请导航到上海南站'}));
