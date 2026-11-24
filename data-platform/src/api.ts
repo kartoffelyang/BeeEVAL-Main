@@ -995,6 +995,11 @@ export interface VehicleListItem {
     pool_total: number;
     has_cache: boolean;
     last_computed_at: string | null;
+    eval_version?: string | null;
+    scoring_version?: string | null;
+    scoring_note?: string | null;
+    is_current_scoring?: boolean;
+    is_partial_scoring?: boolean;
     /** 该车总均分（功能域均分的算术平均），仅 has_cache=true 且功能域非空时有值 */
     overall_score: number | null;
     /** 该车用例均分（所有 case Overall Score 的算术平均），按 case 加权 */
@@ -1016,6 +1021,11 @@ export interface VehicleScoreSnapshot {
     last_computed_at: string | null;
     criteria_scores: DimensionScore[];
     function_domain_scores: DimensionScore[];
+    eval_version?: string | null;
+    scoring_version?: string | null;
+    scoring_note?: string | null;
+    is_current_scoring?: boolean;
+    is_partial_scoring?: boolean;
     /** 总均分（功能域均分的算术平均），仅在功能域非空时有值 */
     overall_score: number | null;
     /** 参与计算总均分的功能域数量 */

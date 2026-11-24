@@ -359,6 +359,25 @@
   background: #eeeee8;
   color: #727b69;
 }
+.eval-ver-badge {
+  display: inline-flex;
+  align-items: center;
+  font-size: 10px;
+  font-weight: 500;
+  line-height: 1.2;
+  padding: 2px 6px;
+  border-radius: 4px;
+  background: #eef3e8;
+  color: #4f6340;
+  border: 1px solid #d3dfc6;
+  white-space: nowrap;
+  letter-spacing: 0.02em;
+}
+.eval-ver-badge.is-v1 {
+  background: #f2f2ed;
+  color: #7b8074;
+  border-color: #dfdfd8;
+}
 .pf-panel {
   background: #fff;
   border: 1px solid #e0e3d9;

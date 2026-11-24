@@ -36,6 +36,7 @@ interface RankRow {
   key: string;
   brand_model: string;
   system_version: string | null;
+  eval_version?: string | null;
   overall: number | null;
   domainValues: Record<string, number | null>;
 }
@@ -178,6 +179,11 @@ const RankTable: React.FC<{
                 >
                   <span className="rank-model-name">
                     {tv(row.brand_model)}
+                    {row.eval_version && (
+                      <span className={clsx("eval-ver-badge", row.eval_version === "V1" && "is-v1")}>
+                        {row.eval_version}
+                      </span>
+                    )}
                     {row.key === primaryKey && (
                       <span className="rank-self">{t("badge_self")}</span>
                     )}
@@ -225,6 +231,7 @@ const RankingTab: React.FC = () => {
   const { vehicles, primaryKey, setPrimaryKey } = useComparison();
 
   const [view, setView] = useState<"metric" | "acceptance">("metric");
+  const [verFilter, setVerFilter] = useState<"all" | "V2" | "V1">("all");
 
   // 指标排行榜行（功能域均分）。
   const [metricRows, setMetricRows] = useState<RankRow[]>([]);
@@ -244,6 +251,7 @@ const RankingTab: React.FC = () => {
       if (cancelled) return;
       setMetricRows(snapshots.filter(v => allowed.has(vehicleKey(v))).map(snap => ({
         key: vehicleKey(snap), brand_model: snap.brand_model, system_version: snap.system_version,
+        eval_version: snap.eval_version ?? vehicles.find(x => vehicleKey(x) === vehicleKey(snap))?.eval_version,
         overall: snap.overall_score,
         domainValues: Object.fromEntries(snap.function_domain_scores.map(d => [d.dimension_key, d.avg_score])),
       })));
@@ -264,7 +272,7 @@ const RankingTab: React.FC = () => {
         for (const grade of GRADES_ORDER) {
           const {overall, domains} = gradeDomainValues(acc.by_domain, grade);
           rows[grade].push({key: vehicleKey(v), brand_model: v.brand_model,
-            system_version: v.system_version, overall, domainValues: domains});
+            system_version: v.system_version, eval_version: v.eval_version, overall, domainValues: domains});
         }
       } catch { /* Preserve the existing per-model failure isolation. */ }
     })).then(() => {
@@ -306,6 +314,10 @@ const RankingTab: React.FC = () => {
     return r === key ? g : r;
   };
 
+  const matchVer = (ev?: string | null) =>
+    verFilter === "all" || (verFilter === "V2" ? Boolean(ev?.startsWith("V2")) : ev === "V1");
+  const visibleMetricRows = useMemo(() => metricRows.filter(r => matchVer(r.eval_version)), [metricRows, verFilter]);
+
   if (loading) {
     return (
       <div className="text-center py-12 text-text-muted">
@@ -316,23 +328,42 @@ const RankingTab: React.FC = () => {
 
   return (
     <div className="ranking-workspace space-y-5">
-      <PlatformTabs
-        items={[
-          { key: "metric", label: t("ranking_metric_title") },
-          { key: "acceptance", label: t("ranking_acceptance_title") },
-        ]}
-        value={view}
-        onChange={(value) => setView(value as typeof view)}
-      />
+      <div className="flex flex-wrap items-center justify-between gap-3">
+        <PlatformTabs
+          items={[
+            { key: "metric", label: t("ranking_metric_title") },
+            { key: "acceptance", label: t("ranking_acceptance_title") },
+          ]}
+          value={view}
+          onChange={(value) => setView(value as typeof view)}
+        />
+        <div className="flex items-center gap-1.5 text-xs">
+          {(["all", "V2", "V1"] as const).map((opt) => (
+            <button
+              key={opt}
+              type="button"
+              onClick={() => setVerFilter(opt)}
+              className={clsx(
+                "px-2.5 py-1 rounded border transition-colors",
+                verFilter === opt
+                  ? "bg-secondary text-text-inverse border-secondary font-medium"
+                  : "border-ink/[0.12] text-text-muted hover:text-text-primary",
+              )}
+            >
+              {opt === "all" ? t("all_versions_short", { defaultValue: "全部" }) : opt}
+            </button>
+          ))}
+        </div>
+      </div>
 
       {view === "metric" ? (
         <div className="space-y-3">
           <h3 className="rank-section-title">
             {t("ranking_metric_title")}
-            <span>{metricRows.length}</span>
+            <span>{visibleMetricRows.length}</span>
           </h3>
           <RankTable
-            rows={metricRows}
+            rows={visibleMetricRows}
             domains={metricDomains}
             overallLabel={t("col_overall_avg")}
             renderCell={scoreCell}
@@ -355,7 +386,7 @@ const RankingTab: React.FC = () => {
                 </span>
               </h3>
               <RankTable
-                rows={gradeRows[grade] || []}
+                rows={(gradeRows[grade] || []).filter(r => matchVer(r.eval_version))}
                 domains={acceptanceDomains}
                 overallLabel={t("ranking_overall_completion")}
                 renderCell={completionCell}

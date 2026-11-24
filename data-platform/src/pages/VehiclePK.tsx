@@ -25,7 +25,8 @@ const VehiclePK: React.FC = () => {
     const {trial,guardDomain}=useTrialAccess();
     const { t } = useTranslation();
     const { td, tv } = useMetricsTranslation();
-    const { primaryKey, competitorKeys } = useComparison();
+    const { primaryKey, competitorKeys, vehicles } = useComparison();
+    const evalBadge = (key: string) => vehicles.find(v => vehicleKey(v) === key)?.eval_version || null;
 
     // 选中车型 = 本品 + 竞品（本品排首列），最多 5 款。
     const selectedKeys = useMemo(() => {
@@ -197,7 +198,7 @@ const VehiclePK: React.FC = () => {
                                                         <SortIcon active={sortBy === sk} />
                                                     </span>
                                                     <span className="text-[10px] text-text-muted font-normal">
-                                                        {isPrimary ? t('pk_primary_tag') : t('pk_competitor_tag')}
+                                                        {isPrimary ? t('pk_primary_tag') : t('pk_competitor_tag')}{evalBadge(k) ? ` · ${evalBadge(k)}` : ''}
                                                     </span>
                                                 </button>
                                             </th>

@@ -73,6 +73,7 @@ function BenchmarkInner() {
       return p;
     });
   const [status, setStatus] = useState("all");
+  const [verFilter, setVerFilter] = useState("all");
   const [sort, setSort] = useState("date");
   const [view, setView] = useState("grid");
   const [loading, setLoading] = useState(true);
@@ -96,8 +97,12 @@ function BenchmarkInner() {
       vehicles
         .filter(
           (v) =>
-            status === "all" ||
-            (status === "scored" ? v.has_cache : !v.has_cache),
+            (status === "all" ||
+              (status === "scored" ? v.has_cache : !v.has_cache)) &&
+            (verFilter === "all" ||
+              (verFilter === "V2"
+                ? Boolean(v.eval_version?.startsWith("V2"))
+                : v.eval_version === verFilter)),
         )
         .sort((a, b) =>
           sort === "score"
@@ -106,7 +111,7 @@ function BenchmarkInner() {
               ? tv(a.brand_model).localeCompare(tv(b.brand_model), "zh-CN")
               : (b.capture_date || "").localeCompare(a.capture_date || ""),
         ),
-    [vehicles, status, sort, tv],
+    [vehicles, status, verFilter, sort, tv],
   );
   const pick = (key: string) => {
     ctx.competitorKeys.forEach(ctx.removeCompetitor);
@@ -180,13 +185,18 @@ function BenchmarkInner() {
           <div>
             <div className="pf-eyebrow">VEHICLE INTELLIGENCE PROFILE</div>
             <h1 style={{ marginTop: 18 }}>{tv(current.brand_model)}</h1>
-            <p className="pf-subtle">
-              {current.system_version || c("版本未提供", "Version unavailable")}
+            <p className="pf-subtle" style={{ display: "flex", alignItems: "center", gap: 8, flexWrap: "wrap" }}>
+              <span>{current.system_version || c("版本未提供", "Version unavailable")}</span>
+              {(snap?.eval_version || current.eval_version) && (
+                <span className={"eval-ver-badge" + ((snap?.eval_version || current.eval_version) === "V1" ? " is-v1" : "")}>
+                  {snap?.eval_version || current.eval_version}
+                </span>
+              )}
             </p>
             <div className="bm-detail-score">
               <strong>{snap?.overall_score?.toFixed(2) ?? "—"}</strong>
               <div>
-                <small>{c("功能域总体均分 / 5", "Domain mean / 5")}</small>
+                <small>{c("综合总评分 / 5", "Overall score / 5")}</small>
                 <b>
                   {snap?.overall_domain_count ?? "—"} {c("个功能域", "domains")}{" "}
                   · {snap?.overall_sample_count ?? "—"} {c("样本", "samples")}
@@ -275,6 +285,18 @@ function BenchmarkInner() {
               </LightSelect>
               <LightSelect
                 className="pf-select"
+                aria-label={c("评分版本", "Scoring version")}
+                value={verFilter}
+                onChange={(e) => setVerFilter(e.target.value)}
+              >
+                <option value="all">{c("全部评分版本", "All scoring versions")}</option>
+                <option value="V2">{c("V2（V2.0 / V2.1）", "V2 (V2.0 / V2.1)")}</option>
+                <option value="V2.1">V2.1</option>
+                <option value="V2.0">V2.0</option>
+                <option value="V1">V1</option>
+              </LightSelect>
+              <LightSelect
+                className="pf-select"
                 aria-label={c("车型排序", "Sort models")}
                 value={sort}
                 onChange={(e) => setSort(e.target.value)}
@@ -334,6 +356,11 @@ function BenchmarkInner() {
                         disabled={pending}
                       >
                         {tv(v.brand_model)}
+                        {v.eval_version && (
+                          <span className={"eval-ver-badge" + (v.eval_version === "V1" ? " is-v1" : "")}>
+                            {v.eval_version}
+                          </span>
+                        )}
                         {pending && (
                           <span className="pf-chip muted">
                             {c("待评测", "Pending")}
@@ -382,6 +409,7 @@ function BenchmarkInner() {
                   secondary
                   onClick={() => {
                     setStatus("all");
+                    setVerFilter("all");
                   }}
                 >
                   {c("重置筛选", "Clear filters")}

@@ -428,9 +428,14 @@ const VehicleCard: React.FC<{
                             V{snapshot.system_version}
                         </span>
                     )}
+                    {snapshot.eval_version && (
+                        <span className={"eval-ver-badge" + (snapshot.eval_version === 'V1' ? ' is-v1' : '')}>
+                            {snapshot.eval_version}
+                        </span>
+                    )}
                 </div>
                 <div className="grid grid-cols-2 gap-x-4 gap-y-1.5 text-sm">
-                    <InfoLine icon={<Trophy className="w-3.5 h-3.5" />} label={t('vehicle_case_avg_score')} value={snapshot.case_avg_score != null ? snapshot.case_avg_score.toFixed(1) : '—'} />
+                    <InfoLine icon={<Trophy className="w-3.5 h-3.5" />} label={t('scoring_ver_label', { defaultValue: '评分版本' })} value={snapshot.eval_version || '—'} />
                     <InfoLine icon={<Layers className="w-3.5 h-3.5" />} label={t('domains')} value={String(snapshot.overall_domain_count ?? 0)} />
                     <InfoLine icon={<Film className="w-3.5 h-3.5" />} label={t('samples')} value={String(snapshot.overall_sample_count ?? snapshot.case_count ?? 0)} />
                     <InfoLine icon={<Clock className="w-3.5 h-3.5" />} label={t('last_computed_at')} value={snapshot.last_computed_at ? new Date(snapshot.last_computed_at).toLocaleDateString() : '—'} />

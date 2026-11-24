@@ -22,6 +22,7 @@ const VehicleSelector: React.FC<{ maxCompetitors?: number }> = ({
 
   const allSelected = new Set([primaryKey, ...competitorKeys]);
   const available = vehicles.filter((v) => !allSelected.has(vehicleKey(v)));
+  const evalBadge = (key: string) => vehicles.find((v) => vehicleKey(v) === key)?.eval_version || null;
   const handleSelect = (key: string) => {
     if (!key) return;
     if (!primaryKey) setPrimaryKey(key);
@@ -52,6 +53,11 @@ const VehicleSelector: React.FC<{ maxCompetitors?: number }> = ({
         >
           <Star className="w-3.5 h-3.5" />
           <span>{getVehicleLabel(primaryKey)}</span>
+          {evalBadge(primaryKey) && (
+            <span className="text-[10px] px-1.5 py-0.5 rounded bg-white/20 font-semibold">
+              {evalBadge(primaryKey)}
+            </span>
+          )}
           <button
             aria-label={`${language === "zh" ? "移除" : "Remove"} ${getVehicleLabel(primaryKey)}`}
             onClick={() => handleRemove(primaryKey)}
@@ -70,6 +76,11 @@ const VehicleSelector: React.FC<{ maxCompetitors?: number }> = ({
           style={{ backgroundColor: getColor(key) }}
         >
           <span>{getVehicleLabel(key)}</span>
+          {evalBadge(key) && (
+            <span className="text-[10px] px-1.5 py-0.5 rounded bg-white/20 font-semibold">
+              {evalBadge(key)}
+            </span>
+          )}
           <button
             aria-label={`${language === "zh" ? "移除" : "Remove"} ${getVehicleLabel(key)}`}
             onClick={() => handleRemove(key)}
@@ -103,7 +114,7 @@ const VehicleSelector: React.FC<{ maxCompetitors?: number }> = ({
             </option>
             {available.map((v) => (
               <option key={vehicleKey(v)} value={vehicleKey(v)}>
-                {getVehicleLabel(vehicleKey(v))}
+                {getVehicleLabel(vehicleKey(v))}{v.eval_version ? ` (${v.eval_version})` : ""}
               </option>
             ))}
           </LightSelect>
