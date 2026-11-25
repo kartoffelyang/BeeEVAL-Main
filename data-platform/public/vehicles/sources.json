@@ -35,6 +35,14 @@
       "page": "https://www.wey.com/lanshan.html",
       "image": "https://res.gwm.com.cn/weysite/static/src/img/navbar/h-car-wpedls.png?v=c32783ca91",
       "bytes": 18026
+    },
+    {
+      "model": "奔驰E260L",
+      "file": "奔驰E260L.webp",
+      "page": "https://rk.mb-qr.com/en/214.150/",
+      "image": "https://rk.mb-qr.com/media/thumbnails/cards/214.150_V1_Front_Final.png.1000x1000_q95.png",
+      "retrieved_on": "2026-11-25",
+      "bytes": 54796
     }
   ],
   "processing": "Official manufacturer photos; whitespace/framing adjusted for vehicle cards, resized to at most 1100x720 and encoded as WebP. Existing PNG sources retained; all model cards prefer locally hosted WebP."
