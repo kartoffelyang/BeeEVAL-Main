@@ -30,6 +30,7 @@ interface ComparisonState {
     competitorKeys: string[];
     snapshots: Record<string, VehicleScoreSnapshot>;
     loadingKeys: Set<string>;
+    failedKeys: Set<string>;
     activeTab: TabKey;
 }
 
@@ -63,6 +64,7 @@ export const ComparisonProvider: React.FC<{ children: React.ReactNode }> = ({ ch
     const [competitorKeys, setCompetitorKeys] = useState<string[]>([]);
     const [snapshots, setSnapshots] = useState<Record<string, VehicleScoreSnapshot>>({});
     const [loadingKeys, setLoadingKeys] = useState<Set<string>>(new Set());
+    const [failedKeys, setFailedKeys] = useState<Set<string>>(new Set());
     const [activeTab, setActiveTab] = useState<TabKey>('overview');
     const fetchingRef = useRef<Set<string>>(new Set());
 
@@ -87,8 +89,14 @@ export const ComparisonProvider: React.FC<{ children: React.ReactNode }> = ({ ch
             if (!snap.criteria_scores) snap.criteria_scores = [];
             if (!snap.function_domain_scores) snap.function_domain_scores = [];
             setSnapshots(prev => ({ ...prev, [key]: snap }));
+            setFailedKeys(prev => {
+                if (!prev.has(key)) return prev;
+                const next = new Set(prev);
+                next.delete(key);
+                return next;
+            });
         } catch {
-            // silently skip
+            setFailedKeys(prev => new Set(prev).add(key));
         } finally {
             fetchingRef.current.delete(key);
             setLoadingKeys(prev => {
@@ -129,6 +137,7 @@ export const ComparisonProvider: React.FC<{ children: React.ReactNode }> = ({ ch
         competitorKeys,
         snapshots,
         loadingKeys,
+        failedKeys,
         activeTab,
         setVehicles,
         setPrimaryKey,

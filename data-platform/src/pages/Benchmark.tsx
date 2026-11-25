@@ -194,7 +194,7 @@ function BenchmarkInner() {
               )}
             </p>
             <div className="bm-detail-score">
-              <strong>{snap?.overall_score?.toFixed(2) ?? "—"}</strong>
+              <strong>{(snap ? snap.overall_score : current.overall_score)?.toFixed(2) ?? "—"}</strong>
               <div>
                 <small>{c("综合总评分 / 5", "Overall score / 5")}</small>
                 <b>

@@ -98,6 +98,9 @@ const OverviewTab: React.FC = () => {
         primaryKey,
         competitorKeys,
         snapshots,
+        loadingKeys,
+        failedKeys,
+        fetchSnapshot,
         getColor,
         getVehicleLabel,
         setPrimaryKey,
@@ -218,13 +221,19 @@ const OverviewTab: React.FC = () => {
         ];
     }, [primarySnap]);
 
-    if (!primarySnap) {
-        return (
-            <div className="bg-blue-100 border border-blue-200 text-blue-700 px-4 py-6 rounded-lg text-center">
-                {t('no_aggregated_yet')}
-            </div>
-        );
-    }
+    const snapshotStatus = (key: string | null) => {
+        if (key && !loadingKeys.has(key) && failedKeys.has(key)) {
+            return (
+                <div role="alert" className="pf-panel text-center">
+                    {t('score_load_failed')}{' '}
+                    <button className="underline" onClick={() => void fetchSnapshot(key)}>{t('score_retry')}</button>
+                </div>
+            );
+        }
+        return <div role="status" className="pf-panel text-center">{t(key && loadingKeys.has(key) ? 'scores_loading' : 'no_aggregated_yet')}</div>;
+    };
+
+    if (!primarySnap) return snapshotStatus(primaryKey);
 
     return (
         <div className="space-y-6">
@@ -233,7 +242,7 @@ const OverviewTab: React.FC = () => {
                 <VehicleCard snapshot={primarySnap} color={getColor(primaryKey!)} label={getVehicleLabel(primaryKey!)} isPrimary />
                 {compSnap
                     ? <VehicleCard snapshot={compSnap} color={getColor(compKey!)} label={getVehicleLabel(compKey!)} compareTo={primarySnap.overall_score} />
-                    : <EmptyCompareCard />}
+                    : compKey ? snapshotStatus(compKey) : <EmptyCompareCard />}
             </div>
 
             {/* ── 区域一.5：任务执行表现（MiMo 任务完成率 A11 + 特殊指标） ── */}

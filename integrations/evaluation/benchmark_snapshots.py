@@ -82,7 +82,8 @@ def snapshot_read(namespace, schema=None):
     adapter = TypeAdapter(schema) if schema else None
 
     def decorate(function):
-        signature = inspect.signature(function)
+        # Resolve postponed annotations in the endpoint module before FastAPI inspects the wrapper.
+        signature = inspect.signature(function, eval_str=True)
         asynchronous = inspect.iscoroutinefunction(function)
 
         def execute(args, kwargs):
@@ -148,11 +149,13 @@ def snapshot_read(namespace, schema=None):
                 if getattr(_NESTED, 'building', False):
                     return await function(*args, **kwargs)
                 return await run_in_threadpool(execute, args, kwargs)
+            async_read.__signature__ = signature
             return async_read
 
         @functools.wraps(function)
         def sync_read(*args, **kwargs):
             return execute(args, kwargs)
+        sync_read.__signature__ = signature
         return sync_read
     return decorate
 

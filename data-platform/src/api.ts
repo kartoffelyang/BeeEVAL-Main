@@ -1049,7 +1049,7 @@ export const getVehicleAggregatedScores = async (
 ): Promise<VehicleScoreSnapshot> => {
     const params: Record<string, string> = { brand_model };
     if (system_version) params.system_version = system_version;
-    const response = await api.get(API_ENDPOINTS.AGGREGATION_VEHICLE, { params });
+    const response = await api.get(API_ENDPOINTS.AGGREGATION_VEHICLE, { params, timeout: 15000 });
     return response.data;
 };
 
