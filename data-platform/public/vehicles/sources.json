@@ -39,10 +39,11 @@
     {
       "model": "奔驰E260L",
       "file": "奔驰E260L.webp",
-      "page": "https://rk.mb-qr.com/en/214.150/",
-      "image": "https://rk.mb-qr.com/media/thumbnails/cards/214.150_V1_Front_Final.png.1000x1000_q95.png",
+      "page": "https://estore.mercedes-benz.com.cn/api/ecommerce/customers/nsts/21415010-CBQ",
+      "image": "https://estore-storage.mercedes-benz.com.cn/prod-vehicle-media-image-download/image/e70a751ab4a76beef92307a93592e13f.webp",
       "retrieved_on": "2026-11-25",
-      "bytes": 54796
+      "bytes": 69266,
+      "variant": "2026年款 E 260 L 皓雅版 轿车"
     }
   ],
   "processing": "Official manufacturer photos; whitespace/framing adjusted for vehicle cards, resized to at most 1100x720 and encoded as WebP. Existing PNG sources retained; all model cards prefer locally hosted WebP."

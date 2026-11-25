@@ -25,10 +25,11 @@ function ModelImage({ name }: { name: string }) {
   const { tv } = useMetricsTranslation();
   const [ext, setExt] = useState(0);
   const extensions = ["webp", "png", "jpg", "jpeg"];
+  const revision = name === "奔驰E260L" && ext === 0 ? "?v=2026-haoya" : "";
   useEffect(() => setExt(0), [name]);
   return ext < extensions.length ? (
     <img
-      src={`${import.meta.env.BASE_URL}vehicles/${encodeURIComponent(name)}.${extensions[ext]}`}
+      src={`${import.meta.env.BASE_URL}vehicles/${encodeURIComponent(name)}.${extensions[ext]}${revision}`}
       alt={tv(name)}
       onError={() => setExt((i) => i + 1)}
       loading="lazy"
