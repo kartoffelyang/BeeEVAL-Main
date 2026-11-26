@@ -55,8 +55,16 @@
       "model": "魏牌二代蓝山",
       "file": "魏牌二代蓝山.webp",
       "page": "https://www.wey.com/lanshan.html",
-      "image": "https://res.gwm.com.cn/weysite/static/src/img/navbar/h-car-wpedls.png?v=c32783ca91",
-      "bytes": 18026
+      "image": "https://res.gwm.com.cn/weysite/static/src/views/vehicle/lanshan/20261109/media/Acolor04.jpg?v=4148c54ebb",
+      "bytes": 57162,
+      "retrieved_on": "2026-11-26",
+      "variant": "魏牌二代蓝山 雪顶白",
+      "crop": [
+        930,
+        532,
+        2980,
+        1762
+      ]
     },
     {
       "model": "奔驰E260L",
@@ -75,6 +83,21 @@
       "retrieved_on": "2026-11-26",
       "bytes": 52240,
       "variant": "风云 T9L 沁湖蓝"
+    },
+    {
+      "model": "问界M9",
+      "file": "问界M9.webp",
+      "page": "https://www.aitoauto.com/en/aito9",
+      "image": "https://www.aitoauto.com/website-resources/global/images/aito9/outer/Cosmos%20Blue%20(2%20Tones).webp",
+      "bytes": 41394,
+      "retrieved_on": "2026-11-26",
+      "variant": "问界 M9 蓝银双拼",
+      "crop": [
+        580,
+        115,
+        3290,
+        1741
+      ]
     }
   ],
   "processing": "Official manufacturer photos; whitespace/framing adjusted for vehicle cards, resized to at most 1100x720 and encoded as WebP. Existing PNG sources retained; all model cards prefer locally hosted WebP."

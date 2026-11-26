@@ -22,6 +22,8 @@ import {
 } from "../components/platform/PlatformUI";
 
 const vehiclePhotoRevisions: Record<string, string> = {
+  "问界M9": "b7c9f90c92b1",
+  "魏牌二代蓝山": "7b18eb417fe5",
   "Freelander": "19b1f65d38d5",
   "大众与众08": "0b0036ef07cd",
   "小米澎程N90": "333716c41026",
