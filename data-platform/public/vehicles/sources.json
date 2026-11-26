@@ -5,8 +5,16 @@
       "model": "Freelander",
       "file": "Freelander.webp",
       "page": "https://www.freelander-ev.com/freelander8",
-      "image": "https://cms-freelander-cdn.mychery.com/platform/public/fr/image/20260805/20260805110226_26.jpg",
-      "bytes": 94300
+      "image": "https://cms-freelander-cdn.mychery.com/platform/public/fr/image/20260810/20260810201434_72.jpg",
+      "bytes": 66562,
+      "retrieved_on": "2026-11-26",
+      "variant": "神行者 8 流光银（高亮）",
+      "crop": [
+        950,
+        455,
+        2800,
+        1565
+      ]
     },
     {
       "model": "大众与众08",

@@ -22,6 +22,7 @@ import {
 } from "../components/platform/PlatformUI";
 
 const vehiclePhotoRevisions: Record<string, string> = {
+  "Freelander": "19b1f65d38d5",
   "大众与众08": "0b0036ef07cd",
   "小米澎程N90": "333716c41026",
   "奔驰E260L": "2026-haoya",
