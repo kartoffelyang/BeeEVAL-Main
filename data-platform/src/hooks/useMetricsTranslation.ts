@@ -91,6 +91,9 @@ export function useMetricsTranslation() {
 
   // 车型名(brand_model) 中→英（前缀匹配 + 保留型号后缀）
   const tv = useCallback((brandModel: string): string => {
+    if (brandModel === '奇瑞风云T9L-灵犀智舱2.0') {
+      return language === 'zh' ? '风云T9L' : 'Fulwin T9L';
+    }
     if (language === 'zh' || !brandsCache) return brandModel;
     return translateBrandModel(brandModel, brandsCache);
   }, [language, ready]);
