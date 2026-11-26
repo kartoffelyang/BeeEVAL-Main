@@ -86,7 +86,7 @@ def case_search(
     max_score_exclusive: bool = False, exclude_review: bool = True,
     include_failed: bool = False, status: Optional[str] = None,
     sort_by: str = 'case_id', sort_order: str = 'asc', facets_only: bool = False,
-    current_user: dict = Depends(require_user()),
+    group_by_case: bool = False, current_user: dict = Depends(require_user()),
 ):
     filters = dict(brand_model=brand_model, system_version=system_version, function_domain=function_domain,
                    case_id=case_id, video_name=video_name, exclude_review=exclude_review,
@@ -136,6 +136,29 @@ def case_search(
         FROM page vr ORDER BY vr.{field} {direction} NULLS LAST, vr.id DESC)
         SELECT (SELECT COUNT(*) FROM filtered) AS total,
         COALESCE((SELECT json_agg(cards) FROM cards), '[]'::json) AS data"""
+    if group_by_case:
+        # Select complete case groups after all visibility and search filters. Fetch
+        # only the fields the picker displays; full evidence is read on selection.
+        sql = f"""WITH filtered AS MATERIALIZED (
+            SELECT vr.id, COALESCE(NULLIF(vr.case_id, ''), vr.id::text) AS group_key,
+                   NULLIF(vr.case_id, '') IS NULL AS unassigned
+            FROM video_results vr{search_join}{clause}
+        ), groups AS MATERIALIZED (
+            SELECT DISTINCT unassigned, group_key FROM filtered
+        ), page AS (
+            SELECT * FROM groups ORDER BY unassigned, group_key {direction} LIMIT %s OFFSET %s
+        ), cards AS (
+            SELECT f.unassigned, f.group_key, vr.id, vr.case_id, vr.brand_model, vr.system_version,
+                   vr.function_domain, vr.video_name, jsonb_strip_nulls(jsonb_build_object(
+                       'user_question', vr.metadata->'user_question',
+                       'task_success', vr.metadata->'task_success',
+                       'response_quality_score', vr.metadata->'response_quality_score')) AS metadata
+            FROM page JOIN filtered f USING (unassigned, group_key) JOIN video_results vr ON vr.id=f.id
+        )
+        SELECT (SELECT COUNT(*) FROM filtered) AS total, (SELECT COUNT(*) FROM groups) AS total_cases,
+               COALESCE((SELECT jsonb_agg(to_jsonb(c) - 'group_key' - 'unassigned'
+                   ORDER BY unassigned, group_key {direction}, brand_model, system_version, id DESC)
+                   FROM cards c), '[]'::jsonb) AS data"""
     result = supabase.raw_sql(sql, values + [limit, offset]).data[0]
     rows = result.get('data') or []
     for row in rows:
@@ -147,4 +170,7 @@ def case_search(
         else:
             row.update(classification(row))
             row['case_definition'] = test_case_tag_service.get_content(row.get('case_id'))
-    return {'data': rows, 'total': result['total'], 'offset': offset, 'limit': limit}
+    response = {'data': rows, 'total': result['total'], 'offset': offset, 'limit': limit}
+    if group_by_case:
+        response['total_cases'] = result['total_cases']
+    return response

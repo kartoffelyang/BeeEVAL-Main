@@ -44,7 +44,7 @@ const result = (id, text) => ({
       metadata: { user_question: text, response_quality_score: 4 },
     },
   ],
-  total: 1,
+  total: 1, total_cases: 1,
   facets: {task_types:["天窗天幕控制", "车窗开合控制"], difficulties:["基础验收", "进阶验收"]},
 });
 (async () => {
@@ -65,7 +65,7 @@ const result = (id, text) => ({
           b.onLoad({ filter: /\/api\.ts$/ }, () => ({
             loader: "ts",
             contents:
-              "export const getAllResults=(p,o)=>globalThis.__caseAPI(p,o);export const getCaseContentSearch=getAllResults;export const getCaseSearchFacets=()=>globalThis.__facetAPI();export const getFilterOptions=()=>Promise.resolve({function_domains:[]});export const listVehiclesForAggregation=()=>Promise.resolve([]);export const getMetricsMap=()=>Promise.resolve({});export const getDomainsMap=()=>Promise.resolve({});export const getTaskDetailMap=()=>Promise.resolve({});export const getBrandMap=()=>Promise.resolve({});",
+              "export const getAllResults=(p,o)=>globalThis.__caseAPI(p,o);export const translateText=async()=>({translated:'Open the sunroof'});export const getCaseContentSearch=getAllResults;export const getCaseSearchFacets=()=>globalThis.__facetAPI();export const getFilterOptions=()=>Promise.resolve({function_domains:[]});export const listVehiclesForAggregation=()=>Promise.resolve([]);export const getMetricsMap=()=>Promise.resolve({});export const getDomainsMap=()=>Promise.resolve({});export const getTaskDetailMap=()=>Promise.resolve({});export const getBrandMap=()=>Promise.resolve({});",
           }));
           b.onLoad({ filter: /LanguageContext\.tsx$/ }, () => ({
             loader: "ts",
@@ -99,8 +99,30 @@ const result = (id, text) => ({
       ),
     ),
   );
-  await act(async () => requests.at(-1).resolve(result("1", "打开天窗")));
-  assert.ok(document.querySelector(".case-group"));
+  assert.equal(requests.at(-1).params.group_by_case, true);
+  const sample = result("1", "打开天窗");
+  const original = sample.data[0];
+  sample.data.push({...original, id:"1b", brand_model:"车型乙"}, {...original, id:"1c"},
+    {...original, id:"2a", case_id:"2"});
+  sample.total = 301;
+  sample.total_cases = 31;
+  await act(async () => requests.at(-1).resolve(sample));
+  const toggles = document.querySelectorAll("button.case-group-title");
+  assert.equal(toggles.length, 2);
+  assert.equal(toggles[0].getAttribute("aria-expanded"), "false");
+  assert.match(toggles[0].textContent, /2 款车型/);
+  assert.equal(document.querySelectorAll(".case-record").length, 0);
+  assert.match(document.querySelector(".case-pagination").textContent, /1 \/ 2/);
+  await act(async () => toggles[0].click());
+  assert.equal(document.querySelectorAll(".case-record").length, 3);
+  await act(async () => toggles[1].click());
+  assert.equal(toggles[0].getAttribute("aria-expanded"), "false");
+  assert.equal(document.querySelectorAll(".case-record").length, 1);
+  await act(async () => document.querySelector(".case-record").click());
+  assert.equal(requests.at(-1).params.result_id, "2a");
+  await act(async () => requests.at(-1).resolve({data:[sample.data[3]]}));
+  await act(async () => toggles[1].click());
+  assert.equal(document.querySelectorAll(".case-record").length, 0);
   assert.ok(facetRequests.length, "Facets load separately after visible rows");
   assert.ok(!document.querySelector(".case-result-heading").textContent.includes("正在查找"));
   await act(async () => facetRequests.at(-1)(result("1", "打开天窗").facets));
@@ -121,13 +143,13 @@ const result = (id, text) => ({
   }
   await submit("音乐");
   assert.equal(
-    document.querySelector(".case-group h3").textContent,
+    document.querySelector(".case-group .case-question").textContent,
     "打开天窗",
   );
   assert.equal(scroll.scrollTop, 777);
   await act(async () => requests.at(-1).resolve(result("2", "播放音乐")));
   assert.equal(
-    document.querySelector(".case-group h3").textContent,
+    document.querySelector(".case-group .case-question").textContent,
     "播放音乐",
   );
   assert.equal(scroll.scrollTop, 777);
@@ -138,7 +160,7 @@ const result = (id, text) => ({
     requests.at(-1).reject(new Error("temporary upstream error")),
   );
   assert.equal(
-    document.querySelector(".case-group h3").textContent,
+    document.querySelector(".case-group .case-question").textContent,
     "播放音乐",
   );
   assert.ok(
@@ -152,12 +174,12 @@ const result = (id, text) => ({
   assert.equal(old.options.signal.aborted, true);
   await act(async () => old.resolve(result("3", "过期结果")));
   assert.notEqual(
-    document.querySelector(".case-group h3").textContent,
+    document.querySelector(".case-group .case-question").textContent,
     "过期结果",
   );
   await act(async () => requests.at(-1).resolve(result("4", "新的天窗结果")));
   assert.equal(
-    document.querySelector(".case-group h3").textContent,
+    document.querySelector(".case-group .case-question").textContent,
     "新的天窗结果",
   );
   assert.equal(scroll.scrollTop, 777);

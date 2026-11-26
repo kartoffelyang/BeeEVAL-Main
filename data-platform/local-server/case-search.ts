@@ -131,7 +131,22 @@ export function queryCases(rows: CaseRecord[], params: URLSearchParams) {
     1,
     Math.min(100, Math.floor(Number(params.get("limit")) || 30)),
   );
+  const byCase = params.get("group_by_case") === "true";
+  let page = filtered.slice(offset, offset + limit);
+  let totalCases = 0;
+  if (byCase) {
+    const groups = new Map<string, CaseRecord[]>();
+    for (const row of filtered) {
+      const key = row.case_id ? `case:${row.case_id}` : `record:${row.id}`;
+      const group = groups.get(key);
+      if (group) group.push(row);
+      else groups.set(key, [row]);
+    }
+    totalCases = groups.size;
+    page = Array.from(groups.values()).slice(offset, offset + limit).flat();
+  }
   return {
+    ...(byCase ? { total_cases: totalCases } : {}),
     facets: (() => {
       const scoped = rows.filter(row => !row._locked && hasVehicleModel(row.brand_model) && (params.get("hide_volkswagen") !== "true" || !isHiddenVehicle(row.brand_model)) &&
         ["brand_model", "system_version", "function_domain"].every(key => !params.get(key) || String(row[key] ?? "") === params.get(key)));
@@ -139,7 +154,7 @@ export function queryCases(rows: CaseRecord[], params: URLSearchParams) {
       return { task_types: [...new Set(tags.map(t => t.task_detail))].sort((a,b) => a.localeCompare(b, "zh-CN")),
         difficulties: [...new Set(tags.map(t => t.acceptance_tag))] };
     })(),
-    data: filtered.slice(offset, offset + limit),
+    data: page,
     total: filtered.length,
     offset,
     limit,

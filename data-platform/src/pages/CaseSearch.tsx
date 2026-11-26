@@ -10,7 +10,7 @@ import {
   useState,
 } from "react";
 import { useSearchParams } from "react-router-dom";
-import { Search, ArrowRight, RotateCcw } from "lucide-react";
+import { Search, ArrowRight, RotateCcw, ChevronDown } from "lucide-react";
 import {
   getCaseContentSearch,
   getCaseSearchFacets,
@@ -52,6 +52,8 @@ export default function CaseSearch() {
   );
   const [rows, setRows] = useState<any[]>([]);
   const [total, setTotal] = useState(0);
+  const [totalCases, setTotalCases] = useState(0);
+  const [expanded, setExpanded] = useState<string | null>(null);
   const [domains, setDomains] = useState<string[]>([]);
   const [taskTypes, setTaskTypes] = useState<string[]>([]);
   const [difficulties, setDifficulties] = useState<string[]>([]);
@@ -106,7 +108,7 @@ export default function CaseSearch() {
       p.delete('task_detail');p.delete('acceptance_tag');p.delete('page');setParams(p,{replace:true});
     }
   },[trial,signature]);
-  const page = Math.max(0, Number(params.get("page")) || 0);
+  const page = Math.max(0, Math.floor(Number(params.get("page"))) || 0);
   useEffect(() => {
     if (!signature) {
       const saved = stored(STORE, null);
@@ -139,6 +141,7 @@ export default function CaseSearch() {
     if (!ready) return;
     let cancelled = false;
     const controller = new AbortController();
+    setExpanded(null);
     setLoading(true);
     setError("");
     setSearchProgress("");
@@ -146,6 +149,7 @@ export default function CaseSearch() {
     const run = () =>
       getCaseContentSearch(
         {
+          group_by_case: true,
           offset: page * PAGE_SIZE,
           limit: PAGE_SIZE,
           brand_model: model || undefined,
@@ -175,12 +179,22 @@ export default function CaseSearch() {
             timer = setTimeout(run, 2000);
             return;
           }
+          if (!Number.isSafeInteger(r.total_cases)) throw new Error("invalid_case_page");
+          const lastPage = Math.max(0, Math.ceil(r.total_cases / PAGE_SIZE) - 1);
+          if (page > lastPage) {
+            const next = new URLSearchParams(params);
+            if (lastPage) next.set("page", String(lastPage));
+            else next.delete("page");
+            setParams(next, { replace: true });
+            return;
+          }
           setSearchProgress("");
           setSearchWarning(r.warning || "");
           setLoading(false);
           if (!cancelled) {
             setRows(r.data);
             setTotal(r.total);
+            setTotalCases(r.total_cases);
             setFacetScope(JSON.stringify({brand_model: model || undefined, system_version: version || undefined,
               function_domain: trial ? TRIAL_DOMAIN : params.get('function_domain') || undefined, exclude_review: true}));
           }
@@ -216,7 +230,7 @@ export default function CaseSearch() {
       controller.abort();
       clearTimeout(timer);
     };
-  }, [signature, retry, ready]);
+  }, [signature, retry, ready, trial]);
   useEffect(() => {
     if (!facetScope) return;
     const controller = new AbortController();
@@ -316,15 +330,10 @@ export default function CaseSearch() {
   const groups = useMemo(() => {
     const m = new Map<string, any[]>();
     for (const r of rows) {
-      const key = r.case_id || r.id;
-      (
-        m.get(key) ||
-        (() => {
-          const a: any[] = [];
-          m.set(key, a);
-          return a;
-        })()
-      ).push(r);
+      const key = r.case_id ? `case:${r.case_id}` : `record:${r.id}`;
+      const group = m.get(key);
+      if (group) group.push(r);
+      else m.set(key, [r]);
     }
     return Array.from(m.entries());
   }, [rows]);
@@ -545,7 +554,7 @@ export default function CaseSearch() {
         <span aria-live="polite">
           {loading
             ? searchProgress || c("正在查找…", "Loading…")
-            : `${total} ${c("条测试记录", "test records")}`}
+            : c(`${totalCases} 个用例 · ${total} 条测试记录`, `${totalCases} ${totalCases === 1 ? "case" : "cases"} · ${total} ${total === 1 ? "test record" : "test records"}`)}
         </span>
       </div>
       {loading && rows.length === 0 ? (
@@ -584,67 +593,72 @@ export default function CaseSearch() {
         />
       ) : (
         <div className="case-results">
-          {groups.map(([id, records]) => (
-            <section className="case-group" key={id}>
-              <div className="case-group-title">
-                <span className="case-code">
-                  {c("用例", "CASE")} {id}
-                </span>
+          {groups.map(([id, records]) => {
+            const first = records[0];
+            const isOpen = expanded === id;
+            const panelId = `case-vehicles-${encodeURIComponent(id)}`;
+            const modelCount = new Set(records.map(record => record.brand_model)).size;
+            return (
+              <section className="case-group" key={id}>
                 <h3>
-                  <TranslatedText text={records[0].case_definition ||
-                    records[0].metadata?.user_question ||
-                    records[0].user_question ||
-                    records[0].video_name} />
-                </h3>
-                <span>
-                  {records[0].function_domain
-                    ? td(records[0].function_domain)
-                    : "—"}
-                </span>
-              </div>
-              <div className="case-records">
-                {records.map((r) => (
-                  <button
-                    key={r.id}
-                    className="case-record"
-                    disabled={!!pendingEvidence}
-                    onClick={() => void openEvidence(r)}
-                  >
-                    <div>
-                      <strong>
-                        {r.brand_model
-                          ? tv(r.brand_model)
-                          : c("车型未提供", "Model unavailable")}
-                      </strong>
-                      <span>
-                        {r.system_version ||
-                          c("版本未提供", "Version unavailable")}
-                      </span>
-                    </div>
-                    <div>
-                      <span>
-                        {r.metadata?.task_success === true ||
-                        r.metadata?.task_success === "true"
-                          ? c("完成", "Completed")
-                          : r.metadata?.task_success === false ||
-                              r.metadata?.task_success === "false"
-                            ? c("未完成", "Failed")
-                            : c("结果未标注", "Unlabeled")}
-                      </span>
-                      <b>
-                        {r.metadata?.response_quality_score ?? "—"}{" "}
-                        <small>/ 5</small>
-                      </b>
-                      <span className="case-evidence-cta">
-                        {pendingEvidence === String(r.id) ? c("正在打开…", "Opening…") : c("查看证据", "Evidence")}
-                        <ArrowRight size={14} />
-                      </span>
-                    </div>
+                  <button type="button" className="case-group-title" aria-expanded={isOpen}
+                    aria-controls={panelId} onClick={() => setExpanded(isOpen ? null : id)}>
+                    <span className="case-code">
+                      {first.case_id ? `${c("用例", "Case")} ${first.case_id}` : c("未编号用例", "Unnumbered case")}
+                    </span>
+                    <span className="case-question">
+                      <TranslatedText text={first.case_definition || first.metadata?.user_question ||
+                        first.user_question || first.video_name || c("用例详情", "Case details")} />
+                    </span>
+                    {first.function_domain && <span className="case-domain">{td(first.function_domain)}</span>}
+                    <span className="case-model-count">{c(`${modelCount} 款车型`, `${modelCount} ${modelCount === 1 ? "model" : "models"}`)}</span>
+                    <ChevronDown size={16} aria-hidden="true" />
                   </button>
-                ))}
-              </div>
-            </section>
-          ))}
+                </h3>
+                <div className="case-records" id={panelId} hidden={!isOpen}>
+                  {isOpen && records.map((r) => (
+                    <button
+                      key={r.id}
+                      className="case-record"
+                      disabled={!!pendingEvidence}
+                      onClick={() => void openEvidence(r)}
+                    >
+                      <div>
+                        <strong>
+                          {r.brand_model
+                            ? tv(r.brand_model)
+                            : c("车型未提供", "Model unavailable")}
+                        </strong>
+                        <span>
+                          {r.system_version ||
+                            c("版本未提供", "Version unavailable")}
+                        </span>
+                      </div>
+                      <div>
+                        <span>
+                          {r.metadata?.task_success === true ||
+                          r.metadata?.task_success === "true"
+                            ? c("完成", "Completed")
+                            : r.metadata?.task_success === false ||
+                                r.metadata?.task_success === "false"
+                              ? c("未完成", "Failed")
+                              : c("结果未标注", "Unlabeled")}
+                        </span>
+                        <b>
+                          {r.metadata?.response_quality_score ?? "—"}{" "}
+                          <small>/ 5</small>
+                        </b>
+                        <span className="case-evidence-cta">
+                          {pendingEvidence === String(r.id) ? c("正在打开…", "Opening…") : c("查看证据", "Evidence")}
+                          <ArrowRight size={14} />
+                        </span>
+                      </div>
+                    </button>
+                  ))}
+                </div>
+              </section>
+            );
+          })}
         </div>
       )}
       {!loading && !error && total > 0 && (
@@ -656,10 +670,10 @@ export default function CaseSearch() {
             {c("上一页", "Previous")}
           </button>
           <span>
-            {page + 1} / {Math.max(1, Math.ceil(total / PAGE_SIZE))}
+            {page + 1} / {Math.max(1, Math.ceil(totalCases / PAGE_SIZE))}
           </span>
           <button
-            disabled={(page + 1) * PAGE_SIZE >= total}
+            disabled={(page + 1) * PAGE_SIZE >= totalCases}
             onClick={() => {
               const p = new URLSearchParams(params);
               p.set("page", String(page + 1));
@@ -668,12 +682,6 @@ export default function CaseSearch() {
           >
             {c("下一页", "Next")}
           </button>
-          <small>
-            {c(
-              "同一用例的记录可能跨页，输入编号可单独定位。",
-              "Records for a case may span pages. Search its ID to locate them.",
-            )}
-          </small>
         </div>
       )}
       {detail && (

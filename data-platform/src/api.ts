@@ -2308,9 +2308,9 @@ export const saveReportConfig = async (kind: RecipeKind, content: string): Promi
 
 
 /** Local content-search adapter, backed exclusively by authorized live records. */
-export const getCaseContentSearch = async (params: Parameters<typeof getAllResults>[0], requestOptions?: {signal?:AbortSignal}) => {
+export const getCaseContentSearch = async (params: Parameters<typeof getAllResults>[0] & {group_by_case?: boolean}, requestOptions?: {signal?:AbortSignal}) => {
     const response=await api.get('/cases/search',{params,signal:requestOptions?.signal});
-    return response.data as PaginatedResponse<any> & {status?:'indexing';scanned?:number;facets?:{task_types:string[];difficulties:string[]}};
+    return response.data as PaginatedResponse<any> & {total_cases?:number;status?:'indexing';scanned?:number;facets?:{task_types:string[];difficulties:string[]}};
 };
 
 /** Load filter vocabulary after the visible page; a facet scan must not block rows. */

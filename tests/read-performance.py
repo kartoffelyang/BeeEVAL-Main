@@ -82,6 +82,14 @@ r = search.case_search(current_user={'role': 'viewer', 'membership_tier': None})
 assert r['data'][0]['_locked'] and 'video_name' not in r['data'][0] and r['data'][0]['metadata'] == {}
 sql, args = db.raw_sql.call_args.args
 assert ['车型甲'] in args
+db.raw_sql.return_value.data = [{'total': 43, 'total_cases': 2, 'data': [
+    {'id': '1', 'case_id': '1001'}, {'id': '2', 'case_id': '1001'}]}]
+r = search.case_search(current_user=trial, group_by_case=True, limit=1, search='天窗')
+sql, args = db.raw_sql.call_args.args
+assert r['total_cases'] == 2 and r['total'] == 43 and len(r['data']) == 2
+assert '出行域' in args and 'evaluation_publication_results' in sql
+assert 'SELECT DISTINCT unassigned, group_key FROM filtered' in sql
+assert 'JOIN filtered f USING' in sql and args[-2:] == [1, 0]
 calls = []
 @cache.cached_read(ttl=20)
 def read(principal):

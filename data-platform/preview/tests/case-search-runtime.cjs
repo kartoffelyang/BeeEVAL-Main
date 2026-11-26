@@ -81,6 +81,14 @@ const esbuild = require(require.resolve("esbuild", { paths: [root] }));
   assert.equal(search("天窗", { max_score: "2.99" }).total, 0);
   assert.equal(search("天窗", { offset: "1", limit: "1" }).data[0].id, "d");
   assert.equal(caseContent(rows[4]), "");
+  const many = Array.from({length: 110}, (_, i) => ({...rows[0], id: String(i)}));
+  const grouped = new URLSearchParams({group_by_case:"true", limit:"1"});
+  const first = queryCases([...many, rows[1]], grouped);
+  assert.equal(first.total_cases, 2);
+  assert.equal(first.total, 111);
+  assert.equal(first.data.length, 110);
+  grouped.set("offset", "1");
+  assert.deepEqual(queryCases([...many, rows[1]], grouped).data.map(row => row.id), ["b"]);
   const invalidModels = [undefined, null, "", "   ", "车型未提供", "—", "null", "unknown"];
   const invalidRows = invalidModels.map((brand_model, i) => ({id: "missing-" + i, brand_model, case_id:"1001", metadata:{user_question:"打开天窗", response_quality_score:5}}));
   for (const params of [{}, {search:"天窗"}, {case_id:"1001"}, {min_score:"4"}]) {
