@@ -11,16 +11,30 @@
     {
       "model": "大众与众08",
       "file": "大众与众08.webp",
-      "page": "https://www.idux-vw.com/unyx08",
-      "image": "https://assets-cdn.idux-vw.com/cpms/campaign/71011d12-8ad0-4e84-9650-f36025dd1cc4.png",
-      "bytes": 117032
+      "page": "https://www.volkswagen-group.com/en/images/detail/volkswagen-id-unyx-08-87864",
+      "image": "https://uploads.vw-mms.de/system/production/images/cws/087/864/images/70220b90f0a945e8f4cbc9e3d66c7d7b494252d3/B2026CW00108_large.png",
+      "bytes": 51438,
+      "retrieved_on": "2026-11-26",
+      "crop": [
+        440,
+        165,
+        3660,
+        2097
+      ]
     },
     {
       "model": "小米澎程N90",
       "file": "小米澎程N90.webp",
-      "page": "https://www.xiaomiev.com/",
-      "image": "https://s1.xiaomiev.com/activity-outer-assets/0328/images/n70_20260907/pc/n90.png",
-      "bytes": 19798
+      "page": "https://www.xiaomiev.com/skynomad/n90",
+      "image": "https://s1.xiaomiev.com/activity-outer-assets/0328/images/n90/pc/4.jpg",
+      "bytes": 71418,
+      "retrieved_on": "2026-11-26",
+      "crop": [
+        635,
+        358,
+        1895,
+        1114
+      ]
     },
     {
       "model": "小鹏GX",

@@ -22,6 +22,8 @@ import {
 } from "../components/platform/PlatformUI";
 
 const vehiclePhotoRevisions: Record<string, string> = {
+  "大众与众08": "0b0036ef07cd",
+  "小米澎程N90": "333716c41026",
   "奔驰E260L": "2026-haoya",
   "奇瑞风云T9L-灵犀智舱2.0": "qinhu-blue-1",
 };
