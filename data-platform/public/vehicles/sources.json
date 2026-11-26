@@ -44,6 +44,15 @@
       "retrieved_on": "2026-11-25",
       "bytes": 69266,
       "variant": "2026年款 E 260 L 皓雅版 轿车"
+    },
+    {
+      "model": "奇瑞风云T9L-灵犀智舱2.0",
+      "file": "奇瑞风云T9L-灵犀智舱2.0.webp",
+      "page": "https://fulwin.chery.cn/vehicles/t9l/",
+      "image": "https://material.chery.cn/media/ib4lf0hi/t9l-color%E8%93%9D-2x.png",
+      "retrieved_on": "2026-11-26",
+      "bytes": 52240,
+      "variant": "风云 T9L 沁湖蓝"
     }
   ],
   "processing": "Official manufacturer photos; whitespace/framing adjusted for vehicle cards, resized to at most 1100x720 and encoded as WebP. Existing PNG sources retained; all model cards prefer locally hosted WebP."
