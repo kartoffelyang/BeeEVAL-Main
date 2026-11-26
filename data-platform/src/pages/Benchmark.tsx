@@ -21,11 +21,17 @@ import {
   PlatformAction,
 } from "../components/platform/PlatformUI";
 
+const vehiclePhotoRevisions: Record<string, string> = {
+  "奔驰E260L": "2026-haoya",
+  "奇瑞风云T9L-灵犀智舱2.0": "qinhu-blue-1",
+};
+
 function ModelImage({ name }: { name: string }) {
   const { tv } = useMetricsTranslation();
   const [ext, setExt] = useState(0);
   const extensions = ["webp", "png", "jpg", "jpeg"];
-  const revision = name === "奔驰E260L" && ext === 0 ? "?v=2026-haoya" : "";
+  const photoRevision = vehiclePhotoRevisions[name];
+  const revision = ext === 0 && photoRevision ? `?v=${photoRevision}` : "";
   useEffect(() => setExt(0), [name]);
   return ext < extensions.length ? (
     <img
