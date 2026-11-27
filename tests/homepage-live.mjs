@@ -6,7 +6,7 @@ const {JSDOM}=require('jsdom');
 const dom=new JSDOM('<p data-benchmark-source></p><b data-benchmark-domain-count></b><span data-benchmark-updated></span><p data-benchmark-baseline-source></p>',{url:'http://localhost'});
 globalThis.document=dom.window.document;globalThis.localStorage=dom.window.localStorage;
 const vehicle={name:'理想L9 Livis',version:'9.0.2',domains:{出行域:{avg_score:4},车控域:{avg_score:3}},overall:{overall_score:3.75,computed_at:'2026-11-23T10:00:00Z'}};
-const data={report_version:'live-v1',as_of:'2026-11-23',statistics:{vehicles:[vehicle],scenarios:[]},anonymous:{metrics:[],scenes:[]}};
+const data={visibility_policy:'exclude-v1',report_version:'live-v1',as_of:'2026-11-23',statistics:{vehicles:[vehicle],scenarios:[]},anonymous:{metrics:[],scenes:[]}};
 let calls=[];
 globalThis.fetch=async(url,options)=>{calls.push({url,options});return{ok:true,json:async()=>data}};
 const frontend=await import('../site/benchmark-data.js?fresh');
@@ -23,7 +23,7 @@ await loadBenchmarkPreview('https://evaluation.example',async(url,options)=>{
 });
 await assert.rejects(loadBenchmarkPreview('https://evaluation.example',async()=>({ok:true,json:async()=>({statistics:{vehicles:[]}})})));
 calls=[];
-globalThis.fetch=async url=>{calls.push(url);return url.startsWith('/api/')?{ok:false}:{ok:true,json:async()=>url.includes('anonymous')?{metrics:[],scenes:[]}:{...data,report_version:'2.0',as_of:'2026-10-07'}}};
+globalThis.fetch=async url=>{calls.push(url);return url.startsWith('/api/')?{ok:false}:{ok:true,json:async()=>url.includes('anonymous')?{visibility_policy:'exclude-v1',metrics:[],scenes:[]}:{...data,report_version:'2.0',as_of:'2026-10-07'}}};
 const fallback=await import('../site/benchmark-data.js?fallback');const archived=await fallback.loadBenchmarkData();assert.ok(archived.isStale);
 fallback.updateBenchmarkLabels(archived,vehicle);assert.match(document.querySelector('[data-benchmark-source]').textContent,/Archived/);
 console.log('PASS: one shared live homepage request, real values and current dates, bilingual source labels, explicit archived fallback and credential-free finite preview bridge');

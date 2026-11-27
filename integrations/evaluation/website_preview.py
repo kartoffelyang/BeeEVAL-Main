@@ -42,7 +42,7 @@ def benchmark_preview():
     snapshots = asyncio.run(aggregation.all_vehicle_scores(current_user={'role':'admin'}))
     latest = {}
     for item in snapshots:
-        if item.brand_model not in PUBLIC_MODELS or item.overall_score is None:
+        if item.eval_version == 'V1' or item.brand_model not in PUBLIC_MODELS or item.overall_score is None:
             continue
         previous = latest.get(item.brand_model)
         if previous is None or (item.last_computed_at or '') > (previous.last_computed_at or ''):
@@ -58,7 +58,7 @@ def benchmark_preview():
         vehicles.append(dict(name=name, version=item.system_version,
             overall=dict(overall_score=item.overall_score, domain_count=sum(d.dimension_key in STANDARD_FUNCTION_DOMAINS for d in item.function_domain_scores),
                          sample_count=item.overall_sample_count, computed_at=item.last_computed_at,
-                         scoring_version=item.scoring_version),
+                         scoring_version=item.scoring_version, eval_version=item.eval_version),
             domains={d.dimension_key:dict(key=d.dimension_key,avg_score=d.avg_score,sample_count=d.sample_count)
                      for d in item.function_domain_scores if d.dimension_key in STANDARD_FUNCTION_DOMAINS},
             criteria={m.dimension_key:dict(key=m.dimension_key,avg_score=m.avg_score,sample_count=m.sample_count)
@@ -83,7 +83,7 @@ def benchmark_preview():
                 if name == sample_name:
                     sample_scenes.append({k:row[k] for k in ('domain','task','success','failed','completion','n')})
     as_of = max((v['overall']['computed_at'] or '' for v in vehicles),default='')[:10]
-    return dict(report_version='live-v1',as_of=as_of,generated_at=datetime.now(timezone.utc).isoformat(),
+    return dict(report_version='live-v1',visibility_policy='exclude-v1',as_of=as_of,generated_at=datetime.now(timezone.utc).isoformat(),
         source='BeeEVAL published scoring snapshots',score_scale=[1,5],
         statistics=dict(vehicles=vehicles,sample_count=sum(v['overall']['sample_count'] or 0 for v in vehicles),
             scenarios=[dict(domain=domain,task=task,vehicles=len(rows),sample_count=sum(r['n'] for r in rows),

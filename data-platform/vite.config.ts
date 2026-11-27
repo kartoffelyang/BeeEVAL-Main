@@ -33,10 +33,12 @@ export default defineConfig({
             // 后端地址可用 VITE_API_TARGET 覆盖（本机后端端口冲突时改端口用），默认 8000
             '/api': {
                 target: process.env.VITE_API_TARGET || 'http://localhost:8000',
+                headers: { 'X-BeeEVAL-Website': '1' },
                 changeOrigin: true,
             },
             '/screenshots': {
                 target: process.env.VITE_API_TARGET || 'http://localhost:8000',
+                headers: { 'X-BeeEVAL-Website': '1' },
                 changeOrigin: true,
             },
         },

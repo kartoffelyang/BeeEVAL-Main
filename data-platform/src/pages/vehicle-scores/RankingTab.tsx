@@ -231,7 +231,7 @@ const RankingTab: React.FC = () => {
   const { vehicles, primaryKey, setPrimaryKey } = useComparison();
 
   const [view, setView] = useState<"metric" | "acceptance">("metric");
-  const [verFilter, setVerFilter] = useState<"all" | "V2" | "V1">("all");
+  const [verFilter, setVerFilter] = useState<"all" | "V2.0" | "V2.1">("all");
 
   // 指标排行榜行（功能域均分）。
   const [metricRows, setMetricRows] = useState<RankRow[]>([]);
@@ -315,7 +315,7 @@ const RankingTab: React.FC = () => {
   };
 
   const matchVer = (ev?: string | null) =>
-    verFilter === "all" || (verFilter === "V2" ? Boolean(ev?.startsWith("V2")) : ev === "V1");
+    verFilter === "all" || ev === verFilter;
   const visibleMetricRows = useMemo(() => metricRows.filter(r => matchVer(r.eval_version)), [metricRows, verFilter]);
 
   if (loading) {
@@ -338,7 +338,7 @@ const RankingTab: React.FC = () => {
           onChange={(value) => setView(value as typeof view)}
         />
         <div className="flex items-center gap-1.5 text-xs">
-          {(["all", "V2", "V1"] as const).map((opt) => (
+          {(["all", "V2.0", "V2.1"] as const).map((opt) => (
             <button
               key={opt}
               type="button"

@@ -55,7 +55,7 @@ const server = createServer(async (req, res) => {
       res.end();
       return;
     }
-    const headers = new Headers();
+    const headers = new Headers({ "X-BeeEVAL-Website": "1" });
     for (const name of [
       "authorization",
       "content-type",

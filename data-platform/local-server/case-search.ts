@@ -184,7 +184,7 @@ export function createCaseSearch(
   async function fetchJson(path: string, authorization: string, retries = 0): Promise<any> {
     try {
     const r = await fetch(upstream + path, {
-      headers: { Authorization: authorization },
+      headers: { "X-BeeEVAL-Website": "1", Authorization: authorization },
       signal: AbortSignal.timeout(60_000),
     });
     if (!r.ok) {

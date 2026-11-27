@@ -26,7 +26,7 @@ async function verifyData(authorization: string) {
     const result: any = { checked_at: new Date().toISOString() };
     try {
       const response = await fetch(upstream + endpoint, {
-        headers: { Authorization: authorization },
+        headers: { "X-BeeEVAL-Website": "1", Authorization: authorization },
         signal: AbortSignal.timeout(90000),
       });
       result.status = response.status;
@@ -90,7 +90,7 @@ async function verifyData(authorization: string) {
     const result: any = { checked_at: new Date().toISOString() };
     try {
       const response = await fetch(upstream + endpoint, {
-        headers: { Authorization: authorization },
+        headers: { "X-BeeEVAL-Website": "1", Authorization: authorization },
         signal: AbortSignal.timeout(90000),
       });
       result.status = response.status;
@@ -208,7 +208,7 @@ export default mergeConfig(
       open: false,
       proxy: {
         "/api": {
-          target: upstream,
+          target: upstream, headers: { "X-BeeEVAL-Website": "1" },
           changeOrigin: true,
           secure: true,
           configure(proxy) {
@@ -237,7 +237,7 @@ export default mergeConfig(
                   {
                     url: "/api/cases/search?exclude_review=true",
                     method: "GET",
-                    headers: { authorization: request.headers.authorization },
+                    headers: { "X-BeeEVAL-Website": "1", authorization: request.headers.authorization },
                   } as any,
                   {
                     setHeader() {},
@@ -273,6 +273,7 @@ export default mergeConfig(
                             url: "/api/cases/search?exclude_review=true",
                             method: "GET",
                             headers: {
+                              "X-BeeEVAL-Website": "1",
                               authorization: request.headers.authorization,
                             },
                           } as any,
@@ -301,7 +302,7 @@ export default mergeConfig(
             });
           },
         },
-        "/screenshots": { target: upstream, changeOrigin: true, secure: true },
+        "/screenshots": { target: upstream, headers: { "X-BeeEVAL-Website": "1" }, changeOrigin: true, secure: true },
       },
     },
     plugins: [readonly],

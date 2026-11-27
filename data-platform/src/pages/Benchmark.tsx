@@ -305,7 +305,6 @@ function BenchmarkInner() {
                 <option value="V2">{c("V2（V2.0 / V2.1）", "V2 (V2.0 / V2.1)")}</option>
                 <option value="V2.1">V2.1</option>
                 <option value="V2.0">V2.0</option>
-                <option value="V1">V1</option>
               </LightSelect>
               <LightSelect
                 className="pf-select"

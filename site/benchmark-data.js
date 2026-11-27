@@ -4,12 +4,14 @@ export function loadBenchmarkData(){
     .then(async response=>{
       if(!response.ok)throw Error('preview unavailable');
       const data=await response.json();
-      if(data.report_version!=='live-v1'||!data.statistics?.vehicles?.length)throw Error('invalid preview');
+      if(data.visibility_policy!=='exclude-v1'||data.report_version!=='live-v1'||!data.statistics?.vehicles?.length)throw Error('invalid preview');
       return {...data,isStale:false};
     }).catch(async()=>{
-      const [response,anonymous]=await Promise.all([fetch('/assets/benchmark.json',{cache:'no-store'}),fetch('/assets/anonymous-profile.json').then(r=>r.json())]);
+      const [response,anonymous]=await Promise.all([fetch('/assets/benchmark.json',{cache:'no-store'}),fetch('/assets/anonymous-profile.json',{cache:'no-store'}).then(r=>r.json())]);
       if(!response.ok)throw Error('no preview available');
-      return {...await response.json(),anonymous,isStale:true};
+      const archived=await response.json();
+      if(archived.visibility_policy!=='exclude-v1'||anonymous.visibility_policy!=='exclude-v1')throw Error('invalid archived preview');
+      return {...archived,anonymous,isStale:true};
     });
   return pending;
 }
